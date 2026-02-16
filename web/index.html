@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="100 Years Seen Through Small Eyes — A Living Centennial. The Cathedral Through Children." />
+  <title>Living Centennial — The Cathedral Through Children</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="sunrise-layer" aria-hidden="true"></div>
+  <div class="stained-glass-layer" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="#home" class="logo" aria-label="Living Centennial — Home">Living Centennial</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#map">Map</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#voices">Voices</a>
+    </nav>
+
+  <!-- Modal for map place stories -->
+  <div class="modal-overlay" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="modal-title">
+      <h3 id="modal-title">Place</h3>
+      <p id="modal-body">Story text.</p>
+      <button type="button" class="modal-close" id="modal-close">Close</button>
+    </div>
+  </div>
+  </header>
+
+  <main id="home" class="hero">
+    <p class="hero-quote" id="hero-quote">"This is our church."</p>
+    <p class="hero-attribution">— Children of the parish</p>
+    <a href="#map" class="cta-enter">Enter the living map →</a>
+    <span class="hero-scroll-hint" aria-hidden="true">Scroll</span>
+  </main>
+
+  <section id="map" class="section section-map">
+    <h2 class="section-title">Living Parish Map</h2>
+    <p class="section-intro">Walk through our story. Each place holds memories.</p>
+    <div class="parish-map" role="img" aria-label="Illustrated map of Olive Street with church, school, and heritage center">
+      <div class="map-building map-church" data-place="church" tabindex="0">
+        <span class="map-icon" aria-hidden="true">◇</span>
+        <span class="map-label">The Church</span>
+      </div>
+      <div class="map-building map-school" data-place="school" tabindex="0">
+        <span class="map-icon" aria-hidden="true">▣</span>
+        <span class="map-label">School</span>
+      </div>
+      <div class="map-building map-heritage" data-place="heritage" tabindex="0">
+        <span class="map-icon" aria-hidden="true">◆</span>
+        <span class="map-label">Heritage Center</span>
+      </div>
+      <div class="map-building map-olive" data-place="olive" tabindex="0">
+        <span class="map-icon" aria-hidden="true">—</span>
+        <span class="map-label">Olive Street</span>
+      </div>
+    </div>
+    <p class="map-hint">Tap or click a place to hear its story. On site, use <strong>Memory Walk</strong> on your phone for GPS-triggered stories.</p>
+  </section>
+
+  <section id="timeline" class="section section-timeline">
+    <h2 class="section-title">100 Years</h2>
+    <p class="section-intro">Drag the timeline to travel from 1905 to today.</p>
+    <div class="timeline-wrap">
+      <div class="timeline-track">
+        <div class="timeline-fill" id="timeline-fill"></div>
+        <input type="range" id="timeline-slider" class="timeline-slider" min="1905" max="2025" value="1965" aria-label="Timeline from 1905 to 2025" />
+      </div>
+      <div class="timeline-labels">
+        <span>1905</span>
+        <span id="timeline-year">1965</span>
+        <span>2025</span>
+      </div>
+    </div>
+    <div class="timeline-content" id="timeline-content">
+      <p class="timeline-caption">Stories and images from the archives and from children’s voices appear here as you move the timeline.</p>
+    </div>
+  </section>
+
+  <section id="voices" class="section section-voices">
+    <h2 class="section-title">Through Small Eyes</h2>
+    <p class="section-intro">Children’s words and drawings. Grandma’s stories. A letter to the next 100 years.</p>
+    <div class="voice-cards">
+      <article class="voice-card">
+        <span class="voice-label">If I Built the Church Again…</span>
+        <p>Kid redesigns and dreams.</p>
+      </article>
+      <article class="voice-card">
+        <span class="voice-label">Grandma Told Me…</span>
+        <p>Oral history retold by children.</p>
+      </article>
+      <article class="voice-card">
+        <span class="voice-label">A Letter to 2125</span>
+        <p>Messages to the next century.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>100 Years Seen Through Small Eyes. Nickels, Dimes, and Dreams.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
