@@ -1,29 +1,27 @@
-# QA record (rebuild, v2)
+# QA record (v3)
 
-Tested with Chromium 141 (Playwright 1.56) on 2026-10-08. Each check was run twice: on the committed build, where all images are pending, and on a **local test build** with stand-in images (public-domain paintings plus synthetic images). The test build was only used to check layout and motion. It is not committed and not published.
+Tested with Chromium 141 (Playwright 1.56) on 2026-10-08. Each check ran on the committed build (images pending) and on a local test build with stand-in images (public-domain paintings plus synthetic images), which was used only to check layout and motion and is neither committed nor published.
 
 | Check | Result | How it was checked |
 |---|---|---|
-| Navigation | **Pass** | →, Space, Enter, PageDown and click advance; ←, Backspace and PageUp go back; Home and End jump. Deep links (`#vh-2` etc.) open on that beat. |
-| Reversible builds | **Pass** | Stepped through all 37 beats forward and then back. Every visible object's position, size, opacity and state was identical in both directions. |
-| Morph continuity | **Pass** | Mid-transition frames (about 0.5 s in) show the same painting objects moving and scaling, not crossfading: challenge → reveal, reveal → label demo, the Horton swap (arcs), the gallery splitting into the van Hees rooms, the dot growing into the painting, and limitation cards becoming proposals. |
-| Audience interaction | **Pass** | Clicking a painting (or pressing 1–6) flags it with an outline and "Your guess: AI" without advancing. The reveal groups the flagged paintings, then shows sources one at a time with "Caught it" or "Surprised?". The rating pick (click or 1–4) is echoed against the finding. Clicking empty stage advances. |
-| Honesty labels | **Pass** | On screen: the challenge is "not data / not a replication"; the label demo and Horton/Chiarella paintings are stand-ins; the scenario card is a paraphrase; the Art/Artist scale is "schematic, not plotted values"; the opening is a conceptual animation. |
-| Layout at 1920×1080 | **Pass after fixes** | All 37 beats were screenshotted and reviewed. Fixed during QA: reveal headers colliding with badges; the "rated" tag colliding with a column label; Chiarella stats overflowing; the meta-analysis bracket labels overlapping the de Rooij panel. |
-| Viewport and fullscreen | **Pass** | The 16:9 stage fills a 1280×720 viewport exactly and letterboxes on other ratios. `F` toggles fullscreen; `H` hides all controls. |
-| Presenter mode | **Pass** | `P` opens a window showing the line, the next line, flag and pick state, and elapsed vs. target time. Its keys drive the main window. Where pop-ups are blocked (e.g. the claude.ai preview), `P` opens in-page notes instead. |
-| Reduced motion | **Pass** | `prefers-reduced-motion` (or `M`) shortens morphs to 240 ms, skips the arc paths and draws the painting instantly. |
-| Charts | **Pass** | Every chart is SVG or HTML built from data arrays in the source; there are no images of charts. Scales, samples and conditions are stated beside each. |
+| Chart headlines match the data | **Pass** | Beat 12 reads "Worth moved most. Liking moved least." (worth .61 > profundity .47 > beauty .22 > liking .17). The pick echo compares the viewer's choice with that order. The v2 errors "depth moved most" and "beauty moved least" are gone. |
+| Stimulus vs. illustration | **Pass** | Each painting carries a badge: **Study stimulus** (gold), **Illustration**, **Case artwork** or **Challenge**. Study frames (Bellaiche, Chiarella, van Hees, Allen, Rondini, Taylor) show request-ID placeholders until the files arrive (see IMAGE-REQUESTS.md). |
+| Reveal layout | **Pass** | The two-row gallery is kept. Flagged paintings move to the first positions, and each tile keeps 510×290 px with its source, verdict and credit underneath, revealed one at a time. |
+| Light/dark alternation | **Pass** | 19 light and 17 dark beats. Inversions mark the reveal, predictions and findings, the synthesis and the interpretation; dark scenes carry setup, method and the ART \| ARTIST split. The accent is a single muted gold (darker gold on light scenes). |
+| Morph continuity | **Pass** | Mid-transition frames reviewed: line drawing → letters (the spiral becomes "ART?"); challenge → reveal → reflect thumbnails; the illustration flips its label on the same pixels; the Horton swap on arcs; the method strip swapping slot contents per study; the painting → scenario card; ARTIST separating from ART; a dot → the Allen painting; the study charts and stimuli moving into the synthesis columns; limitation cards → questions. |
+| Reversibility | **Pass** | Stepped through all 36 beats forward and then back: every visible object's position, size, opacity and state was identical. |
+| Interaction | **Pass** | Flagging (click / 1–6) does not advance. Reflection answers produce a conditional sentence. The rating pick (click / 1–4) is echoed. Clicking empty stage advances. The presenter window drives the main window; where pop-ups are blocked, in-page notes open instead. |
+| Viewport, fullscreen, reduced motion | **Pass** | The stage fills 1280×720 exactly and letterboxes on other ratios. `F` and `H` work. With reduced motion, the opening renders its final frame and morphs shorten to 240 ms. |
 | JS errors | **Pass** | None. |
-| Timing | **Pass (estimate)** | 610 words ≈ 4:42 including the challenge and reveal pauses. Confirm with a rehearsal. |
-| **Images** | **Open: needs your files** | `assets/manifest.json` is empty, so every painting tile shows "image pending" and `build.py` reports `recording-ready images: NO`. See `assets/README.md`. |
-| Links | Formatting pass; not opened | Outbound access was blocked in this environment. Click each reference once. |
+| Timing | **Pass (estimate)** | 578 words ≈ 4:32 including the challenge and reflection pauses. |
+| **Images** | **Open** | `build.py` reports `recording-ready images: NO` until IMAGE-REQUESTS.md items are supplied. |
+| Links | Format only | Outbound access was blocked here. Click each reference once. |
 
-## Still to verify against the PDFs (unchanged from v1)
-These figures come from the handoff analysis (marked **A** in EVIDENCE-MAP.md): Bellaiche *d* values; Horton Experiment 4 means and the rated item; Chiarella p-values; Mazzone & Elgammal 75 % vs. 85 %; Oksanen 37 and 24 of 44. To change a number, edit `BEL`, `chartHorton`, `chartMazzone` or `SOURCES` in `src/index.src.html`, then run `python3 build.py`.
+## Still to verify against full texts
+Bellaiche d values; Horton Experiment 4 means; Chiarella p-values; Oksanen 37/44; Mikalonytė & Kneer condition-level art-status results; the Rondini author list. Edit `BEL`, `chartHorton` or `SOURCES` in `src/index.src.html`, then run `python3 build.py`.
 
 ## Recording checklist
-1. Fill `assets/manifest.json` and add the files, then run `python3 build.py` until it says `recording-ready images: YES`.
-2. Open `index.html` in Chrome or Edge, press `F` then `H`, and put the presenter window (`P`) on a second screen.
-3. On beat 7, flag about three paintings; on beat 12, commit a rating pick.
-4. Stop after about 3 s on References. Export as MP4 and confirm the runtime is 4:00–5:00.
+1. Supply the images in IMAGE-REQUESTS.md and run `python3 build.py` until it reports `recording-ready images: YES`.
+2. Open `index.html` in Chrome or Edge; press `F` then `H`; put the presenter window (`P`) on a second screen.
+3. Beat 6: flag about three paintings. Beat 8: answer both prompts. Beat 11: commit a pick.
+4. Stop after about 3 s on References. Export as MP4 and confirm 4:00–5:00.

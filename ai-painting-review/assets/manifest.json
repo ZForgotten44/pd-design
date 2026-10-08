@@ -1,5 +1,5 @@
 {
-  "_readme": "Fill in each entry, put the image files in this folder, then run: python3 build.py. Images are embedded into index.html. Leave 'file' empty until you have a verified file. See assets/README.md.",
+  "_readme": "See IMAGE-REQUESTS.md for exactly what each entry needs. Put files in this folder, fill in 'file' (and source/provenance for the challenge), then run: python3 build.py",
   "challenge": [
     {"id": "A", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
     {"id": "B", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
@@ -10,9 +10,14 @@
   ],
   "carry": "D",
   "study": {
-    "allen":     {"file": "", "title": "Théâtre D'opéra Spatial", "credit": "Jason M. Allen, 2022 · as reproduced in Kuta (2022)", "provenance": "https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/"},
-    "bellaiche": {"file": "", "title": "Artbreeder stimulus", "credit": "Bellaiche et al. (2023)", "provenance": "https://doi.org/10.1186/s41235-023-00499-6"},
-    "vanhees":   {"file": "", "title": "Example human / DALL·E 2 pair", "credit": "van Hees et al. (2025)", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469"},
-    "aican":     {"file": "", "title": "AICAN image", "credit": "Mazzone & Elgammal (2019)", "provenance": "https://doi.org/10.3390/arts8010026"}
+    "bellaiche_rep": {"file": "", "title": "Representational sample (R1a)", "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY", "provenance": "https://osf.io/cgw8v"},
+    "bellaiche_abs": {"file": "", "title": "Abstract sample (R1b)", "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY", "provenance": "https://osf.io/cgw8v"},
+    "vanhees_human": {"file": "", "title": "Human artwork from one pair (R2a)", "credit": "van Hees et al. (2025), CC BY", "provenance": "https://osf.io/n7w32"},
+    "vanhees_ai": {"file": "", "title": "Paired DALL·E 2 image (R2b)", "credit": "van Hees et al. (2025), CC BY", "provenance": "https://osf.io/n7w32"},
+    "chiarella_1": {"file": "", "title": "Test Verbovisivi, D. M. Gagliardi, 2015 (R3a)", "credit": "Chiarella et al. (2022)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
+    "chiarella_2": {"file": "", "title": "Abstract painting 2 (R3b)", "credit": "Chiarella et al. (2022)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
+    "allen": {"file": "", "title": "Théâtre D'opéra Spatial (R4)", "credit": "Jason M. Allen, 2022 · as reproduced in Kuta (2022)", "provenance": "https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/"},
+    "rondini": {"file": "", "title": "Example outputs by condition (R6)", "credit": "Rondini et al. (2026)", "provenance": "https://doi.org/10.1002/advs.202524142"},
+    "taylor": {"file": "", "title": "High- vs low-scored artworks (R7)", "credit": "Taylor et al. (2026)", "provenance": "https://arxiv.org/abs/2601.09896"}
   }
 }

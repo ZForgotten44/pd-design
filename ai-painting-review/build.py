@@ -113,11 +113,12 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "index.html"))
     a = ap.parse_args()
     src = (ROOT / "src" / "index.src.html").read_text(encoding="utf-8")
-    for marker in ("/*@FONTS@*/", "/*@ASSETS@*/"):
+    for marker in ("/*@FONTS@*/", "/*@ASSETS@*/", "/*@GLYPHS@*/"):
         assert marker in src, "missing marker " + marker
     assets, report, ready = load_assets(pathlib.Path(a.assets))
     out = src.replace("/*@FONTS@*/", font_css()).replace(
-        "/*@ASSETS@*/", "window.ASSETS=" + json.dumps(assets, ensure_ascii=False).replace("</", "<\\/") + ";")
+        "/*@ASSETS@*/", "window.ASSETS=" + json.dumps(assets, ensure_ascii=False).replace("</", "<\\/") + ";").replace(
+        "/*@GLYPHS@*/", "const GLYPHS=" + (ROOT / "src" / "title-glyphs.json").read_text(encoding="utf-8").strip() + ";")
     pathlib.Path(a.out).write_text(out, encoding="utf-8")
     print("wrote %s (%d KB)" % (a.out, len(out.encode()) // 1024))
     print("\n".join(report))
