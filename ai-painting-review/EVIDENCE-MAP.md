@@ -2,66 +2,61 @@
 
 ## Final source count: 12 (the assignment allows 10–12)
 
-| # | Source | Evidence type | Discipline | Peer-reviewed | Where it appears |
+Beat numbers follow the overview (`G`) and NARRATION.md: 1 Opening · 2 Title · 3 Terms · 4–5 Question & criteria · 6 Review process · 7–9 Audience challenge · 10–14 Bellaiche · 15–17 Horton · 18 Chiarella · 19 Meta-analysis · 20–21 van Hees · 22 Originality (Mazzone & Elgammal) · 23–25 Art | Artist · 26–27 Allen case · 28–29 Interpretation · 30 Significance · 31–33 Limitations → next steps · 34 Close · 35 References · 36–37 Appendix.
+
+| # | Source | Evidence type | Discipline | Peer-reviewed | Beats (all also in 6 and 35) |
 |---|---|---|---|---|---|
-| 1 | Bellaiche et al., 2023 | Controlled label experiment | Cognitive psychology | Yes | 04, 05, 12 (all: 03, 15) |
-| 2 | Horton et al., 2023 | Controlled label experiment | Behavioural science | Yes | 04, 06, 12 (all: 03, 15) |
-| 3 | Chiarella et al., 2022 | Label experiment (field, physiological) | Cognitive neuroscience | Yes | 07 (all: 03, 15) |
-| 4 | van Hees et al., 2025 | Preference and detection experiment | Psychology / cognitive neuroscience | Yes | 08, 11 (all: 03, 15) |
-| 5 | Mikalonytė & Kneer, 2022 | Folk-judgment scenario experiments | Experimental philosophy / HRI | Yes | 04, 09, 11 (all: 03, 15) |
-| 6 | Hertzmann, 2018 | Philosophical account | Computer science / philosophy of art | Yes | 04, 09 (all: 03, 15) |
-| 7 | Coeckelbergh, 2017 | Philosophical account | Philosophy of technology | Yes | 04, 09, 11, 12 (all: 03, 15) |
-| 8 | Chatterjee, 2022 | Theoretical review | Neuroaesthetics | Yes | 04, 09, 11 (all: 03, 15) |
-| 9 | Mazzone & Elgammal, 2019 | Developer account | Art history / computer science | Yes | 08, 12 (all: 03, 15) |
-| 10 | Oksanen et al., 2023 | Systematic scoping review | Social psychology | Yes | 12, 13 (all: 03, 15) |
-| 11 | de Rooij, 2025 | Meta-analysis | Psychology of aesthetics | Yes | 07 (all: 03, 15) |
-| 12 | Kuta, 2022 (*Smithsonian*) | Journalism (one case) | Journalism | No | 10, 11, 12 (all: 03, 15) |
+| 1 | Bellaiche et al., 2023 | Controlled label experiment | Cognitive psychology | Yes | 10–14, 19, 28, 30 |
+| 2 | Horton et al., 2023 | Controlled label experiment | Behavioural science | Yes | 15–17, 22, 28, 30 |
+| 3 | Chiarella et al., 2022 | Label experiment (field, physiological) | Cognitive neuroscience | Yes | 18 |
+| 4 | van Hees et al., 2025 | Preference and detection experiment | Psychology / cognitive neuroscience | Yes | 20–21, 28 |
+| 5 | Mikalonytė & Kneer, 2022 | Folk-judgment scenario experiments | Experimental philosophy / HRI | Yes | 23–24, 28 |
+| 6 | Hertzmann, 2018 | Philosophical account | Computer science / philosophy of art | Yes | 25 |
+| 7 | Coeckelbergh, 2017 | Philosophical account | Philosophy of technology | Yes | 25, 29, 30 |
+| 8 | Chatterjee, 2022 | Theoretical review | Neuroaesthetics | Yes | 14, 25, 28 |
+| 9 | Mazzone & Elgammal, 2019 | Developer account | Art history / computer science | Yes | 22, 30 |
+| 10 | Oksanen et al., 2023 | Systematic scoping review | Social psychology | Yes | 30, 31 |
+| 11 | de Rooij, 2025 | Meta-analysis | Psychology of aesthetics | Yes | 19 |
+| 12 | Kuta, 2022 (*Smithsonian*) | Journalism (one case) | Journalism | No | 26–28, 30 |
 
-That gives 11 peer-reviewed sources plus 1 piece of journalism. The **three optional 2026 sources** (Rondini et al., 2026; Taylor et al., 2026; Qadri et al., 2024) are **not cited** anywhere in the presentation, so the count stays at 12. The future-directions scene states proposals and one labelled forecast. It makes no claim of measured growth. No figure sources are cited beyond the 12, because every study image slot points to one of the 12 sources.
+That gives 11 peer-reviewed sources plus 1 piece of journalism. The **three optional 2026 sources** (Rondini et al., 2026; Taylor et al., 2026; Qadri et al., 2024) are **not cited**. The next-steps beats give proposals and one labelled forecast, with no claim of measured growth.
 
-Scene numbers follow the overview (`G`) and NARRATION.md: 01 Opening · 02 Scope · 03 Review process · 04 Criteria · 05 One image, two labels · 06 Comparison effect · 07 Not a universal law · 08 Prefer it, spot it · 09 ART | ARTIST · 10 One case · 11 Interpretation · 12 Why it matters · 13 Next steps · 14 Close · 15 References · 16–17 Appendix.
-
+**Challenge images and the source count.** The six challenge paintings are image credits, listed in the "Image credits" drawer. To keep the count at 12, draw them from the cited studies' own published stimuli or figures (see `assets/README.md`). If you use images from elsewhere and your rubric counts figure sources, drop a source to stay within 10–12.
 
 ## Claims on screen or in the narration → source → status
 
-Status key: **V** = checked against the handoff comparative analysis *and* the source's public abstract or index record during this build. **A** = taken from the handoff comparative analysis (02-Comparative-Analysis.pdf) and not re-checked against the full text in this build (see QA.md §Verification). **I** = Mahmoud's interpretation, labelled as such on screen.
+Status key: **V** = checked against the handoff comparative analysis *and* the source's public abstract or index record. **A** = taken from the handoff comparative analysis and not re-checked against the full text in this build (see QA.md). **I** = Mahmoud's interpretation, labelled as such on screen. **D** = a demonstration, labelled on screen as not data.
 
-| Scene | Claim | Source | Status |
+| Beat | Claim | Source | Status |
 |---|---|---|---|
-| 02 | GAN images, text-to-image outputs, labelled physical canvases and hypothetical robots are different stimulus types; only the first two count as digital paintings here | Scope definition; Mazzone & Elgammal 2019; Bellaiche 2023; van Hees 2025; Kuta 2022; Chiarella 2022; Mikalonytė & Kneer 2022 | I (definition) |
-| 03 | Focused interdisciplinary narrative review; not a systematic search | Process description | I |
-| 04 | Beauty and liking are rated 1–5, separately from profundity and worth | Bellaiche 2023 | A |
-| 04 | Meaning can be perceived depth, personal significance or documented intention | Bellaiche 2023; Chatterjee 2022 | A |
-| 04 | Novelty is one item in a 1–7 composite (creative, novel, liked, appropriate for gallery sale) | Horton 2023 | A |
-| 04 | Intention is *attributed* by participants to humans or robots | Mikalonytė & Kneer 2022 | V |
-| 05 | All images were AI-generated (Artbreeder) and the label was randomly assigned | Bellaiche 2023 | V |
-| 05 | Study 1 human-label advantage: d = .17 liking, .22 beauty, .47 profundity, .61 worth | Bellaiche 2023 | **A — re-check before recording** |
-| 06 | Experiment 4 composite means for the second artwork: H→AI 4.24, H→H 4.62, AI→H 4.85 | Horton 2023 | **A — re-check (also confirm the rated item is the second work)** |
-| 06 | Six experiments, total N = 2,965 | Horton 2023 | V |
-| 07 | Two human-painted abstract acrylics shown at an art fair; the AI-labelled work was liked less only when it followed a human-labelled one; equal ratings in the reverse order | Chiarella 2022 | V |
-| 07 | Overall label effect p = .60; label × order p = .016 | Chiarella 2022 | **A — re-check** |
-| 07 | Skin conductance was higher on the second presentation regardless of label; heart rate was not modulated | Chiarella 2022 | V |
-| 07 | Meta-analysis: small average penalties for sensory and emotional responses, moderate for meaning; it overlaps the primary studies | de Rooij 2025 | A (qualitative only; no numbers charted because of the count discrepancy in the supplied copy) |
-| 08 | Preference for DALL·E 2 images and detection of them both exceeded chance, in separate participant groups | van Hees 2025 | V |
-| 08 | Across pairs, detectability correlated positively with preference for the AI image | van Hees 2025 | A |
-| 08 | Student sample; small square crops | van Hees 2025 | A |
-| 08 | 75% of AICAN-image judgments attributed the work to a human, versus 85% for the abstract-expressionist comparison set | Mazzone & Elgammal 2019 | **A — re-check the exact comparison set and wording** |
-| 09 | Art status similar for robot- and human-made paintings; larger human advantage for artist status, partly explained by attributed artistic intention; two experiments, N = 693 | Mikalonytė & Kneer 2022 | V |
-| 09 | The landscape art-status contrast was not significant | Mikalonytė & Kneer 2022 | A |
-| 09 | Art-making is social activity by social agents; computers aren't artists, but human computer art is art | Hertzmann 2018 | A |
-| 09 | Verdicts depend on process, outcome or relational theories; boundaries conceal networks | Coeckelbergh 2017 | A |
-| 09 | Human direction and viewer interpretation supply purpose and meaning; evoked emotion is not felt emotion | Chatterjee 2022 | A |
-| 10 | Théâtre D'opéra Spatial; Midjourney; about 80 hours; 900+ renderings; selection and editing; award at the 2022 Colorado State Fair | Kuta 2022 | A (re-check the category wording against the article) |
-| 11 | AI-generated images can be art through human practice and viewer engagement; the model as independent artist is not established | Mahmoud's interpretation, drawing on scenes 05–10 | I |
-| 11 | No inference to machine consciousness, and no proof that it is impossible | Chatterjee 2022; Mikalonytė & Kneer 2022 | I |
-| 12 | 37 of 44 included studies used single-country samples; 24 concerned visual images; 723 records screened | Oksanen 2023 | V (44 and 723) / A (37 and 24) |
-| 12 | AICAN was trained on a Western art corpus | Mazzone & Elgammal 2019 | A |
-| 13 | Six limitation → proposal pairs | Synthesised from the limitations above | I (proposals) |
-| 13 | "Experiments and reviews exist; no validated test of artistry across systems and cultures" | Mahmoud's reading; explicitly *not* a formal stage model | I |
-| 13 | Forecast: more process- and culture-focused studies | Labelled as a forecast, *not a measured trend* | I |
+| 3 | GAN images and text-to-image outputs are in scope; labelled physical canvases and written robot scenarios are comparisons | Scope definition; Mazzone & Elgammal; Bellaiche; van Hees; Kuta; Chiarella; Mikalonytė & Kneer | I (definition) |
+| 6 | Focused interdisciplinary narrative review; not a systematic search | Process description | I |
+| 7–9 | Audience challenge: three human-made and three AI-generated paintings, sources hidden until the reveal | Image manifest (provenance per image) | D. Stated on screen: not data, not a replication |
+| 10–11 | All images AI-generated (Artbreeder); label randomly assigned; separate 1–5 ratings | Bellaiche 2023 | V (design) / A (scale) |
+| 10–11 | The label flip is a *demonstration of the method* with a challenge painting, not Bellaiche's stimulus | — | D. Stated on screen |
+| 13 | Study 1 human-label advantage: d = .17 liking, .22 beauty, .47 profundity, .61 worth | Bellaiche 2023 | **A: re-check before recording** |
+| 14 | "Meaning" = perceived depth (measured); personal significance and intended communication not measured; beauty not required by every theory | Bellaiche 2023; Chatterjee 2022 | I (conceptual distinction) |
+| 15–17 | Participants rated the second of two works; Experiment 4 means H→AI 4.24, H→H 4.62, AI→H 4.85; 1–7 composite (creative, novel, liked, gallery sale) | Horton 2023 | **A: re-check the means and the rated item** |
+| 17 | Six experiments, total N = 2,965 | Horton 2023 | V |
+| 15–18 | Paintings in these beats are stand-ins, not the studies' stimuli | — | D. Stated on screen |
+| 18 | Two human-painted abstract acrylics at an art fair; AI-labelled work liked less only when shown after a human-labelled one; EDA higher on second viewing; heart rate unchanged | Chiarella 2022 | V |
+| 18 | p = .60 overall; p = .016 label × order | Chiarella 2022 | **A: re-check** |
+| 19 | Liking and beauty are "sensory-level"; profundity and worth "more communicative" | Bellaiche 2023 | V (wording from public summary) |
+| 19 | Meta-analysis: small average penalties (sensory, emotional), moderate (meaning); overlaps the primaries | de Rooij 2025 | A (qualitative only, no numbers charted) |
+| 20–21 | Preference and detection tested in separate groups; both above chance; positive correlation of detectability with preference across pairs | van Hees 2025 | V (tasks, above chance) / A (correlation, students, crops) |
+| 22 | 75 % vs 85 % attributed to a human (AICAN vs abstract-expressionist set) | Mazzone & Elgammal 2019 | **A: re-check the wording** |
+| 22 | Perceived novelty ≠ verified historical uniqueness; no reviewed study verified uniqueness | Mazzone & Elgammal; Horton | I |
+| 23 | Participants read written scenarios and saw no image; the card paraphrases the scenario type | Mikalonytė & Kneer 2022 | V (design) / D (paraphrase) |
+| 24 | Art status similar; larger human advantage for artist status, partly via attributed intention; N = 693 | Mikalonytė & Kneer 2022 | V. Scale drawn as a schematic, labelled "not plotted values" |
+| 25 | Hertzmann: social agents; Coeckelbergh: depends on theory; Chatterjee: direction and interpretation supply meaning | as cited | A |
+| 26–27 | About 80 hours; 900+ renderings; selection and editing; award at the 2022 Colorado State Fair; dot grid is a count, not the images | Kuta 2022 | A |
+| 28 | Can be art through human practice and viewer engagement; model as independent artist not established | Mahmoud's interpretation drawing on beats 10–27 | I |
+| 29 | Alternatives (outcome and relational theories); no inference to machine consciousness | Coeckelbergh 2017; Chatterjee 2022 | I |
+| 30 | 37 of 44 single-country samples; AICAN trained on a Western corpus; workflows hide human contribution | Oksanen 2023; Mazzone & Elgammal 2019; Kuta 2022; Coeckelbergh 2017 | A (37/44) / V (44 included) |
+| 31–33 | Six limitation → proposal pairs; "no validated test of artistry" (my reading); labelled forecast | Synthesis | I |
 
-## Version notes (from the handoff)
-- **de Rooij (2025):** the institutional PDF has a publisher-version cover, but its body is formatted as a manuscript, and the abstract and body report different domain counts. The presentation uses only the qualitative synthesis and draws no chart from it. It does **not** repeat the earlier claim that no full text was available.
-- **Hertzmann (2018)** and **Mikalonytė & Kneer (2022):** the packet copies are labelled author manuscripts. Cite the published versions (see References).
-- **Kuta (2022):** journalism, supplied as a source-summary PDF. Cite the original article link.
-- **van Hees et al.:** volume 15 is dated 2024, but the article was published in January 2025. It is cited as 2025, consistent with the handoff, and the DOI keeps "2024".
+## Version notes
+- **de Rooij (2025):** the institutional PDF has a publisher cover, but its body is formatted as a manuscript, and the abstract and body report inconsistent domain counts. Only the qualitative synthesis is used.
+- **Hertzmann (2018)** and **Mikalonytė & Kneer (2022):** the packet copies are author manuscripts. Cite the published versions.
+- **Kuta (2022):** journalism. Cite the original article.
+- **van Hees et al.:** volume 15 is dated 2024, but the article was published in January 2025, so it is cited as 2025.

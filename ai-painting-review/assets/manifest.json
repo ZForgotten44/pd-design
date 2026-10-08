@@ -1,0 +1,18 @@
+{
+  "_readme": "Fill in each entry, put the image files in this folder, then run: python3 build.py. Images are embedded into index.html. Leave 'file' empty until you have a verified file. See assets/README.md.",
+  "challenge": [
+    {"id": "A", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
+    {"id": "B", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
+    {"id": "C", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
+    {"id": "D", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
+    {"id": "E", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
+    {"id": "F", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""}
+  ],
+  "carry": "D",
+  "study": {
+    "allen":     {"file": "", "title": "Théâtre D'opéra Spatial", "credit": "Jason M. Allen, 2022 · as reproduced in Kuta (2022)", "provenance": "https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/"},
+    "bellaiche": {"file": "", "title": "Artbreeder stimulus", "credit": "Bellaiche et al. (2023)", "provenance": "https://doi.org/10.1186/s41235-023-00499-6"},
+    "vanhees":   {"file": "", "title": "Example human / DALL·E 2 pair", "credit": "van Hees et al. (2025)", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469"},
+    "aican":     {"file": "", "title": "AICAN image", "credit": "Mazzone & Elgammal (2019)", "provenance": "https://doi.org/10.3390/arts8010026"}
+  }
+}

@@ -1,136 +1,54 @@
 # Narration script — *Would You Still Call It Art?*
 
-**Presenter:** Mahmoud Hafez · **Target:** about 4:45 of narration (the assignment requires 4–5 minutes) · **Estimate:** 635 words at 145 wpm plus 0.5 s per build ≈ **4:43**
+**Presenter:** Mahmoud Hafez · **Target:** about 4:45 (the assignment requires 4–5 minutes) · **Estimate:** 610 words at 145 wpm, plus 0.5 s per click and the held pauses below ≈ **4:42**
+
+One row = one click (→ / Space). The presenter window (`P`) shows the current line, the next line, elapsed time and target time.
 
 Recording notes
-- Record **only the main window**, fullscreen (`F`), with record mode on (`H`) so no controls appear. Use the presenter window (`P`) on a second screen for these notes, the elapsed time and the target time for each build.
-- Each table row is one press of →/Space. The **Starts at** column comes from the estimate above. If the presenter window shows you more than about 10 s behind, shorten your pauses rather than cutting a citation.
-- On scene 05, "Which rating would move most?" is a prompt to the viewer, not a poll. Don't wait 10 seconds; a natural one-beat pause is enough. No vote totals exist or are claimed.
-- Stop recording after holding the References view for about 3 s. The two appendix views are outside the timed talk.
-- Rehearse once with a stopwatch. If you speak faster than 145 wpm, add a breath after the ART | ARTIST split (scene 09) and after "Two answers" (scene 11), not extra words.
+- Record **only the main window**, fullscreen (`F`) with record mode on (`H`).
+- **Challenge (beat 7):** say the line, then flag about three paintings yourself as the stand-in audience (click them or press 1–6). Pause about 8 s in total. This is a demonstration; no audience totals exist or are claimed.
+- **Reveal (beat 8):** the sources appear one at a time, so give it about 3 s before the next click.
+- **Predict (beat 12):** commit one rating (click it or press 1–4) before revealing. On the next beat the screen echoes the pick against the finding.
+- Stop after holding References for about 3 s. Beats 36–37 are appendix views outside the timed talk.
 
-### 01 · Opening
+| # | Beat | Starts at | Say | On screen / action |
+|---|---|---|---|---|
+| 1 | Opening | 0:00 | This painting is being made right now, by code. |  |
+| 2 | Title | 0:04 | So would you still call it art? I’m Mahmoud Hafez, and this is my state-of-the-field review of AI-generated digital painting. |  |
+| 3 | Terms | 0:13 | By digital painting, I mean a static image made mainly by a generative model to look painted. Some studies used labelled canvases or imagined robots instead; I treat those as comparisons. |  |
+| 4 | The question | 0:26 | My question: what does research show about how viewers respond, and does it settle two separate questions — is the image art, and is the system an artist? |  |
+| 5 | Criteria | 0:38 | Those questions rest on different criteria, and the sources don’t share one checklist. So I’ll open each criterion through what a study actually measured. |  |
+| 6 | Review process | 0:49 | This is a focused narrative review: twelve sources from several disciplines, read in full, sorted by evidence type, with measures compared and figures checked against the originals. |  |
+| 7 | Challenge | 1:01 | First, your turn. Three of these paintings are by human artists and three by AI. Flag the ones you think are AI. | Flag suspected AI paintings: click them or press 1–6. Pause about 8 s. |
+| 8 | Reveal | 1:18 | Here are the sources. | Wait while sources appear one at a time (about 3 s). |
+| 9 | Did it change? | 1:23 | Did learning the source change how much you liked any of them? That’s what label experiments test. |  |
+| 10 | Label: human | 1:31 | Bellaiche and colleagues showed people AI-made Artbreeder images, randomly labelled human or AI. |  |
+| 11 | Label: AI | 1:37 | The pixels never change. Only the label does. |  |
+| 12 | Predict | 1:41 | Which rating do you think moved most? | Viewer picks a rating: click it or press 1–4. |
+| 13 | Finding | 1:46 | Liking and beauty barely moved. Perceived depth and monetary worth moved most. |  |
+| 14 | Meaning | 1:51 | And ‘meaning’ here is perceived depth — not personal significance, and not anyone’s documented intention. |  |
+| 15 | Order 1 | 1:58 | Horton and colleagues varied the order. Participants rated the second of two works. |  |
+| 16 | Order 2 | 2:04 | Put the AI-labelled work first, | The two paintings swap order on an arc. |
+| 17 | Order result | 2:07 | and the human-labelled work scored highest — on a composite of creativity, novelty, liking and gallery fit. |  |
+| 18 | Real canvases | 2:14 | But it isn’t a law. On two real canvases at an art fair, Chiarella’s team found no overall label effect — only a penalty when the AI label came second. |  |
+| 19 | Across studies | 2:27 | De Rooij’s meta-analysis finds small average penalties for sensory and emotional responses and a moderate one for meaning. It pools studies like these, so it isn’t extra replication. |  |
+| 20 | Two tasks | 2:39 | Van Hees and colleagues split the task: one group chose the image they preferred; a different group guessed which was AI. |  |
+| 21 | Both above chance | 2:48 | Both beat chance. People preferred the DALL·E 2 images, and could still spot them. |  |
+| 22 | Originality | 2:55 | Fooling viewers isn’t originality either: Mazzone and Elgammal report seventy-five percent of AICAN judgments said ‘human’ — perceived, not verified, novelty. |  |
+| 23 | Scenarios | 3:04 | Mikalonytė and Kneer used no images at all — only written scenarios about paintings by humans or AI-driven robots. | The painting turns into the written-scenario card. |
+| 24 | Art | Artist | 3:12 | Art status barely differed. Artist status did, partly because people attributed less intention to robots. Two judgments, not one. |  |
+| 25 | Philosophy | 3:20 | Philosophers draw the line differently: Hertzmann requires social agents; Coeckelbergh says it depends on your theory; Chatterjee locates meaning in human direction and viewer interpretation. |  |
+| 26 | 900 renderings | 3:31 | Jason Allen’s prize-winning Midjourney image took about eighty hours and over nine hundred renderings, |  |
+| 27 | Selection | 3:38 | then selection and editing: human practice behind one ‘AI’ label. | One dot grows into the painting. |
+| 28 | Interpretation | 3:42 | So my interpretation: an image like this can count as art, through human practice and viewer engagement. The model as an independent artist is a separate claim these experiments don’t establish. |  |
+| 29 | Limits of the claim | 3:56 | Other theories could grant more — but an expressive image isn’t evidence of machine consciousness. |  |
+| 30 | Why it matters | 4:02 | It matters because labels shape trust in human work, thirty-seven of Oksanen’s forty-four studies used single-country samples, and opaque workflows misplace credit. |  |
+| 31 | Limitations | 4:12 | Each limitation points to a next step: |  |
+| 32 | Next steps | 4:15 | compare current, versioned systems; report prompts and selection; document human workflows; measure each construct separately; study diverse audiences; and keep detection apart from value. | Each limitation card moves across and becomes its proposal. |
+| 33 | Where we are | 4:26 | In my reading, the field has experiments and reviews, but no validated test of artistry across systems and cultures. |  |
+| 34 | Close | 4:34 | So, would you still call it art? Often, yes. Is the model the artist? That remains open. Thank you. |  |
+| 35 | References | — | [Hold on references for about three seconds. No narration needed.] |  |
+| 36 | Appendix A | — | [Appendix A — outside the timed talk. Do not record.] |  |
+| 37 | Appendix B | — | [Appendix B — outside the timed talk. Do not record.] |  |
 
-| Build | Starts at | Say |
-|---|---|---|
-| 1/2 | 0:00 | Every painting begins as a few marks. These are being generated by code, right now. |
-| 2/2 | 0:07 | So — would you still call it art? I’m Mahmoud Hafez, and this is my state-of-the-field review of AI-generated digital painting. |
-
-### 02 · Scope
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 0:16 | By digital painting, I mean a static, two-dimensional image made mainly by a generative system to emulate a painting medium. |
-| 2/3 | 0:25 | The literature tested GAN images, text-to-image outputs, labelled real canvases and imagined robots — only the first two are digital paintings; the others are comparisons. |
-| 3/3 | 0:36 | So my question is what research establishes about viewers’ responses — and what that means for two separate questions: is the image art, and is the system an artist? |
-
-### 03 · Review process
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/2 | 0:48 | This is a focused, interdisciplinary narrative review, not a systematic search. I read twelve sources in full, |
-| 2/2 | 0:56 | across several disciplines, classified them by evidence type, compared tasks, measures and samples, and checked figures against the originals. |
-
-### 04 · Competing criteria
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 1:04 | First: the sources don’t share one checklist for art. |
-| 2/3 | 1:08 | Beauty isn’t required by every theory. Meaning can be perceived depth, personal significance, or documented human intention. |
-| 3/3 | 1:16 | And when studies measure originality, they measure perceived novelty — not verified historical originality. |
-
-### 05 · One image, two labels
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/4 | 1:22 | So, one image. |
-| 2/4 | 1:24 | Bellaiche and colleagues showed Artbreeder images — every one AI-made — randomly labelled human or AI. |
-| 3/4 | 1:31 | Which rating would move most? |
-| 4/4 | 1:33 | Not beauty. Liking and beauty shifted slightly; perceived depth and monetary worth shifted most. |
-
-### 06 · Comparison effect
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/2 | 1:40 | Horton and colleagues found the label can move human work too. |
-| 2/2 | 1:45 | On a composite of creativity, novelty, liking and gallery fit, human-labelled work scored highest right after AI-labelled work. |
-
-### 07 · Not a universal law
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 1:53 | But this isn’t a universal law. Chiarella and colleagues showed two real acrylic canvases at an art fair. Overall, the AI label didn’t change liking. |
-| 2/3 | 2:04 | It mattered only by order: an AI-labelled painting was liked less when it followed a human-labelled one. |
-| 3/3 | 2:11 | De Rooij’s meta-analysis finds an average penalty — small for sensory and emotional responses, moderate for meaning. But it pools studies like these, so it isn’t extra replication. |
-
-### 08 · Prefer it, spot it
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 2:23 | Now a paradox. In van Hees and colleagues, one group preferred DALL·E 2 images over human artworks more often than chance; |
-| 2/3 | 2:32 | a separate group also spotted the AI images more often than chance. |
-| 3/3 | 2:38 | Liking and detecting coexist. And convincing isn’t creative: Mazzone and Elgammal report viewers attributed seventy-five percent of AICAN images to humans — a claim about perception, not intention. |
-
-### 09 · ART | ARTIST
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 2:50 | Which brings us to the split. |
-| 2/3 | 2:53 | Mikalonytė and Kneer described paintings by humans or AI-driven robots. People granted art status readily, but resisted calling the robot an artist — partly because they attributed less artistic intention to it. |
-| 3/3 | 3:07 | Philosophers draw that line differently. Hertzmann ties artistry to social agents; Coeckelbergh says it depends on whether you judge process, outcome or relationships; Chatterjee places meaning in human direction and viewer interpretation. |
-
-### 10 · One case
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/2 | 3:20 | Jason Allen’s prize-winning Midjourney image shows why. |
-| 2/2 | 3:24 | Kuta reports about eighty hours, over nine hundred renderings, then selection and editing — human practice behind one ‘AI’ label. |
-
-### 11 · Interpretation
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 3:33 | My interpretation: an AI-generated image can count as art, through human practice and viewer engagement. |
-| 2/3 | 3:39 | Calling the model an independent artist is a separate claim these experiments don’t establish. |
-| 3/3 | 3:46 | Outcome-focused or relational theories could grant more. But an expressive image — or a viewer’s attribution of feeling — isn’t evidence of machine consciousness. |
-
-### 12 · Why it matters
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 3:56 | Why it matters: labels shape trust, and how human work is judged. |
-| 2/3 | 4:01 | Thirty-seven of Oksanen’s forty-four studies used single-country samples, so evaluation can privilege some tastes. |
-| 3/3 | 4:08 | And opaque workflows can misplace creative credit. |
-
-### 13 · Next steps
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/3 | 4:11 | These limits set the next steps: |
-| 2/3 | 4:14 | compare versioned, current systems; report prompts, attempts and selection; document human workflows; measure each construct separately; and study diverse, culturally situated audiences. |
-| 3/3 | 4:24 | In my reading, the field now has experiments and reviews — but no validated test of artistry across systems and cultures. |
-
-### 14 · Close
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/2 | 4:33 | So, would you still call it art? |
-| 2/2 | 4:36 | Often, yes. Is the model the artist? That’s still open. Thank you. |
-
-### 15 · References
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/1 | 4:42 | [Hold on references for about three seconds. No narration needed.] |
-
-### 16 · Appendix A: empirical sources
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/1 | 4:42 | [Appendix A — outside the timed talk. Do not record.] |
-
-### 17 · Appendix B: conceptual, reviews, case
-
-| Build | Starts at | Say |
-|---|---|---|
-| 1/1 | 4:43 | [Appendix B — outside the timed talk. Do not record.] |
+**Estimated total:** 4:42 · 610 words

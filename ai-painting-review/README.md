@@ -1,20 +1,28 @@
 # Would You Still Call It Art? — AI-generated digital painting
 
-A silent, presenter-controlled HTML presentation for Mahmoud Hafez's State of the Field literature review. It is an exhibition walk through twelve sources that separates two questions: is an AI-generated digital painting *art*, and is the system an *artist*?
+A silent, presenter-controlled HTML presentation for Mahmoud Hafez's State of the Field literature review. Paintings are persistent objects on a black stage. They move, scale and change role from beat to beat, so each experiment is shown as participants met it before its finding is revealed.
 
-**Open `index.html`** in Chrome or Edge. It is one self-contained file that works offline. Study images load from `assets/` when present.
+**Open `index.html`** in Chrome or Edge. It is one self-contained file that works offline. Fonts and every image named in `assets/manifest.json` are embedded at build time.
 
 | File | Purpose |
 |---|---|
-| `index.html` | The presentation (built output) |
-| `src/index.src.html` | The source to edit: scenes, data arrays, narration |
-| `build.py` | Embeds the open-licence fonts → `index.html` |
-| `NARRATION.md` | Timed script, one line per build (≈ 4:43) |
-| `EVIDENCE-MAP.md` | Final 12-source selection and the claim-to-source map with verification status |
-| `QA.md` | QA record, open verification items, recording checklist |
-| `assets/README.md` | Exact study images to drop in (placeholders until then) |
-| `fonts/` | Fraunces, Inter and IBM Plex Mono (SIL Open Font License) |
+| `index.html` | The presentation (built output, do not edit) |
+| `src/index.src.html` | Source: layers, actors, per-beat layouts, data, narration |
+| `build.py` | Embeds fonts and images, then prints an image-readiness report |
+| `assets/manifest.json` | The six challenge paintings (3 human, 3 AI) and the study images, with provenance |
+| `assets/README.md` | What images to add, and where they appear |
+| `NARRATION.md` | Timed script, one line per click (≈ 4:42) |
+| `EVIDENCE-MAP.md` | Final 12 sources and the claim-to-source map with verification status |
+| `QA.md` | QA record, open items, recording checklist |
+| `fonts/` | Archivo (variable width), Inter, IBM Plex Mono (SIL Open Font License) |
 
-**Keys:** → / Space / click next · ← back · F fullscreen · H record mode · P presenter window · N notes · G overview · S sources · M reduced motion · ? help
+**How it moves (the main morphs):**
+- **Challenge → reveal → carry.** The audience flags paintings. The flagged ones move into a comparison row, and their sources appear one at a time. One AI painting then travels into the label experiment.
+- **Bellaiche.** The pixels stay fixed while the label flips from Human to AI. The rating options become the chart's bars, and the bars regroup into the cross-study meta-analysis view.
+- **Horton and Chiarella.** The same two paintings swap order on arcs to show which one was rated, then shrink into the chart.
+- **van Hees.** The gallery splits into two rooms for the two separate participant groups.
+- **Mikalonytė & Kneer.** The painting turns into a written scenario card, and ART and ARTIST become two separate judgments.
+- **Allen.** One of 900 dots grows into the painting.
+- **Next steps.** Each limitation card travels across the screen and becomes its proposed next step.
 
-**Structure (17 views, 41 builds):** I *The question*: opening painting, terms and scope, review process, competing criteria. II *The evidence*: one image with two labels (Bellaiche), the comparison effect (Horton), order dependence and the meta-analysis (Chiarella; de Rooij), preference with detection (van Hees; Mazzone & Elgammal), ART | ARTIST (Mikalonytė & Kneer; Hertzmann; Coeckelbergh; Chatterjee), one case (Kuta). III *Interpretation*: two answers, significance, limitations → next steps, close. Then References, plus two appendix views outside the timed talk.
+**Keys:** → / Space / click next · ← back (everything reverses) · 1–6 flag paintings · 1–4 pick a rating · F fullscreen · H record mode · P presenter window · N notes · G overview · S sources · M reduced motion
