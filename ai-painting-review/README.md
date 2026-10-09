@@ -21,13 +21,13 @@ A silent, presenter-controlled HTML presentation for Mahmoud Hafez's State of th
 | `src/script-font.json`, `tools/script_font.py` | Single-stroke handwriting glyphs (EMS Allure) |
 | `build.py` | Embeds fonts, glyphs and images; reports which images are present |
 | `assets/manifest.json`, `assets/img/` | Study images with credits |
-| `NARRATION.md` | Timed script (about 4:42) and plain-language definitions of every measure |
+| `NARRATION.md` | Timed script (about 4:49, 5:00 limit), per-step budgets, background notes, and definitions of every measure |
 | `EVIDENCE-MAP.md` | 12 sources, claim-to-source map, verification status |
 | `QA.md` | QA record and recording checklist |
 | `IMAGE-REQUESTS.md` | Image provenance, plus the remaining optional files |
 
 **Sequence:**
-1. A pen landscape draws itself and the question is handwritten.
+1. One press: a pen landscape draws itself while the question is handwritten (about 4 s).
 2. The four questions.
 3. A definition shown with two real study paintings.
 4. A colour-coded shelf of sources and the five review stages.

@@ -707,7 +707,7 @@ function sketchAnimate(paths,groups,total,onDone){
   paths.forEach((p,i)=>{p.style.strokeDasharray=lens[i]+' '+lens[i];p.style.strokeDashoffset=lens[i];p.style.visibility='hidden'});
   let start=null,raf=0,done=false;
   const set=t=>{for(let i=0;i<n;i++){const v=Math.max(0,Math.min(1,(t-t0s[i])/durs[i]));const p=paths[i];p.style.visibility=v>0?'visible':'hidden';p.style.strokeDashoffset=lens[i]*(1-v)}};
-  const tick=now=>{if(start==null)start=now;const t=now-start;set(t);if(t<total+700)raf=requestAnimationFrame(tick);else finish()};
+  const tick=now=>{if(start==null)start=now;const t=now-start;set(t);if(t<total+150)raf=requestAnimationFrame(tick);else finish()};
   function finish(){if(done)return;done=true;cancelAnimationFrame(raf);paths.forEach(p=>{p.style.strokeDasharray='none';p.style.visibility='visible'});onDone&&onDone()}
   raf=requestAnimationFrame(tick);return {finish};
 }
@@ -742,52 +742,74 @@ const opening=(()=>{
   function blank(){build();all().forEach(p=>{p.style.strokeDasharray='0 99999';p.style.visibility='hidden'});$('#open-sub').classList.remove('shown')}
   function full(){build();all().forEach(p=>{p.style.strokeDasharray='none';p.style.strokeDashoffset=0;p.style.visibility='visible'});$('#open-sub').classList.add('shown')}
   function play(){build();blank();
-    let cur=null,stage=0,cancelled=false;
-    const seq=[()=>sketchAnimate(parts.draw,groups,7200,nextStage),()=>penAnimate(parts.write,1.6,nextStage),()=>penAnimate(parts.mark,0.9,nextStage)];
-    function nextStage(){if(cancelled)return;stage++;if(stage<seq.length)cur=seq[stage]();else{$('#open-sub').classList.add('shown');S.busy=null}}
-    cur=seq[0]();
-    S.busy={finish(){cancelled=true;cur&&cur.finish();full();S.busy=null}};
+    // one press: the landscape and the handwriting draw together (~4 s), then the red underline and subtitle
+    let cancelled=false,done=0,mk=null;
+    const after=()=>{if(cancelled||++done<2)return;mk=penAnimate(parts.mark,1.8,()=>{if(cancelled)return;$('#open-sub').classList.add('shown');S.busy=null})};
+    const wl=parts.write.reduce((t,p)=>t+p.getTotalLength(),0);
+    const a=sketchAnimate(parts.draw,groups,3600,after),b=penAnimate(parts.write,wl/3800,after);
+    S.busy={finish(){cancelled=true;a.finish();b.finish();mk&&mk.finish();full();S.busy=null}};
   }
   return {blank,full,play};
 })();
 
 const SCENES=[
- {id:'sc-open',t:'Opening',steps:2,notes:['[Blank canvas. Press → once; the drawing and handwriting take about 11 s.]','Would you still call it art? I’m Mahmoud Hafez; this is my review of research on AI-generated digital painting.'],
+ {id:'sc-open',t:'Opening',steps:2,notes:['[Blank canvas. Press → once; the drawing and title appear together in about 4 s. Start speaking as the subtitle fades in.]','Would you still call it art if a machine made it? I’m Mahmoud Hafez, and this is my review of research on AI painting.'],
   show(st,fwd){if(st===0)opening.blank();else if(fwd&&anim())opening.play();else opening.full()}},
- {id:'sc-q',t:'Four questions',steps:4,notes:['Four questions. Can an AI painting have aesthetic or emotional value?','Does art need a human artist, with intention?','Does knowing it’s AI change how we judge it?','And where is the field now, and where should it go?'],
+ {id:'sc-q',t:'Four questions',steps:4,notes:['Four questions guide this review. Can an AI painting have aesthetic or emotional value?','Does art need a human artist with intentions?','Does knowing it’s AI change how we judge it?','And where is the field now, and what comes next?'],
   show(st){['#q1','#q2','#q3','#q4'].forEach((q,k)=>$(q).classList.toggle('dim',k<st))}},
- {id:'sc-gen',t:'What we mean',steps:2,notes:['These two were made with Artbreeder, an AI tool, and used in a real experiment.','That’s my definition: an image that looks painted, made mainly by a generative model.'],show(){}},
- {id:'sc-rev',t:'Review process',steps:2,notes:['I reviewed twelve sources: six experiments, two reviews, two philosophy papers, an audit and a news case.','I compared what people saw, what changed and what was measured, and checked every number.'],
+ {id:'sc-gen',t:'What we mean',steps:2,notes:['Both of these were made by an AI tool, Artbreeder, and used as test images in a real study.','So, an AI painting is an image that looks painted, but a model did most of the making.'],show(){}},
+ {id:'sc-rev',t:'Review process',steps:2,notes:['I reviewed twelve sources across psychology, philosophy and computer science, sorted by kind of evidence.','For each, I asked what people saw, what changed and what was measured, and I checked every number.'],
   show(st){$('#stages').classList.toggle('on',st>=1);$$('#stages div').forEach((d,k)=>d.style.transitionDelay=(st>=1&&anim()?k*.12:0)+'s')}},
- {id:'sc-game',t:'Your turn',steps:3,hold:[5,4,1],notes:['Your turn. Two real pairs from a study, each one human and one AI. Which would you hang?','Now: which one is AI?','The AI images are the bright mountain and the white bouquet.'],
+ {id:'sc-game',t:'Your turn',steps:3,hold:[5,4,1],notes:['Let’s try. Real pairs from a study: one human, one AI. Which would you hang?','Now, which one is AI?','The AI ones: the bright mountain and the white bouquet.'],
   show(st,fwd){gameScene(st,fwd)}},
- {id:'sc-val',t:'Q1 · Value',steps:2,notes:['Van Hees’s team asked one group which image they preferred, another which was AI, across fifty pairs.','Each dot is a pair. Liked AI images were also easier to spot; your flowers fooled most people.'],
+ {id:'sc-val',t:'Q1 · Value',steps:2,notes:['Van Hees’s team did this with fifty pairs: one group picked a favourite, another tried to spot the AI.','Each dot is a pair. People often preferred the AI, and liked AI was easier to spot. Your flowers fooled most people.'],
   show(st,fwd){valScene(st,fwd)}},
- {id:'sc-ron',t:'Q1 · Creativity',steps:2,notes:['Rondini’s team gave artists, non-artists and an image model the same two lines to finish.','Raters put artists first and the unguided model last; human ideas helped the model.'],
+ {id:'sc-ron',t:'Q1 · Creativity',steps:2,notes:['But liked isn’t creative. Rondini’s team gave artists, non-artists and an AI model the same two lines to finish.','Raters put artists first and the unguided model last; human ideas helped the model.'],
   show(st,fwd){ronScene(st,fwd)}},
- {id:'sc-lab',t:'Q3 · The label',steps:3,hold:[3,2,0],notes:['Now the label. How profound does this painting feel? It says a human made it.','Same painting, new label. Again?','Bellaiche used thirty AI paintings with random labels. A human label raised every rating, most for money worth and profundity.'],
+ {id:'sc-lab',t:'Q3 · The label',steps:3,hold:[3,2,0],notes:['Now the label. This painting says a human made it. How profound does it feel, one to five?','Same painting, now labelled AI. Did your number change?','Bellaiche’s team did this with thirty AI paintings and random labels. A human label raised every rating, most of all depth and money value.'],
   show(st,fwd){labScene(st,fwd)}},
- {id:'sc-ord',t:'Q3 · Context',steps:2,notes:['In Horton’s study, people rated two paintings in a row; only the labels changed.','The same painting scored highest right after an AI-labelled one; the contrast made it look more creative.'],
+ {id:'sc-ord',t:'Q3 · Context',steps:2,notes:['Horton’s team showed people two paintings in a row. The paintings never changed, only the labels.','The same painting scored highest after one labelled AI. Next to AI, human work looked more creative.'],
   show(st,fwd){ordScene(st,fwd)}},
- {id:'sc-chi',t:'Q3 · Real setting',steps:2,notes:['At a real art fair, Chiarella’s team showed two canvases for a minute each, then asked about liking.','The AI label hurt only when it came second. Pooled studies show a small penalty, larger for meaning.'],
+ {id:'sc-chi',t:'Q3 · Real setting',steps:2,notes:['Does it hold outside a survey? Chiarella’s team showed two real canvases at an art fair, a minute each, then asked for a liking score.','The AI label hurt only when it came second. Across studies, the penalty is small, bigger for meaning.'],
   show(st){$('#proc').classList.toggle('on',st===0);$$('#proc .st').forEach((d,k)=>d.style.transitionDelay=(anim()?k*.25:0)+'s');$('#chi-h').textContent=st===0?'Two real canvases, shown one at a time at an art fair.':'In a real setting, the penalty depended on order.'}},
- {id:'sc-int',t:'Q2 · Artist?',steps:2,hold:[3,0],notes:['Mikalonytė and Kneer gave people stories like this. What do you think?','People called the robot’s painting art, but rarely called the robot an artist.'],
+ {id:'sc-int',t:'Q2 · Artist?',steps:2,hold:[3,0],notes:['Does art need an artist? People read stories like this. What would you say?','Most called the robot’s painting art, but few called the robot an artist.'],
   show(st,fwd){intScene(st,fwd)}},
- {id:'sc-phil',t:'Q2 · Philosophy',steps:2,notes:['For Hertzmann, art is an exchange between people; software is a tool, like a camera.','For Coeckelbergh, it depends whether you judge the outcome, the process or the relationships.'],show(){}},
- {id:'sc-prac',t:'Human practice',steps:3,notes:['Behind an “AI” painting there is often human work: Jason Allen generated over nine hundred images in about eighty hours,','chose one,','and edited it. It won first place.'],
+ {id:'sc-phil',t:'Q2 · Philosophy',steps:2,notes:['Philosophers disagree on why. For Hertzmann, art is a conversation between people; AI is a tool, like a camera.','For Coeckelbergh, it depends on what you judge: the result, the process, or everyone involved.'],show(){}},
+ {id:'sc-prac',t:'Human practice',steps:3,notes:['And behind an AI painting there’s often a person: Jason Allen generated over nine hundred images in about eighty hours,','picked one,','edited it, and won first place.'],
   show(st,fwd){pracScene(st,fwd)}},
- {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Studies agree: an AI label lowers judgments of the same image, most for meaning and value, yet people still like AI images.','Results differ by order, setting, image and judge; most samples come from one country.','Still open: can a model be an artist, and how much human work makes it count?'],show(){}},
- {id:'sc-mine',t:'Interpretation',steps:3,notes:['My view: an AI painting can count as art, through the people who make, choose and look at it.','Calling the model an artist is a separate claim, not established here.','And the opening drawing? Code made it. Does that change it for you?'],
+ {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Where is the field? Studies agree an AI label lowers judgments of the same image, most for meaning and value, yet people still enjoy AI images.','Results shift with order, setting, image and judge; most samples come from one country.','Still open: can a model be an artist, and how much human work makes it count?'],show(){}},
+ {id:'sc-mine',t:'Interpretation',steps:3,notes:['My view: an AI painting can count as art, through the people who make, choose and look at it.','But calling the model an artist is a separate claim this research doesn’t prove.','And the opening drawing? Code made it. Does that change it for you?'],
   show(st){if(st>=2)drawMini()}},
- {id:'sc-next',t:'Q4 · Next',steps:2,notes:['This matters for trust, credit and whose taste counts. Each limitation points to a question:','today’s models, disclosed workflows, real galleries over time, and other cultures.'],
+ {id:'sc-next',t:'Q4 · Next',steps:2,notes:['Why does it matter? Labels shape trust, credit and whose taste counts. Each limitation points to a next question:','testing today’s models, showing the human workflow, real galleries over time, and other cultures.'],
   show(st){$$('#sc-next .fcard').forEach((c,k)=>{c.classList.toggle('flip',st>=1);c.querySelectorAll('.face').forEach(f=>f.style.transitionDelay=(st>=1&&anim()?k*.18:0)+'s')})}},
- {id:'sc-close',t:'Close',steps:1,notes:['So, would you still call it art? Often, yes. Is the model the artist? Still open. Thank you.'],
+ {id:'sc-close',t:'Close',steps:1,notes:['So, would you still call it art? Often, yes. Is the model the artist? That’s still open. Thank you.'],
   show(st,fwd){closeScene(fwd)}},
  {id:'sc-refs',t:'References',steps:1,notes:['[Hold on references for about three seconds. No narration.]'],show(){}},
  {id:'sc-appA',t:'Appendix A',steps:1,notes:['[Appendix, outside the timed talk.]'],show(){}},
  {id:'sc-appB',t:'Appendix B',steps:1,notes:['[Appendix, outside the timed talk.]'],show(){}}
 ];
 SCENES.forEach(sc=>sc.el=document.getElementById(sc.id));
+/* background for the presenter: not read aloud, not timed */
+const TIPS={
+ 'sc-open':'Let the drawing finish (about 4 s). It is generated by code; you reveal that on the Interpretation slide.',
+ 'sc-q':'Questions 1–3 map onto the studies; question 4 is answered by the synthesis and next steps.',
+ 'sc-gen':'Artbreeder blends and evolves images with a generative model. Bellaiche used 30 such paintings (15 representational, 15 abstract).',
+ 'sc-rev':'Focused narrative review, not a systematic search. Colours = kind of evidence. Click a book if asked for details.',
+ 'sc-game':'Pairs are van Hees stimuli: Bierstadt landscape vs DALL·E 2; Boudin flowers vs DALL·E 2. Keys 1–4 or click; ~5 s each. In the study, most spotted the AI mountain; most missed the AI flowers.',
+ 'sc-val':'x = % of group 1 preferring the AI image; y = % of group 2 correctly spotting it; 50 = chance. r = .42 is a moderate positive correlation. Both groups beat chance overall.',
+ 'sc-ron':'Groups: visual artists (272 drawings), non-artists (276), SDXL guided by human ideas (230), SDXL with a base prompt only (222). 255 raters, 1–7 on liking, vividness, originality, aesthetics, curiosity. Rank only, no gaps shown. GPT-4o rated differently.',
+ 'sc-lab':'Liking = “How much do you like this image?” Beauty = “How beautiful?” Profundity = “How profound or meaningful?” (depth). Worth = “How much money would it be worth?” d ≈ .2 small, .5 medium, .8 large. Study 1, 149 adults.',
+ 'sc-ord':'Horton Exp. 4, 789 adults. Both paintings rated on creative, novel, likeable, fit for a gallery (1–7). “Painting 1/2” just means shown first/second. Painting 2: 4.62 human→human, 4.24 human→AI, 4.85 AI→human.',
+ 'sc-chi':'Canvases: Abstract 12 and Abstract 18 (acrylic, 120 × 120 cm), both human-made. Procedure: rest, covered canvas, label, 1 min viewing, “I really like this painting” 1–5, repeat. Order was balanced. Meta-analysis = de Rooij (2025).',
+ 'sc-int':'Mikalonytė & Kneer, N = 693, written stories only. Horton Exp. 2: 87% shown only AI-labelled images still called most of them art.',
+ 'sc-phil':'Hertzmann (2018): art is social; today’s computers are tools, not artists. Coeckelbergh (2017): outcome, process and relational views give different verdicts.',
+ 'sc-prac':'Kuta (2022), Smithsonian. Midjourney; first place in the Colorado State Fair digital-art contest for emerging artists.',
+ 'sc-syn':'Agree: Bellaiche, Horton, de Rooij, van Hees. Differ: Horton vs Chiarella; van Hees per pair; Rondini (human vs GPT-4o); Oksanen 37/44. Open: Mikalonytė & Kneer, philosophers, Horton Exp. 6 collaborations.',
+ 'sc-mine':'Your interpretation; say it as yours. Pause after the question.',
+ 'sc-next':'Cards flip from limitation to question. Each question answers its own limitation.',
+ 'sc-close':'Stop after “Thank you”. Hold References ~3 s, then end the recording.'
+};
+
 
 /* ---------- review shelf ---------- */
 function buildShelf(){
@@ -944,22 +966,44 @@ function prev(){if(S.busy){S.busy.finish();S.busy=null}const sc=SCENES[S.i];if(S
 function go(i,st){if(S.busy){S.busy.finish();S.busy=null}S.i=Math.max(0,Math.min(SCENES.length-1,i));S.step=st||0;closeDrawer();render(false)}
 
 /* timing estimate for the presenter */
-const WPS=145/60,OPEN_ANIM=11;
+const WPS=150/60,PRESS=.5,OPEN_ANIM=5,LIMIT=300;
 function words(t){return t.startsWith('[')?0:t.split(/\s+/).filter(Boolean).length}
-function targetAt(i,st){let t=0;for(let k=0;k<SCENES.length;k++)for(let j=0;j<SCENES[k].steps;j++){if(k===i&&j===st)return t;const n=SCENES[k].notes[j]||'';t+=(n.startsWith('[')?0:words(n)/WPS+.6)+((SCENES[k].hold||[])[j]||0)+(k===0&&j===1?OPEN_ANIM:0)}return t}
+function stepDur(k,j){const sc=SCENES[k],n=sc.notes[j]||'';return (n.startsWith('[')?0:words(n)/WPS+PRESS)+((sc.hold||[])[j]||0)+(k===0&&j===1?OPEN_ANIM:0)}
+function targetAt(i,st){let t=0;for(let k=0;k<SCENES.length;k++)for(let j=0;j<SCENES[k].steps;j++){if(k===i&&j===st)return t;t+=stepDur(k,j)}return t}
+const REFS=()=>SCENES.findIndex(s=>s.id==='sc-refs');
+const planEnd=()=>targetAt(REFS(),0)+3;
 const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function updateChrome(){const sc=SCENES[S.i];$('#pos').textContent=(S.i+1)+' / '+SCENES.length+' · step '+(S.step+1)+'/'+sc.steps;$('#ttl').textContent=sc.t;renderNotes();renderPresenter();$$('#overview button').forEach((b,k)=>b.classList.toggle('cur',k===S.i))}
-function renderNotes(){const N=$('#notes');if(!N.classList.contains('open'))return;const sc=SCENES[S.i];N.innerHTML=`<div class="meta"><span>${sc.t} · step ${S.step+1}/${sc.steps}</span><span>target ${fmt(targetAt(S.i,S.step))} of ${fmt(targetAt(SCENES.findIndex(s=>s.id==='sc-refs'),0))}</span></div><div style="color:#fff">${sc.notes[S.step]||''}</div>`}
+function renderNotes(){const N=$('#notes');if(!N.classList.contains('open'))return;const sc=SCENES[S.i];const e=S.started?(Date.now()-S.started)/1000:0;
+  N.innerHTML=`<div class="meta"><span>${sc.t} · step ${S.step+1}/${sc.steps} · about ${Math.round(stepDur(S.i,S.step))} s</span><span>${S.started?fmt(e)+' elapsed · ':''}target ${fmt(targetAt(S.i,S.step))} · plan ${fmt(planEnd())} / limit 5:00</span></div><div style="color:#fff;font-size:20px">${sc.notes[S.step]||''}</div>${TIPS[sc.id]?`<div style="margin-top:10px;color:#999;font-size:14px">${TIPS[sc.id]}</div>`:''}`}
 let pw=null;
-function openPresenter(){pw=window.open('','aip-presenter','width=1180,height=760');if(!pw){$('#notes').classList.add('open');renderNotes();return}
-  pw.document.open();pw.document.write(`<!doctype html><title>Presenter</title><style>body{margin:0;background:#121211;color:#EEE;font:18px/1.55 system-ui,sans-serif;display:grid;grid-template-rows:auto 1fr auto;height:100vh}header{display:flex;gap:28px;align-items:baseline;padding:18px 26px;border-bottom:1px solid #2A2A2A;font:14px system-ui;color:#999}header b{color:#fff;font-size:30px;font-weight:600}main{padding:22px 30px;overflow:auto;display:grid;grid-template-columns:2fr 1fr;gap:34px}.cur{color:#fff;font-size:30px;line-height:1.4}.nx{border-left:1px solid #2A2A2A;padding-left:24px;color:#AAA}footer{display:flex;gap:10px;padding:14px 26px;border-top:1px solid #2A2A2A}button{font:600 15px system-ui;background:#1F1E1C;color:#EEE;border:1px solid #333;border-radius:6px;padding:10px 16px;cursor:pointer}</style>
-  <header><span>ELAPSED <b id="el">0:00</b></span><span>TARGET <b id="tg">0:00</b></span><span id="late"></span><span style="flex:1"></span><span id="pp"></span></header><main><div class="cur" id="cur"></div><div class="nx"><div style="font:600 12px system-ui;letter-spacing:.12em;color:#777">NEXT</div><div id="nx"></div></div></main>
-  <footer><button id="bp">← Back</button><button id="bn">Next →</button><button id="br">Reset timer</button><span style="flex:1"></span><span style="font:13px system-ui;color:#777;align-self:center">Keys here drive the main window. Record only the main window.</span></footer>`);pw.document.close();
-  pw.document.getElementById('bp').onclick=prev;pw.document.getElementById('bn').onclick=next;pw.document.getElementById('br').onclick=()=>{S.started=Date.now();renderPresenter()};pw.addEventListener('keydown',onKey);if(!pw.__t)pw.__t=setInterval(renderPresenter,500);renderPresenter()}
-function renderPresenter(){if(!pw||pw.closed)return;const d=pw.document;if(!d.getElementById('cur'))return;const sc=SCENES[S.i];
-  d.getElementById('cur').textContent=sc.notes[S.step]||'';const nsc=S.step<sc.steps-1?sc:SCENES[S.i+1],nst=S.step<sc.steps-1?S.step+1:0;d.getElementById('nx').textContent=nsc?(nsc.notes[nst]||''):'—';
-  d.getElementById('pp').textContent=sc.t+' · '+(S.step+1)+'/'+sc.steps;const e=S.started?(Date.now()-S.started)/1000:0,tg=targetAt(S.i,S.step);d.getElementById('el').textContent=fmt(e);d.getElementById('tg').textContent=fmt(tg);
-  const df=e-tg,L=d.getElementById('late');L.textContent=S.started?(df>8?'+'+fmt(df)+' behind':df<-8?fmt(-df)+' ahead':'on pace'):'timer starts on first advance';L.style.color=df>8?'#EF5E48':'#9FC29A'}
+function openPresenter(){pw=window.open('','aip-presenter','width=1240,height=800');if(!pw){$('#notes').classList.add('open');renderNotes();return}
+  pw.document.open();pw.document.write(`<!doctype html><title>Presenter</title><style>
+  body{margin:0;background:#121211;color:#EEE;font:18px/1.55 system-ui,sans-serif;display:grid;grid-template-rows:auto auto 1fr auto;height:100vh}
+  header{display:flex;gap:34px;align-items:baseline;padding:16px 26px 10px;font:13px system-ui;color:#999;letter-spacing:.06em}
+  header b{display:block;color:#fff;font:600 34px/1.1 system-ui;letter-spacing:0;font-variant-numeric:tabular-nums}
+  #left b{font-size:44px}.warn b{color:#F2B25C!important}.over b{color:#EF5E48!important}
+  .bar{position:relative;height:10px;margin:0 26px 8px;background:#2A2926;border-radius:5px;overflow:hidden}
+  .bar i{position:absolute;left:0;top:0;bottom:0;background:#6E6C66}.bar u{position:absolute;top:0;bottom:0;width:3px;background:#EF5E48}.bar s{position:absolute;left:0;top:0;bottom:0;background:#F3F1EC;opacity:.85}
+  main{padding:18px 30px;overflow:auto;display:grid;grid-template-columns:2fr 1fr;gap:34px;border-top:1px solid #2A2A2A}
+  .cur{color:#fff;font-size:32px;line-height:1.4}.tip{margin-top:22px;color:#9A978F;font-size:16px;line-height:1.5;border-top:1px solid #2A2A2A;padding-top:14px}.tip small{display:block;font:600 11px system-ui;letter-spacing:.14em;color:#6E6C66;margin-bottom:4px}
+  .nx{border-left:1px solid #2A2A2A;padding-left:24px;color:#AAA}
+  footer{display:flex;gap:10px;padding:14px 26px;border-top:1px solid #2A2A2A}button{font:600 15px system-ui;background:#1F1E1C;color:#EEE;border:1px solid #333;border-radius:6px;padding:10px 16px;cursor:pointer}</style>
+  <header><span id="left">TIME LEFT<b id="tl">5:00</b></span><span>ELAPSED<b id="el">0:00</b></span><span>THIS STEP<b id="sb">–</b></span><span>PACE<b id="pc" style="font-size:24px">–</b></span><span style="flex:1"></span><span style="text-align:right">PLAN<b id="pl" style="font-size:24px">–</b></span><span style="text-align:right" id="pp"></span></header>
+  <div class="bar"><s id="bs"></s><i id="bi"></i><u id="bu"></u></div>
+  <main><div><div class="cur" id="cur"></div><div class="tip" id="tip"></div></div><div class="nx"><div style="font:600 12px system-ui;letter-spacing:.12em;color:#777">NEXT</div><div id="nx"></div></div></main>
+  <footer><button id="bp">← Back</button><button id="bn">Next →</button><button id="br">Restart timer</button><span style="flex:1"></span><span style="font:13px system-ui;color:#777;align-self:center">Timer starts on your first press. White bar = where you are; grey = where the plan says you should be; red line = 5:00.</span></footer>`);pw.document.close();
+  pw.document.getElementById('bp').onclick=prev;pw.document.getElementById('bn').onclick=next;pw.document.getElementById('br').onclick=()=>{S.started=Date.now();renderPresenter()};pw.addEventListener('keydown',onKey);if(!pw.__t)pw.__t=setInterval(renderPresenter,250);renderPresenter()}
+function renderPresenter(){if(!pw||pw.closed)return;const d=pw.document;if(!d.getElementById('cur'))return;const sc=SCENES[S.i],g=id=>d.getElementById(id);
+  g('cur').textContent=sc.notes[S.step]||'';g('tip').innerHTML=TIPS[sc.id]?'<small>BACKGROUND · DON’T READ ALOUD</small>'+TIPS[sc.id]:'';
+  const nsc=S.step<sc.steps-1?sc:SCENES[S.i+1],nst=S.step<sc.steps-1?S.step+1:0;g('nx').textContent=nsc?(nsc.notes[nst]||''):'—';
+  g('pp').innerHTML=`${esc(sc.t)}<b style="font-size:20px">${S.i+1}/${SCENES.length} · ${S.step+1}/${sc.steps}</b>`;
+  const e=S.started?(Date.now()-S.started)/1000:0,tg=targetAt(S.i,S.step),dur=stepDur(S.i,S.step),left=LIMIT-e;
+  g('el').textContent=fmt(e);g('tl').textContent=(left<0?'−':'')+fmt(Math.abs(left));g('pl').textContent=fmt(planEnd())+' / 5:00';
+  const inStep=Math.max(0,e-tg);g('sb').textContent=S.started?Math.round(inStep)+' / '+Math.round(dur)+' s':Math.round(dur)+' s';
+  const df=e-(tg+Math.min(inStep,dur));g('pc').textContent=S.started?(df>6?fmt(df)+' behind':df<-6?fmt(-df)+' ahead':'on pace'):'starts on first press';g('pc').style.color=df>15?'#EF5E48':df>6?'#F2B25C':'#9FC29A';
+  g('left').className=left<0?'over':left<30?'warn':'';
+  const W=v=>Math.max(0,Math.min(100,v/LIMIT*100))+'%';g('bs').style.width=W(e);g('bi').style.width=W(tg);g('bu').style.left='calc(100% - 3px)'}
 
 /* drawer, references, appendix */
 function openDrawer(id){const s=SOURCES[id];if(!s)return;const st=STUDY[id]&&STUDY[id].src?`<img src="${STUDY[id].src}" alt="Study figure" style="width:100%;margin-top:16px"><p style="font:13px var(--sans);color:#555">${esc(STUDY[id].credit||'')}</p>`:'';
