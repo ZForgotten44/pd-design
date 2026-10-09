@@ -9,17 +9,19 @@
 /*@FONTS@*/
 
 /* Art direction: a critic's sketchbook. Paper and ink scenes alternate; black pen draws,
-   a single red pencil marks judgments (labels, choices, findings). Nothing else is colored
-   except the paintings themselves. */
+   one red pencil marks judgments (labels, choices, findings). Five evidence-type hues
+   (validated for colour-blind separation) identify kinds of source and always sit beside
+   a printed label. Everything else is the paintings themselves. */
 :root{
-  --paper:#F3F1EC; --ink:#121211;
   --display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
   --ease:cubic-bezier(.65,0,.25,1); --out:cubic-bezier(.16,1,.3,1);
   color-scheme:dark;
 }
-.paper{--bg:#F3F1EC;--fg:#121211;--muted:#55534E;--soft:#8A8780;--rule:#D2CFC7;--panel:#E8E5DE;--acc:#C33A28}
-.ink{--bg:#121211;--fg:#F3F1EC;--muted:#ACA9A2;--soft:#7C7973;--rule:#34332F;--panel:#1D1C1A;--acc:#EF5E48}
+.paper{--bg:#F3F1EC;--fg:#121211;--muted:#55534E;--soft:#8A8780;--rule:#D2CFC7;--panel:#E8E5DE;--acc:#C33A28;
+  --c-exp:#2a78d6;--c-rev:#1baf7a;--c-phil:#4a3aa7;--c-aud:#eda100;--c-news:#e87ba4}
+.ink{--bg:#121211;--fg:#F3F1EC;--muted:#ACA9A2;--soft:#7C7973;--rule:#34332F;--panel:#1D1C1A;--acc:#EF5E48;
+  --c-exp:#3987e5;--c-rev:#199e70;--c-phil:#9085e9;--c-aud:#c98500;--c-news:#d55181}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#000;overflow:hidden}
 body{font-family:var(--sans)}
@@ -27,92 +29,96 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #viewport{position:fixed;inset:0;background:#000;overflow:hidden}
 #stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;transform:translate(-50%,-50%) scale(var(--s,1));overflow:hidden;background:#000}
 
-/* scenes: simple fades between scenes; meaning-bearing motion happens inside scenes */
 .scene{position:absolute;inset:0;background:var(--bg);color:var(--fg);opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s;-webkit-font-smoothing:antialiased}
 .scene.active{opacity:1;visibility:visible;transition:opacity .45s ease,visibility 0s}
 [data-s]{opacity:0;transition:opacity .5s ease}
 [data-s].on{opacity:1}
-[data-h].off{opacity:0 !important;pointer-events:none}
 [data-h]{transition:opacity .4s ease}
+[data-h].off{opacity:0 !important;pointer-events:none}
 
 /* type */
 .kicker{font:600 20px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.hl{font:640 68px/1.04 var(--display);font-stretch:84%;letter-spacing:-.012em;text-wrap:balance}
-.hl.xl{font-size:96px}
-.hl.md{font-size:54px}
+.hl{font:640 64px/1.05 var(--display);font-stretch:84%;letter-spacing:-.012em;text-wrap:balance}
+.hl.md{font-size:52px}
+.hl.sm{font-size:42px}
 .hl em,.acc{font-style:normal;color:var(--acc)}
-.lead{font:400 30px/1.42 var(--sans);color:var(--muted);text-wrap:pretty}
+.lead{font:400 29px/1.42 var(--sans);color:var(--muted);text-wrap:pretty}
 .lead b{color:var(--fg);font-weight:600}
 .note{font:400 21px/1.5 var(--sans);color:var(--muted)}
 .note b{color:var(--fg);font-weight:600}
-.cite{display:inline-flex;align-items:center;gap:10px;font:600 21px/1.2 var(--sans);color:var(--fg);padding:2px 0;border-bottom:2px solid var(--acc);white-space:nowrap}
+.cite{display:inline-flex;align-items:center;gap:9px;font:600 21px/1.2 var(--sans);color:var(--fg);padding:2px 0;border-bottom:2px solid currentColor;white-space:nowrap}
+.cite .dot{width:12px;height:12px;border-radius:50%;flex:none}
 .cite:hover{color:var(--acc)}
 .cites{display:flex;gap:22px;flex-wrap:wrap}
-.tag{display:inline-block;font:600 16px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:7px 10px;border:1.5px solid currentColor}
 .pos{position:absolute}
+.center{text-align:center}
 
 /* paintings */
-.pic{position:absolute;background:var(--panel)}
-.pic img{display:block;width:100%;height:100%;object-fit:contain}
-.ring{position:absolute;inset:-28px;pointer-events:none;overflow:visible}
+.pic{position:absolute;background:var(--panel);overflow:hidden}
+.pic img{display:block;width:100%;height:100%;object-fit:cover}
+.pic.fit img{object-fit:contain}
+.cap{font:400 19px/1.45 var(--sans);color:var(--muted)}
 
 /* opening */
 #open-svg{position:absolute;inset:0;width:1920px;height:1080px}
 #open-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.open-sub{position:absolute;left:120px;top:710px;width:900px;opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform 1s var(--out)}
+.open-sub{position:absolute;left:120px;top:668px;width:880px;opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform 1s var(--out)}
 .open-sub.shown{opacity:1;transform:none}
 
 /* questions */
-.qrow{position:absolute;left:120px;width:1500px;display:grid;grid-template-columns:110px 1fr;align-items:baseline;transition:opacity .5s ease,color .5s}
-.qrow .n{font:700 84px/1 var(--display);font-stretch:80%;color:var(--acc)}
-.qrow p{font:600 66px/1.08 var(--display);font-stretch:84%;letter-spacing:-.01em}
-.qrow.dim p{color:var(--soft)}
-.qrow.dim .n{color:var(--soft)}
-
-/* generate */
-.prompt{position:absolute;left:300px;top:190px;width:1320px;height:100px;border:2px solid var(--fg);border-radius:60px;display:flex;align-items:center;padding:0 44px;gap:22px}
-.prompt .lab{font:600 18px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.prompt .txt{font:500 40px/1 var(--sans)}
-.prompt .caret{display:inline-block;width:3px;height:44px;background:var(--fg);margin-left:4px;animation:blink 1s steps(1) infinite;vertical-align:middle}
-@keyframes blink{50%{opacity:0}}
-.gen{position:absolute;top:340px;width:400px;height:400px;background:#888;overflow:hidden}
-.gen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.gen canvas{position:absolute;inset:0;width:100%;height:100%}
-.gen-l{position:absolute;top:756px;font:500 21px/1.3 var(--sans);color:var(--muted)}
+.qrow{position:absolute;left:120px;width:1560px;display:grid;grid-template-columns:100px 1fr;align-items:baseline;transition:opacity .5s ease}
+.qrow .n{font:700 74px/1 var(--display);font-stretch:80%;color:var(--acc);transition:color .5s}
+.qrow p{font:600 56px/1.08 var(--display);font-stretch:84%;letter-spacing:-.01em;transition:color .5s}
+.qrow.dim p,.qrow.dim .n{color:var(--soft)}
 
 /* review shelf */
-.spine{position:absolute;bottom:50px;width:74px;border:1.5px solid var(--fg);display:flex;align-items:flex-end;justify-content:center;padding-bottom:18px;cursor:pointer;transition:background .25s,color .25s}
-.spine:hover{background:var(--fg);color:var(--bg)}
-.spine span{writing-mode:vertical-rl;transform:rotate(180deg);font:600 22px/1 var(--sans);white-space:nowrap}
-.shelf-lab{position:absolute;font:600 17px/1.25 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
-.flow{display:flex;align-items:center;gap:22px}
-.flow span{font:600 26px/1.2 var(--display);font-stretch:86%}
-.flow i{font-style:normal;color:var(--acc);font:600 30px/1 var(--sans)}
+#shelf{position:absolute;left:120px;top:215px;width:1680px;height:470px}
+.grp{position:absolute;top:0}
+.grp .num{font:800 88px/1 var(--display);font-stretch:72%}
+.grp .nm{display:flex;align-items:center;gap:10px;font:600 21px/1.1 var(--sans);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.grp .nm i{width:14px;height:14px;border-radius:50%;flex:none}
+.spine{position:absolute;bottom:0;width:76px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;cursor:pointer;color:#121211;transition:transform .25s var(--out),filter .2s;border-radius:3px 3px 0 0}
+.spine:hover{transform:translateY(-12px);filter:brightness(1.08)}
+.spine span{writing-mode:vertical-rl;transform:rotate(180deg);font:600 20px/1 var(--sans);white-space:nowrap}
+.stages{position:absolute;left:120px;top:740px;width:1680px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.stages div{border-top:3px solid var(--fg);padding-top:16px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .6s var(--out)}
+.stages.on div{opacity:1;transform:none}
+.stages b{display:block;font:700 22px/1 var(--display);color:var(--acc);margin-bottom:10px}
+.stages p{font:600 26px/1.22 var(--display);font-stretch:88%}
+.stages small{display:block;font:400 18px/1.4 var(--sans);color:var(--muted);margin-top:8px}
 
-/* gallery */
-.gcard{position:absolute;top:250px;width:380px;height:440px;cursor:pointer}
-.gcard .pic{inset:0}
-.gcard .who{position:absolute;left:0;right:0;top:470px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .6s var(--out)}
-.gcard .who.on{opacity:1;transform:none}
-.gcard .who b{display:block;font:700 34px/1 var(--display);font-stretch:82%}
-.gcard .who b.ai{color:var(--acc)}
-.gcard .who span{display:block;font:400 18px/1.35 var(--sans);color:var(--muted);margin-top:8px}
+/* game */
+.pair{position:absolute;top:286px;width:800px}
+.pair .tag{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:16px}
+.gpic{position:relative;display:inline-block;width:385px;height:390px;margin-right:24px;vertical-align:top;cursor:pointer}
+.gpic:last-child{margin-right:0}
+.gpic .pic{inset:0}
+.gpic svg.mark{position:absolute;inset:-34px;width:453px;height:458px;pointer-events:none;overflow:visible}
+.gpic .who{position:absolute;left:0;right:0;top:404px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .6s var(--out)}
+.gpic .who.on{opacity:1;transform:none}
+.gpic .who b{display:block;font:700 32px/1 var(--display);font-stretch:82%}
+.gpic .who b.ai{color:var(--acc)}
+.gpic .who span{display:block;font:400 18px/1.35 var(--sans);color:var(--muted);margin-top:6px}
+.gpic.isai .pic{outline:5px solid var(--acc);outline-offset:-5px}
 
-/* value */
-.panel{position:absolute;top:240px;width:780px}
-.panel .asked{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.panel .q{font:600 64px/1.05 var(--display);font-stretch:84%;margin-top:18px}
-.pairs{display:flex;gap:16px;margin-top:34px}
-.pairs .pp{position:relative;width:330px;height:240px;background:#000}
-.pairs .pp img{width:100%;height:100%;object-fit:cover;display:block}
-.pairs .pp span{position:absolute;left:12px;bottom:10px;font:700 30px/1 var(--display);color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.ans{margin-top:34px;padding-top:24px;border-top:2px solid var(--rule)}
-.ans p{font:600 34px/1.2 var(--display);font-stretch:86%}
-.coin{display:flex;align-items:center;gap:16px;margin-top:16px;font:400 20px/1.3 var(--sans);color:var(--muted)}
-.coin svg{flex:none}
+/* van Hees */
+.qcard{border-top:3px solid var(--fg);padding-top:18px;margin-bottom:40px}
+.qcard small{font:600 18px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.qcard p{font:640 50px/1.05 var(--display);font-stretch:84%;margin-top:12px}
+.read{list-style:none}
+.read li{font:500 27px/1.35 var(--sans);padding:16px 0;border-top:1.5px solid var(--rule)}
+.read li b{font-weight:700}
+
+/* Rondini */
+.maker{display:grid;grid-template-columns:70px 1fr 130px;align-items:center;gap:16px;padding:20px 0;border-top:1.5px solid var(--rule);transition:opacity .5s}
+.maker .rk{font:800 56px/1 var(--display);font-stretch:72%;color:var(--acc);opacity:0;transition:opacity .5s}
+.maker b{display:block;font:640 38px/1.1 var(--display);font-stretch:84%}
+.maker span{display:block;font:400 19px/1.35 var(--sans);color:var(--muted);margin-top:4px}
+.maker .n{font:600 22px/1.2 var(--sans);color:var(--muted);text-align:right}
+.ranked .maker .rk{opacity:1}
 
 /* label test */
-.lbl{position:absolute;left:160px;top:770px;width:560px;height:110px;perspective:900px}
+.lbl{position:absolute;left:160px;top:760px;width:560px;height:110px;perspective:900px}
 .lbl .face{position:absolute;inset:0;border:2px solid var(--fg);background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:0 28px;backface-visibility:hidden;transition:transform .9s var(--ease)}
 .lbl .face small{font:600 15px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
 .lbl .face p{font:700 40px/1.1 var(--display);font-stretch:84%;margin-top:8px}
@@ -128,53 +134,78 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .yours{display:flex;gap:40px;margin-top:40px}
 .yours div{font:400 19px/1.4 var(--sans);color:var(--muted)}
 .yours b{display:block;font:700 56px/1 var(--display);color:var(--fg)}
-.bars .row{display:grid;grid-template-columns:220px 1fr 120px;align-items:center;gap:22px;height:78px}
-.bars .row b{font:640 36px/1 var(--display);font-stretch:84%}
-.bars .track{position:relative;height:46px;border-left:2px solid var(--fg)}
-.bars .track i{position:absolute;left:0;top:0;bottom:0;background:var(--soft);transform-origin:left;transform:scaleX(0);transition:transform 1s var(--out)}
+.bars .row{display:grid;grid-template-columns:330px 1fr 90px;align-items:center;gap:22px;height:96px}
+.bars .row b{display:block;font:640 34px/1 var(--display);font-stretch:84%}
+.bars .row q{display:block;font:400 18px/1.3 var(--sans);color:var(--muted);margin-top:6px;quotes:"“" "”"}
+.bars .track{position:relative;height:42px;border-left:2px solid var(--fg)}
+.bars .track i{position:absolute;left:0;top:0;bottom:0;background:var(--soft);border-radius:0 4px 4px 0;transform-origin:left;transform:scaleX(0);transition:transform 1s var(--out)}
 .bars .row.hi .track i{background:var(--acc)}
 .bars.go .track i{transform:scaleX(1)}
 .bars .row:nth-child(2) i{transition-delay:.12s}.bars .row:nth-child(3) i{transition-delay:.24s}.bars .row:nth-child(4) i{transition-delay:.36s}
 .bars .v{font:600 28px/1 var(--sans);font-variant-numeric:tabular-nums}
 .bars .row.hi .v{color:var(--acc)}
-.bars .ticks{position:relative;height:56px;margin-left:242px;margin-right:142px;font:400 17px/1.35 var(--sans);color:var(--soft)}
-.bars .ticks span{position:absolute;top:8px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.bars .ticks{position:relative;height:44px;margin-left:352px;margin-right:112px;font:400 17px/1.35 var(--sans);color:var(--soft)}
+.bars .ticks span{position:absolute;top:8px;transform:translateX(-50%);white-space:nowrap}
 
-/* order */
-.ord{position:absolute;top:300px;width:440px;height:300px}
-.ord .pic{inset:0}
-.ord .t{position:absolute;left:0;top:-44px;font:600 20px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.ord .lab{position:absolute;left:0;top:316px;font:700 32px/1 var(--display);font-stretch:84%}
-.ord .lab.ai{color:var(--acc)}
-.seq{display:flex;align-items:center;gap:22px;margin-top:22px}
-.seq .cv{width:150px;height:100px;border:2.5px solid var(--fg);display:flex;align-items:flex-end;padding:10px 12px;font:700 26px/1 var(--display);font-stretch:84%}
-.seq .cv.ai{border-color:var(--acc);color:var(--acc)}
-.seq i{font:400 40px/1 var(--sans);color:var(--muted);font-style:normal}
-.seq b{font:600 34px/1.2 var(--sans);margin-left:30px}
-.ord.rated .pic{outline:5px solid var(--acc);outline-offset:8px}
-.ruler{position:absolute;left:120px;top:680px;width:1680px;height:260px}
+/* Horton */
+.hrow{position:absolute;left:120px;width:1680px;height:130px;display:grid;grid-template-columns:200px 60px 200px 80px 1fr;align-items:center}
+.fr{position:relative;width:180px;height:118px;border:2.5px solid var(--fg);background:var(--panel);display:flex;flex-direction:column;justify-content:space-between;padding:10px 12px}
+.fr small{font:600 15px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.fr b{font:700 30px/1 var(--display);font-stretch:84%}
+.fr.ai{border-color:var(--acc)}.fr.ai b{color:var(--acc)}
+.fr.rated::after{content:"rated";position:absolute;right:-2px;top:-30px;font:600 15px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.arrow{font:400 40px/1 var(--sans);color:var(--soft);text-align:center}
+#hplot{position:absolute;left:680px;top:280px;width:1120px;height:520px;overflow:visible}
+
+/* Chiarella */
+.proc{position:absolute;left:120px;top:690px;width:1680px;display:flex;align-items:stretch;gap:0}
+.proc .st{flex:1;border:2px solid var(--fg);border-right:0;padding:14px 14px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;opacity:0;transition:opacity .4s}
+.proc .st:last-child{border-right:2px solid var(--fg)}
+.proc .st small{font:600 15px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.proc .st b{font:640 27px/1.12 var(--display);font-stretch:86%}
+.proc .st em{font-style:normal;font:500 17px/1.3 var(--sans);color:var(--muted)}
+.proc .st.lab{background:var(--fg);color:var(--bg)}.proc .st.lab small,.proc .st.lab em{color:var(--bg);opacity:.75}
+.proc .st.ask b{color:var(--acc)}
+.proc.on .st{opacity:1}
+.crow{display:grid;grid-template-columns:190px 50px 190px 1fr;align-items:center;margin-top:26px}
+.mini{position:relative;width:170px;height:170px}
+.mini img{width:100%;height:100%;object-fit:cover;display:block}
+.mini span{position:absolute;left:0;bottom:-30px;font:700 24px/1 var(--display);font-stretch:84%}
+.mini.ai span{color:var(--acc)}.mini.ai img{outline:4px solid var(--acc);outline-offset:-4px}
+.crow b{font:600 32px/1.2 var(--sans);padding-left:30px}
 
 /* intention */
-.story{position:absolute;left:120px;top:200px;width:700px;border:2px solid var(--fg);padding:42px 46px}
-.story small{font:600 16px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
-.story p{font:500 44px/1.25 var(--sans);margin-top:18px}
-.vote{position:absolute;left:940px;width:860px}
+.story{position:absolute;left:360px;top:180px;width:1200px;border:2px solid var(--fg);padding:40px 56px;text-align:center}
+.story small{font:600 17px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.story p{font:500 48px/1.25 var(--sans);margin-top:18px}
+.vote{position:absolute;top:530px;width:640px;text-align:center}
 .vote p{font:640 46px/1.1 var(--display);font-stretch:84%}
-.vote .yn{display:flex;gap:16px;margin-top:20px}
-.vote .yn button{min-width:150px;height:72px;border:2px solid var(--fg);font:600 28px/1 var(--sans);padding:0 28px;transition:background .2s,color .2s}
+.vote .yn{display:flex;gap:16px;margin-top:22px;justify-content:center}
+.vote .yn button{min-width:160px;height:76px;border:2px solid var(--fg);font:600 28px/1 var(--sans);padding:0 28px;transition:background .2s,color .2s}
 .vote .yn button.on{background:var(--fg);color:var(--bg)}
-.word{position:absolute;left:0;top:0;width:1920px;height:300px}
-.word span{position:absolute;top:0;font:800 250px/1 var(--display);font-stretch:70%;letter-spacing:-.01em;transition:transform 1.2s var(--ease),opacity .8s,color .6s}
-.word .ghost{opacity:0}
-.word.split .ghost{opacity:1}
-.word.split .i,.word.split .ghost{color:transparent;-webkit-text-stroke:3px var(--acc)}
-.res{position:absolute;top:560px;width:720px;opacity:0;transition:opacity .6s ease .7s}
-.word.split ~ .res{opacity:1}
+#word{position:absolute;left:0;top:150px;width:1920px;height:260px;overflow:visible}
+#word text{font-family:var(--display);font-weight:800;font-size:230px;font-stretch:70%;transition:transform 1.2s var(--ease),opacity .7s}
+.res{position:absolute;top:470px;width:760px;opacity:0;transition:opacity .6s ease .6s}
+.split-on .res{opacity:1}
 .res h4{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.res p{font:500 30px/1.35 var(--sans);margin-top:12px}
-.phil{position:absolute;top:560px;width:800px}
-.phil h4{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.phil p{font:500 28px/1.35 var(--sans);margin-top:14px}
+.res p{font:500 30px/1.36 var(--sans);margin-top:12px}
+.res .ex{margin-top:22px;padding-top:18px;border-top:1.5px solid var(--rule);font:400 23px/1.45 var(--sans);color:var(--muted)}
+.res .ex b{color:var(--fg)}
+
+/* philosophers */
+.ph{position:absolute;top:290px;width:800px}
+.ph h4{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.ph .claim{font:640 46px/1.12 var(--display);font-stretch:84%;margin-top:14px;min-height:160px}
+.flowd{display:flex;align-items:center;gap:14px;margin-top:40px}
+.flowd .bx{border:2px solid var(--fg);padding:22px 20px;font:600 28px/1.2 var(--sans);text-align:center}
+.flowd .bx small{display:block;font:500 18px/1.3 var(--sans);color:var(--muted);margin-top:6px}
+.flowd .bx.tool{border-style:dashed;color:var(--muted);min-width:230px}
+.flowd .bx.who{background:var(--fg);color:var(--bg)}
+.flowd i{font-style:normal;color:var(--soft);font:400 30px/1 var(--sans)}
+.lens{display:grid;grid-template-columns:170px 1fr;gap:0 26px;margin-top:40px;align-items:center}
+.lens .art{grid-row:span 3;width:170px;height:220px;border:2px solid var(--fg);display:flex;align-items:center;justify-content:center;text-align:center;font:500 16px/1.3 var(--sans);color:var(--muted);padding:10px}
+.lens p{font:600 28px/1.25 var(--sans);padding:16px 0;border-bottom:1.5px solid var(--rule)}
+.lens p span{color:var(--soft);font-weight:500}
 
 /* practice */
 #grid900{position:absolute;left:560px;top:230px}
@@ -186,30 +217,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .steps3 div{font:700 44px/1 var(--display);font-stretch:80%;color:var(--soft);transition:color .4s}
 .steps3 div.on{color:var(--fg)}
 .steps3 div.on.acc{color:var(--acc)}
+#allen{position:absolute;left:740px;top:200px;width:900px;height:600px;opacity:0;transform:scale(.04);transform-origin:var(--ox,50%) var(--oy,50%);transition:opacity .5s,transform 1.1s var(--ease);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#allen.on{opacity:1;transform:none}
+#allen img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* synthesis */
-.col3{position:absolute;top:210px;width:520px}
-.col3 h3{font:800 76px/1 var(--display);font-stretch:72%}
-.col3 .it{margin-top:30px;padding-top:20px;border-top:2px solid var(--rule)}
-.col3 .it p{font:600 30px/1.2 var(--display);font-stretch:86%}
-.col3 .it .note{margin-top:10px;font-size:19px}
+.col3{position:absolute;top:190px;width:530px}
+.col3 h3{font:800 70px/1 var(--display);font-stretch:72%}
+.col3 h3 small{display:block;font:600 18px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:8px}
+.col3 .it{margin-top:20px;padding-top:16px;border-top:2px solid var(--rule)}
+.col3 .it p{font:600 25px/1.22 var(--display);font-stretch:88%}
+.col3 .it .src{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font:500 16px/1.3 var(--sans);color:var(--muted)}
+.col3 .it .src span{display:inline-flex;align-items:center;gap:6px}
+.col3 .it .src i{width:9px;height:9px;border-radius:50%}
 
 /* interpretation */
-.stmt{position:absolute;left:120px;width:1100px}
+.stmt{position:absolute;left:120px;width:1000px}
 .stmt h4{font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.stmt p{font:640 58px/1.1 var(--display);font-stretch:84%;margin-top:14px;text-wrap:balance}
+.stmt p{font:640 54px/1.1 var(--display);font-stretch:84%;margin-top:14px;text-wrap:balance}
 .stmt p em{font-style:normal;color:var(--acc)}
 
-/* future cards */
-.fcard{position:absolute;top:380px;width:520px;height:400px;perspective:1200px}
-.fcard .face{position:absolute;inset:0;padding:38px 36px;display:flex;flex-direction:column;justify-content:space-between;backface-visibility:hidden;transition:transform 1s var(--ease)}
+/* next-step cards */
+.fcard{position:absolute;top:300px;width:400px;height:470px;perspective:1200px}
+.fcard .face{position:absolute;inset:0;padding:30px 30px;display:flex;flex-direction:column;justify-content:space-between;backface-visibility:hidden;transition:transform 1s var(--ease)}
 .fcard .f{border:2px solid var(--fg)}
 .fcard .bk{background:var(--fg);color:var(--bg);transform:rotateY(-180deg)}
 .fcard.flip .f{transform:rotateY(180deg)}
 .fcard.flip .bk{transform:rotateY(0)}
 .fcard small{font:600 16px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;opacity:.65}
-.fcard p{font:640 42px/1.12 var(--display);font-stretch:84%}
-.fcard .ev{font:500 20px/1.4 var(--sans);opacity:.85}
+.fcard p{font:640 36px/1.12 var(--display);font-stretch:84%}
+.fcard .ev{font:500 18px/1.42 var(--sans);opacity:.85}
 .fcard .ev b{font-weight:700}
 
 /* references */
@@ -219,7 +256,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .refs a{color:var(--acc);text-decoration:none;word-break:break-all}
 table.matrix{border-collapse:collapse;width:1760px}
 .matrix th{font:600 13px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);text-align:left;padding:8px 10px;border-bottom:2px solid var(--fg)}
-.matrix td{font:400 15px/1.38 var(--sans);color:var(--muted);padding:10px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.matrix td{font:400 14.5px/1.36 var(--sans);color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
 .matrix td:first-child{font-weight:600;color:var(--fg);white-space:nowrap}
 
 /* chrome */
@@ -254,7 +291,7 @@ body.hide-cursor{cursor:none}
 #drawer dt{font:600 12px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#666}
 #drawer dd{font:400 15.5px/1.5 var(--sans)}
 #drawer .ver{margin-top:20px;padding:14px 16px;background:#E5E3DE;border-radius:6px;font:400 14px/1.5 var(--sans);color:#333}
-#drawer .t{display:inline-block;font:600 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:7px 9px;background:#111;color:#fff}
+#drawer .t{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:7px 9px;background:#111;color:#fff}
 
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:150ms !important;animation-duration:1ms !important;transition-delay:0s !important}}
 body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !important;animation-duration:1ms !important;transition-delay:0s !important}
@@ -265,90 +302,98 @@ body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !importan
 
 <!-- 01 OPENING: blank until the first press; then a pen draws and writes -->
 <section class="scene paper" id="sc-open">
-  <svg id="open-svg" viewBox="0 0 1920 1080" aria-label="A pen drawing of an easel and landscape, and the handwritten question: Would you still call it art?"><defs><filter id="pencil"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/></filter></defs><g id="o-draw"></g><g id="o-write"></g><g id="o-mark" filter="url(#pencil)"></g></svg>
+  <svg id="open-svg" viewBox="0 0 1920 1080" aria-label="A pen drawing of a mountain lake with pines, and the handwritten question: Would you still call it art?"><defs><filter id="pencil"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/></filter></defs><g id="o-draw"></g><g id="o-write"></g><g id="o-mark" filter="url(#pencil)"></g></svg>
   <div class="open-sub" id="open-sub">
-    <p class="lead" style="color:var(--fg)">A state-of-the-field review of research on <b>AI-generated digital painting</b>: how people judge it, and whether it needs an artist.</p>
+    <p class="lead" style="color:var(--fg)">A state-of-the-field review of research on <b>AI-generated digital painting</b>: what it is worth to us, whether it needs an artist, and what changes when we know.</p>
     <p style="margin-top:26px;font:700 40px/1 var(--display);font-stretch:82%">Mahmoud Hafez</p>
   </div>
 </section>
 
-<!-- 02 THE THREE QUESTIONS -->
+<!-- 02 FOUR QUESTIONS -->
 <section class="scene ink" id="sc-q">
-  <div class="kicker pos" style="left:120px;top:110px">Three questions guide this review</div>
-  <div class="qrow" id="q1" style="top:230px"><span class="n">1</span><p>Can an AI-generated painting have aesthetic or emotional value?</p></div>
-  <div class="qrow" id="q2" style="top:470px" data-s="1"><span class="n">2</span><p>Does art need a human artist, with intention or even consciousness?</p></div>
-  <div class="qrow" id="q3" style="top:710px" data-s="2"><span class="n">3</span><p>Does knowing a picture came from AI change how we judge it?</p></div>
+  <div class="kicker pos" style="left:120px;top:110px">Four questions guide this review</div>
+  <div class="qrow" id="q1" style="top:200px"><span class="n">1</span><p>Can an AI-generated painting have aesthetic or emotional value?</p></div>
+  <div class="qrow" id="q2" style="top:390px" data-s="1"><span class="n">2</span><p>Does art need a human artist, with intention or even consciousness?</p></div>
+  <div class="qrow" id="q3" style="top:580px" data-s="2"><span class="n">3</span><p>Does knowing a picture came from AI change how we judge it?</p></div>
+  <div class="qrow" id="q4" style="top:770px" data-s="3"><span class="n">4</span><p>Where is the field now, and what should it study next?</p></div>
 </section>
 
-<!-- 03 WHAT IS AN AI-GENERATED DIGITAL PAINTING -->
+<!-- 03 WHAT WE MEAN -->
 <section class="scene paper" id="sc-gen">
   <div class="kicker pos" style="left:120px;top:96px">What we are talking about</div>
-  <div class="prompt"><span class="lab">Prompt</span><span class="txt"><span id="ptxt"></span><span class="caret"></span></span></div>
-  <div class="gen" id="gen1" style="left:520px"><img id="gimg1" alt="Latent Diffusion output 1 for the prompt"><canvas width="200" height="200"></canvas></div>
-  <div class="gen" id="gen2" style="left:1000px"><img id="gimg2" alt="Latent Diffusion output 2 for the same prompt"><canvas width="200" height="200"></canvas></div>
-  <p class="gen-l" style="left:520px;width:880px" data-s="1">Two results for the same prompt from a text-to-image model (Latent Diffusion, published by its developers with this prompt). Simplified: the model starts from random noise and refines it step by step toward the text.</p>
-  <div class="pos" style="left:120px;top:850px;width:1680px" data-s="2">
-    <p class="hl md">In this review, an <em>AI-generated digital painting</em> is a still image made mainly by a model to look painted.</p>
-    <p class="note" style="margin-top:14px">Some studies instead used human paintings given an “AI” label, or written stories about robots. I treat those as comparisons.</p>
+  <div class="pic" style="left:420px;top:150px;width:520px;height:520px"><img data-img="bell_rep" alt="AI-generated representational painting of trees, from Artbreeder"></div>
+  <div class="pic" style="left:980px;top:150px;width:520px;height:520px"><img data-img="bell_abs" alt="AI-generated abstract painting, from Artbreeder"></div>
+  <p class="cap pos center" style="left:420px;top:688px;width:1080px">Both made with Artbreeder, an AI image tool, and used as stimuli in a published experiment. <button class="cite" data-src="bellaiche">Bellaiche et al., 2023</button></p>
+  <div class="pos center" style="left:160px;top:800px;width:1600px" data-s="1">
+    <p class="hl md">An <em>AI-generated digital painting</em> is an image that looks painted, made mainly by a generative model.</p>
+    <p class="note" style="margin-top:14px">Some studies instead put an “AI” label on human paintings, or used stories about robots. Those are included as comparisons.</p>
   </div>
 </section>
 
 <!-- 04 HOW THE REVIEW WAS DONE -->
 <section class="scene ink" id="sc-rev">
   <div class="kicker pos" style="left:120px;top:96px">How this review was done</div>
-  <p class="hl pos" style="left:120px;top:150px;width:1500px">Twelve sources, read in full and sorted by kind of evidence.</p>
-  <div class="pos" id="shelf" style="left:120px;top:330px;width:1680px;height:430px"></div>
-  <div class="pos" style="left:120px;top:880px;width:1680px" data-s="1">
-    <div class="flow"><span>Read in full</span><i>→</i><span>Sort by evidence type</span><i>→</i><span>Compare what people saw, what changed, what was measured</span><i>→</i><span>Check numbers against the papers</span></div>
-    <p class="note" style="margin-top:16px">A focused narrative review, not a systematic search. Click any spine for the study’s details.</p>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px">Twelve sources, five kinds of evidence.</p>
+  <div id="shelf"></div>
+  <div class="stages" id="stages">
+    <div><b>1</b><p>Select</p><small>Psychology, philosophy, computer science, one news case</small></div>
+    <div><b>2</b><p>Sort</p><small>By kind of evidence, colour-coded above</small></div>
+    <div><b>3</b><p>Compare</p><small>What people saw, what changed, what they were asked, what was measured</small></div>
+    <div><b>4</b><p>Check</p><small>Every number on screen against the paper</small></div>
+    <div><b>5</b><p>Synthesize</p><small>Agree, differ, still open</small></div>
   </div>
+  <p class="note pos" style="left:120px;top:960px;width:1680px" data-s="1">A focused narrative review, not a systematic search. Click any book for the study’s details.</p>
 </section>
 
-<!-- 05 YOUR CHOICE -->
-<section class="scene paper" id="sc-pick">
-  <div class="kicker pos" style="left:120px;top:96px">Your turn</div>
-  <p class="hl pos" style="left:120px;top:140px" id="pick-h">Which one would you hang on your wall?</p>
-  <div id="gallery"></div>
-  <div class="pos" style="left:120px;top:830px;width:1680px" data-s="2">
-    <p class="hl md" id="pick-out">—</p>
-    <p class="note" style="margin-top:12px">Now that you know, does it change how much you like your choice? A classroom question, not a study.</p>
-  </div>
+<!-- 05 YOUR TURN: two real stimulus pairs -->
+<section class="scene paper" id="sc-game">
+  <div class="kicker pos" style="left:120px;top:96px">Your turn · two real pairs from a study</div>
+  <p class="hl pos" style="left:120px;top:136px;width:1680px" id="game-h">Which one would you hang on your wall?</p>
+  <div class="pair" id="pairA" style="left:120px"><div class="tag">Pair 1 · one human, one AI</div></div>
+  <div class="pair" id="pairB" style="left:1004px"><div class="tag">Pair 2 · one human, one AI</div></div>
+  <p class="hl sm pos" style="left:120px;top:900px;width:1680px" id="game-out" data-s="2"></p>
+  <p class="note pos" style="left:120px;top:968px;width:1680px" data-s="2">Pairs from <button class="cite" data-src="vanhees">van Hees et al., 2025</button> (Fig. 1). Human works by Albert Bierstadt and Eugène Boudin; AI images by DALL·E 2.</p>
 </section>
 
-<!-- 06 Q1 VALUE: van Hees, Rondini -->
-<section class="scene ink" id="sc-val">
+<!-- 06 Q1 · VALUE: van Hees -->
+<section class="scene paper" id="sc-val">
   <div class="kicker pos" style="left:120px;top:96px">Question 1 · Aesthetic value</div>
-  <p class="hl pos" style="left:120px;top:140px;width:1680px" data-h="2">The same pairs. Two separate groups. Two different questions.</p>
-  <div class="panel" style="left:120px" data-h="2">
-    <div class="asked">Group 1 was asked</div><p class="q">“Which do you prefer?”</p>
-    <div class="pairs"><div class="pp"><img class="ex-h" alt=""><span>?</span></div><div class="pp"><img class="ex-a" alt=""><span>?</span></div></div>
-    <div class="ans" data-s="1"><p>They chose the AI image <span class="acc">more often than chance.</span></p></div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px" id="val-h">Fifty pairs. Two separate groups. Two different questions.</p>
+  <div class="pic fit" style="left:120px;top:230px;width:640px;height:780px;background:#fff" data-h="1"><img data-img="vh_sheet" alt="The 50 human/AI stimulus pairs used by van Hees et al."></div>
+  <div class="pos" style="left:860px;top:250px;width:940px" data-h="1">
+    <div class="qcard"><small>Group 1 was asked</small><p>“Which do you prefer?”</p></div>
+    <div class="qcard"><small>Group 2 was asked</small><p>“Which one is AI?”</p></div>
+    <p class="lead">Each pair: a lesser-known painting by a famous artist, and a DALL·E 2 image matched to it by artist and genre. Group 1 preferred the AI image more often than chance; group 2 still spotted it more often than chance.</p>
+    <div style="margin-top:28px"><button class="cite" data-src="vanhees">van Hees et al., 2025</button></div>
   </div>
-  <div class="panel" style="left:1020px" data-h="2">
-    <div class="asked">Group 2 was asked</div><p class="q">“Which one is AI?”</p>
-    <div class="pairs"><div class="pp"><img class="ex-h" alt=""><span>?</span></div><div class="pp"><img class="ex-a" alt=""><span>?</span></div></div>
-    <div class="ans" data-s="1"><p>They spotted the AI image <span class="acc">more often than chance.</span></p></div>
-  </div>
-  <p class="note pos" style="left:120px;top:822px" data-h="2">Pictured: an illustrative pair (a Turner painting and a Stable Diffusion image), not the study’s stimuli.</p>
-  <div class="pos" style="left:120px;top:870px;width:1680px;display:flex;justify-content:space-between;align-items:flex-end" data-h="2">
-    <div class="coin"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M32 3v58" stroke="currentColor" stroke-width="2"/><text x="17" y="38" fill="currentColor" style="font:600 13px var(--sans)">50</text><text x="36" y="38" fill="currentColor" style="font:600 13px var(--sans)">50</text></svg><span data-s="1">Chance = a coin flip. Both groups beat it. Pictures that were easier to spot were also preferred more often.</span></div>
-    <button class="cite" data-src="vanhees">van Hees et al., 2025</button>
-  </div>
-  <div class="pos" style="left:120px;top:250px;width:1680px" data-s="2">
-    <p class="hl">Liked, but still rated less creative.</p>
-    <div style="display:flex;align-items:center;gap:28px;margin-top:90px;font:640 52px/1.1 var(--display);font-stretch:82%">
-      <span>Visual artists</span><span class="acc">&gt;</span><span>Non-artists</span><span class="acc">&gt;</span><span>AI with human guidance</span><span class="acc">&gt;</span><span style="color:var(--soft)">AI on its own</span>
-    </div>
-    <p class="note" style="margin-top:18px">Rank order only; the gaps are not to scale.</p>
-    <p class="lead" style="margin-top:60px;max-width:1350px">Order of rated creativity, from 255 human raters, for images made in the same visual-creativity task. More human guidance moved the AI images up. The human raters and GPT-4o, scoring the same images, judged differently.</p>
-    <div style="margin-top:40px"><button class="cite" data-src="rondini">Rondini et al., 2026</button></div>
-  </div>
+  <div class="pic fit" style="left:120px;top:220px;width:960px;height:790px;background:#fff" data-s="1" id="vh-fig"><img data-img="vh_fig" alt="Scatter plot: AI preference (x) against AI detection accuracy (y) for each of the 50 pairs, r = 0.42"><svg id="vh-marks" class="pos" style="left:0;top:0;overflow:visible" width="960" height="790"></svg></div>
+  <ul class="read pos" style="left:1150px;top:250px;width:650px" data-s="1">
+    <li><b>Each dot is one pair.</b> Right = the AI image was preferred. Up = it was spotted.</li>
+    <li>The lines at 50 mark pure guessing.</li>
+    <li><b class="acc">r = .42:</b> the AI images people liked more were also the ones they spotted more easily.</li>
+    <li>Below 50: for some pairs, most people picked the <b>human</b> painting as the AI one.</li>
+  </ul>
 </section>
 
-<!-- 07 Q3 THE LABEL: Bellaiche -->
+<!-- 07 Q1 · CREATIVITY: Rondini -->
+<section class="scene ink" id="sc-ron">
+  <div class="kicker pos" style="left:120px;top:96px">Question 1 · Creativity</div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px">Same two starting lines. Four kinds of maker.</p>
+  <svg class="pos" id="ron-svg" style="left:120px;top:250px" width="620" height="520" viewBox="0 0 620 520" aria-label="The task's starting shapes: a straight diagonal line and an arc"></svg>
+  <p class="cap pos" style="left:120px;top:790px;width:620px">Everyone had to turn these two lines into a drawing (45 s to think, 120 s to draw). The model got the same lines through an image-control tool.</p>
+  <div class="pos" id="makers" style="left:860px;top:250px;width:940px">
+    <div class="maker"><span class="rk">1</span><div><b>Visual artists</b><span>People who make visual art</span></div><span class="n">272 drawings</span></div>
+    <div class="maker"><span class="rk">2</span><div><b>Non-artists</b><span>People who don’t</span></div><span class="n">276</span></div>
+    <div class="maker"><span class="rk">3</span><div><b>AI, guided by human ideas</b><span>SDXL image model, steered with people’s ideas</span></div><span class="n">230</span></div>
+    <div class="maker"><span class="rk">4</span><div><b>AI on its own</b><span>Same model, base prompt only</span></div><span class="n">222</span></div>
+  </div>
+  <p class="note pos" style="left:860px;top:860px;width:940px" data-s="1">Ranked by 255 human raters (liking, vividness, originality, aesthetics, curiosity; 1–7). GPT-4o, rating the same drawings, judged differently. <button class="cite" data-src="rondini">Rondini et al., 2026</button></p>
+</section>
+
+<!-- 08 Q3 · THE LABEL: Bellaiche -->
 <section class="scene paper" id="sc-lab">
   <div class="kicker pos" style="left:160px;top:96px">Question 3 · Does the label change the judgment?</div>
-  <div class="pic" style="left:160px;top:170px;width:560px;height:560px"><img id="lab-img" alt="A painting of a glass of coffee"></div>
+  <div class="pic" style="left:160px;top:160px;width:560px;height:570px"><img data-img="bell_rep" alt="The Artbreeder forest painting from Bellaiche et al."></div>
   <svg class="pos" id="same-note" style="left:730px;top:150px;overflow:visible" width="10" height="10"></svg>
   <div class="lbl" id="lbl"><div class="face a"><small>Label</small><p>“Painted by a human artist”</p></div><div class="face b"><small>Label</small><p>“Generated by AI”</p></div></div>
   <div class="pos" style="left:860px;top:180px;width:940px" data-h="2">
@@ -357,140 +402,157 @@ body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !importan
     <div class="scale-ends"><span>not at all</span><span>very</span></div>
     <div class="yours" id="yours"></div>
   </div>
-  <div class="pos" style="left:860px;top:150px;width:940px" data-s="2">
-    <p class="hl md">In the study, a “human” label raised every rating, <em>most for worth and profundity.</em></p>
-    <div class="bars" id="bars" style="margin-top:44px"></div>
-    <p class="note" style="margin-top:6px">Bar = how much higher the same kind of image scored with a “human” label, in standard units (Cohen’s <i>d</i>). Every image was in fact AI-made (Artbreeder), and labels were random. Study 1, separate 1–5 ratings.</p>
-    <div style="margin-top:24px"><button class="cite" data-src="bellaiche">Bellaiche et al., 2023</button></div>
+  <div class="pos" style="left:820px;top:130px;width:1000px" data-s="2">
+    <p class="hl sm">A “human” label raised every rating, <em>most for worth and profundity.</em></p>
+    <div class="bars" id="bars" style="margin-top:28px"></div>
+    <p class="note" style="margin-top:4px">Bar = how much higher the same images scored with a “human” label (Cohen’s <i>d</i>). 30 Artbreeder paintings, labels at random, 149 adults, Study 1. In Study 2, paintings that seemed to take more effort gained more from a “human” label.</p>
+    <div style="margin-top:18px"><button class="cite" data-src="bellaiche">Bellaiche et al., 2023</button></div>
   </div>
-  <p class="note pos" style="left:160px;top:900px;width:600px" data-s="2">The painting above is a Stable Diffusion output. Study 2 added ratings of emotion, story, effort and personal meaning.</p>
+  <p class="note pos" style="left:160px;top:900px;width:600px" data-s="2">This painting is one of the study’s own stimuli; every image in the study was AI-made.</p>
 </section>
 
-<!-- 08 Q3 ORDER & CONTEXT: Horton, Chiarella, de Rooij -->
+<!-- 09 Q3 · CONTEXT: Horton -->
 <section class="scene ink" id="sc-ord">
   <div class="kicker pos" style="left:120px;top:96px">Question 3 · Context</div>
-  <p class="hl md pos" style="left:120px;top:140px;width:1680px" id="ord-h">People saw two works and rated the second.</p>
-  <div class="ord" id="ordA"><span class="t">first</span><div class="pic"><img id="ordA-img" alt="Painting labelled as human-made"></div><span class="lab">“Human”</span></div>
-  <div class="ord" id="ordB"><span class="t">second · rated</span><div class="pic"><img id="ordB-img" alt="Painting labelled as AI-made"></div><span class="lab ai">“AI”</span></div>
-  <svg class="ruler" id="ruler" viewBox="0 0 1680 260" data-s="1" data-h="2" aria-label="Mean rating of the second work on a 1 to 7 scale: AI then human 4.85, human then human 4.62, human then AI 4.24"></svg>
-  <p class="note pos" style="left:120px;top:960px;width:1300px" data-s="1" data-h="2">Mean rating of the second work, 1–7: a mix of “creative”, “novel”, “liked” and “fit for a gallery sale”. Experiment 4 of six (2,965 participants in total). The paintings shown only illustrate the design.</p>
-  <button class="cite pos" style="right:120px;top:965px" data-s="1" data-h="2" data-src="horton">Horton et al., 2023</button>
-  <div class="pos" style="left:120px;top:250px;width:1680px" data-s="2">
-    <p class="hl md">At an art fair, with two real canvases, the penalty depended on order.</p>
-    <div class="seq" style="margin-top:46px"><span class="cv">“Human”</span><i>→</i><span class="cv ai">“AI”</span><b>The AI-labelled painting was <span class="acc">liked less.</span></b></div>
-    <div class="seq"><span class="cv ai">“AI”</span><i>→</i><span class="cv">“Human”</span><b>No difference.</b></div>
-    <p class="note" style="margin-top:22px;max-width:1300px">Both canvases were human-made abstract paintings; only the label changed. No overall label effect (p = .60); the label mattered only with order (p = .016). <button class="cite" data-src="chiarella">Chiarella et al., 2022</button></p>
-    <div style="margin-top:56px;padding-top:34px;border-top:2px solid var(--rule)"><p style="font:600 34px/1.3 var(--sans);max-width:1500px">Across many studies, the average penalty is <span class="acc">small</span> for sensory and emotional responses and <span class="acc">moderate</span> for meaning.</p>
-      <p class="note" style="margin-top:12px">A meta-analysis pools studies like these, so it summarises them rather than adding a replication. <button class="cite" data-src="derooij">de Rooij, 2025</button></p></div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px" id="ord-h">Two paintings in a row. Only the labels changed.</p>
+  <div class="pos" style="left:120px;top:236px;width:540px;font:600 19px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);display:grid;grid-template-columns:200px 60px 200px">
+    <span>Painting 1</span><span></span><span>Painting 2</span></div>
+  <div class="hrow" id="hr0" style="top:280px"><div class="fr"><small>label</small><b>“Human”</b></div><span class="arrow">→</span><div class="fr rated"><small>label</small><b>“Human”</b></div></div>
+  <div class="hrow" id="hr1" style="top:450px"><div class="fr"><small>label</small><b>“Human”</b></div><span class="arrow">→</span><div class="fr ai rated"><small>label</small><b>“AI”</b></div></div>
+  <div class="hrow" id="hr2" style="top:620px"><div class="fr ai"><small>label</small><b>“AI”</b></div><span class="arrow">→</span><div class="fr rated"><small>label</small><b>“Human”</b></div></div>
+  <svg id="hplot" viewBox="0 0 1120 520" aria-label="Mean creativity rating of painting 2 on a 1 to 7 scale: human then human 4.62, human then AI 4.24, AI then human 4.85"></svg>
+  <p class="note pos" style="left:120px;top:850px;width:1300px">Everyone saw the same two paintings and rated each on how creative, novel and likeable it was, and how fit for a gallery (1–7, averaged). We compare painting 2. Experiment 4, 789 adults; six experiments in total.</p>
+  <button class="cite pos" style="right:120px;top:856px" data-src="horton">Horton et al., 2023</button>
+</section>
+
+<!-- 10 Q3 · REAL SETTING: Chiarella, de Rooij -->
+<section class="scene paper" id="sc-chi">
+  <div class="kicker pos" style="left:120px;top:96px">Question 3 · A real setting</div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px" id="chi-h">Two real canvases, shown one at a time at an art fair.</p>
+  <div data-h="1">
+    <div class="pic" style="left:120px;top:250px;width:400px;height:400px"><img data-img="chi12" alt="Abstract 12, acrylic on canvas"></div>
+    <div class="pic" style="left:560px;top:250px;width:400px;height:400px"><img data-img="chi18" alt="Abstract 18, acrylic on canvas"></div>
+    <p class="cap pos" style="left:1020px;top:260px;width:780px"><b style="color:var(--fg)">Abstract 12</b> and <b style="color:var(--fg)">Abstract 18</b>, acrylic on canvas, 120 × 120 cm. Both painted by a human; each visitor was told one was made by AI.</p>
+    <p class="cap pos" style="left:1020px;top:400px;width:780px">Skin conductance and heart rate were recorded throughout.</p>
+    <div class="proc" id="proc">
+      <div class="st"><small>1 min</small><b>Rest</b></div>
+      <div class="st"><small>1 min</small><b>Covered canvas</b></div>
+      <div class="st lab"><small>Label</small><b>“Human” or “AI”</b></div>
+      <div class="st"><small>1 min</small><b>Look at painting 1</b></div>
+      <div class="st ask"><small>Asked</small><b>“I really like this painting” 1–5</b></div>
+      <div class="st"><small>Repeat</small><b>Painting 2, other label</b></div>
+      <div class="st"><small>1 min</small><b>Rest</b></div>
+    </div>
+    <button class="cite pos" style="left:120px;top:880px" data-src="chiarella">Chiarella et al., 2022 (Fig. 1)</button>
+  </div>
+  <div class="pos" style="left:120px;top:250px;width:1680px" data-s="1">
+    <div class="crow"><div class="mini"><img data-img="chi12" alt=""><span>“Human”</span></div><span class="arrow">→</span><div class="mini ai"><img data-img="chi18" alt=""><span>“AI”</span></div><b>The AI-labelled painting was <span class="acc">liked less.</span></b></div>
+    <div class="crow" style="margin-top:60px"><div class="mini ai"><img data-img="chi12" alt=""><span>“AI”</span></div><span class="arrow">→</span><div class="mini"><img data-img="chi18" alt=""><span>“Human”</span></div><b>No difference.</b></div>
+    <p class="note" style="margin-top:56px;max-width:1500px">Which canvas came first was balanced across visitors. Overall, the label made no difference; it mattered only in one order. <button class="cite" data-src="chiarella">Chiarella et al., 2022</button></p>
+    <div style="margin-top:40px;padding-top:28px;border-top:2px solid var(--rule)"><p style="font:600 32px/1.3 var(--sans);max-width:1500px">Pooling many studies, the average “AI” penalty is <span class="acc">small</span> for sensory and emotional responses and <span class="acc">moderate</span> for meaning.</p>
+      <p class="note" style="margin-top:10px"><button class="cite" data-src="derooij">de Rooij, 2025 (meta-analysis)</button></p></div>
   </div>
 </section>
 
-<!-- 09 Q2 INTENTION: Mikalonytė & Kneer, philosophy -->
+<!-- 11 Q2 · ART OR ARTIST: Mikalonytė & Kneer, Horton -->
 <section class="scene paper" id="sc-int">
   <div class="kicker pos" style="left:120px;top:96px">Question 2 · Does art need an artist?</div>
   <div data-h="1">
     <div class="story"><small>A story, like those participants read</small><p>A robot driven by artificial intelligence paints a landscape.</p></div>
-    <div class="vote" style="top:200px"><p>Is the painting art?</p><div class="yn" data-k="art"><button data-v="1">Yes</button><button data-v="0">No</button></div></div>
-    <div class="vote" style="top:420px"><p>Is the robot an artist?</p><div class="yn" data-k="artist"><button data-v="1">Yes</button><button data-v="0">No</button></div></div>
-    <p class="note pos" style="left:120px;top:640px;width:1600px">Participants read written stories only; no images. The stories varied who painted, whether it was on purpose, and the style. <button class="cite" data-src="mikalonyte">Mikalonytė &amp; Kneer, 2022</button></p>
+    <div class="vote" style="left:300px"><p>Is the painting art?</p><div class="yn" data-k="art"><button data-v="1">Yes</button><button data-v="0">No</button></div></div>
+    <div class="vote" style="left:980px"><p>Is the robot an artist?</p><div class="yn" data-k="artist"><button data-v="1">Yes</button><button data-v="0">No</button></div></div>
+    <p class="note pos center" style="left:120px;top:800px;width:1680px">Participants read short stories, no images. The stories varied who painted, whether it was on purpose, and the style. <button class="cite" data-src="mikalonyte">Mikalonytė &amp; Kneer, 2022</button></p>
   </div>
-  <div data-s="1" data-h="2">
-    <div class="pos" style="left:0;top:200px;width:1920px;height:300px"><div class="word" id="word"><span class="a1">ART</span><span class="ghost">ART</span><span class="i">IST</span></div>
-      <div class="res" style="left:120px"><h4>Participants · the painting</h4><p>Judged art about as readily as a human’s painting, though this varied across the story versions.</p></div>
-      <div class="res" id="res-r"><h4>Participants · the robot</h4><p>Much less often called an artist, partly because people attributed less artistic intention to it.</p></div>
-    </div>
-    <p class="note pos" style="left:120px;top:900px;width:1300px" id="vote-echo"></p>
-    <button class="cite pos" style="right:120px;top:905px" data-src="mikalonyte">Mikalonytė &amp; Kneer, 2022</button>
-  </div>
-  <div data-s="2">
-    <p class="hl md pos" style="left:120px;top:150px;width:1680px">Philosophers disagree about why the robot isn’t an artist.</p>
-    <svg class="pos" style="left:120px;top:290px" width="780" height="250" viewBox="0 0 780 250" aria-label="Diagram: art as a social exchange between an artist and an audience; software is a tool in the artist's hands">
-      <circle cx="120" cy="120" r="92" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="120" y="112" text-anchor="middle" fill="currentColor" style="font:600 24px var(--sans)">artist</text><text x="120" y="142" text-anchor="middle" fill="var(--soft)" style="font:500 17px var(--sans)">+ software as tool</text>
-      <circle cx="640" cy="120" r="92" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="640" y="128" text-anchor="middle" fill="currentColor" style="font:600 24px var(--sans)">audience</text>
-      <rect x="330" y="78" width="120" height="84" fill="none" stroke="var(--acc)" stroke-width="3"/><text x="390" y="196" text-anchor="middle" fill="currentColor" style="font:500 19px var(--sans)">artwork</text>
-      <path d="M214 110 H326 M454 110 H546" stroke="currentColor" stroke-width="2.5" marker-end="url(#ah)"/><path d="M546 134 H454 M326 134 H214" stroke="currentColor" stroke-width="2.5" marker-end="url(#ah)"/>
-      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
-    </svg>
-    <div class="phil" style="left:120px"><h4>Philosopher · social agency</h4><p>Art is an exchange between social agents. Today’s computers are not artists; people using them make computer art.</p><div style="margin-top:16px"><button class="cite" data-src="hertzmann">Hertzmann, 2018</button></div></div>
-    <svg class="pos" style="left:1000px;top:290px" width="800" height="250" viewBox="0 0 800 250" aria-label="Diagram: one artwork seen through three lenses, outcome, process and relationships">
-      <rect x="40" y="70" width="150" height="110" fill="none" stroke="var(--acc)" stroke-width="3"/>
-      <g fill="none" stroke="currentColor" stroke-width="2.5"><path d="M196 125 L360 40"/><path d="M196 125 L360 125"/><path d="M196 125 L360 210"/></g>
-      <g fill="currentColor" style="font:600 24px var(--sans)"><text x="376" y="48">Outcome: does it work as art?</text><text x="376" y="133">Process: how was it made?</text><text x="376" y="218">Relations: who and what took part?</text></g>
-    </svg>
-    <div class="phil" style="left:1000px"><h4>Philosopher · it depends on the theory</h4><p>Judge by outcome, process or relationships, and you get different verdicts. Sharp human–machine lines can hide the network behind a work.</p><div style="margin-top:16px"><button class="cite" data-src="coeckelbergh">Coeckelbergh, 2017</button></div></div>
+  <div data-s="1" id="split">
+    <svg id="word" viewBox="0 0 1920 260" aria-label="The word ARTIST splits into ART and ARTIST"><text id="w-art" x="0" y="215" fill="currentColor">ART</text><text id="w-ist" x="0" y="215" fill="currentColor">IST</text><text id="w-ghost" x="0" y="215" fill="none" stroke="var(--acc)" stroke-width="3" opacity="0">ART</text></svg>
+    <div class="res" style="left:120px"><h4>The painting</h4><p>Judged art about as readily as a human’s painting, though this varied across story versions.</p>
+      <p class="ex"><b>Also in Horton et al.:</b> 87% of people shown only “AI”-labelled images still called most of them art.</p></div>
+    <div class="res" style="left:1040px"><h4>The robot</h4><p>Much less often called an artist, partly because people saw less artistic intention in it.</p>
+      <p class="ex" id="vote-echo"></p></div>
+    <div class="cites pos" style="left:120px;top:960px"><button class="cite" data-src="mikalonyte">Mikalonytė &amp; Kneer, 2022</button><button class="cite" data-src="horton">Horton et al., 2023 (Exp. 2)</button></div>
   </div>
 </section>
 
-<!-- 10 HUMAN PRACTICE: Allen / Kuta -->
+<!-- 12 Q2 · PHILOSOPHERS -->
+<section class="scene ink" id="sc-phil">
+  <div class="kicker pos" style="left:120px;top:96px">Question 2 · Two philosophers</div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px">Why isn’t the robot the artist? They disagree about why.</p>
+  <div class="ph" style="left:120px">
+    <h4>Art is a social act</h4>
+    <p class="claim">Art is an exchange between people. Software, like a camera, is a tool.</p>
+    <div class="flowd"><div class="bx who">Person<small style="color:inherit;opacity:.7">the artist</small></div><i>→</i><div class="bx tool">Tool<small>brush, camera<br>or AI model</small></div><i>→</i><div class="bx">Artwork</div><i>→</i><div class="bx">Audience</div></div>
+    <p class="note" style="margin-top:34px">So today’s AI is not an artist, but people can make art with it. <button class="cite" data-src="hertzmann">Hertzmann, 2018</button></p>
+  </div>
+  <div class="ph" style="left:1000px" data-s="1">
+    <h4>It depends what you ask</h4>
+    <p class="claim">Different theories of art ask different questions, and give different verdicts.</p>
+    <div class="lens"><div class="art">the robot’s painting</div>
+      <p>Outcome <span>· does the result work as art?</span></p>
+      <p>Process <span>· was the making creative?</span></p>
+      <p>Relations <span>· who and what made it possible?</span></p></div>
+    <p class="note" style="margin-top:34px">A sharp human/machine line can hide the people and data behind a work. <button class="cite" data-src="coeckelbergh">Coeckelbergh, 2017</button></p>
+  </div>
+</section>
+
+<!-- 13 HUMAN PRACTICE: Allen / Kuta -->
 <section class="scene ink" id="sc-prac">
   <div class="kicker pos" style="left:120px;top:96px">Behind one “AI” painting</div>
-  <p class="hl md pos" style="left:120px;top:140px;width:1680px">Jason M. Allen’s prize-winning Midjourney image, 2022.</p>
-  <div class="count"><b id="cnt">0</b><span id="cnt-l">renderings generated</span><span style="margin-top:28px;color:var(--fg);font-weight:600">about 80 hours of work</span></div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px">Jason M. Allen’s prize-winning Midjourney image, 2022.</p>
+  <div class="count"><b id="cnt">0</b><span id="cnt-l">images generated</span><span style="margin-top:28px;color:var(--fg);font-weight:600">about 80 hours of work</span></div>
   <svg id="grid900" width="1260" height="560" viewBox="0 0 1260 560" aria-label="900 squares, each standing for one reported rendering"></svg>
+  <div id="allen"><img data-img="allen" alt="Théâtre D'opéra Spatial by Jason M. Allen, hanging at the Colorado State Fair with a first-place ribbon"></div>
   <div class="steps3"><div id="st-g" class="on">generate</div><div id="st-s">select</div><div id="st-e" class="acc">edit</div></div>
-  <p class="note pos" style="left:120px;top:960px;width:1300px">Each square stands for one reported rendering, not one of his actual images. Won the digital-art category at the 2022 Colorado State Fair.</p>
+  <p class="note pos" style="left:120px;top:960px;width:1300px">Each square stands for one reported rendering. Théâtre D’opéra Spatial won first place in the fair’s digital-art contest for emerging artists.</p>
   <button class="cite pos" style="right:120px;top:965px" data-src="kuta">Kuta, 2022</button>
 </section>
 
-<!-- 11 SYNTHESIS -->
+<!-- 14 Q4 · SYNTHESIS -->
 <section class="scene paper" id="sc-syn">
-  <div class="kicker pos" style="left:120px;top:96px">What the research adds up to</div>
-  <div class="col3" style="left:120px">
-    <h3>Agree</h3>
-    <div class="it"><p>A “human” label raises judgments of the same image.</p><p class="note">Bellaiche 2023 · Horton 2023 · de Rooij 2025 (meta-analysis)</p></div>
-    <div class="it"><p>People can like AI paintings.</p><p class="note">van Hees 2025: preferred above chance</p></div>
-  </div>
-  <div class="col3" style="left:700px" data-s="1">
-    <h3>Differ</h3>
-    <div class="it"><p>By judgment: worth <i>d</i> = .61, liking <i>d</i> = .17.</p><p class="note">Bellaiche 2023</p></div>
-    <div class="it"><p>By order and medium: real canvases showed it in only one order.</p><p class="note">Chiarella 2022</p></div>
-    <div class="it"><p>By sample: 37 of 44 studies drew on one country.</p><svg id="waffle" width="440" height="56" viewBox="0 0 440 56" style="margin-top:10px" aria-label="37 of 44 studies single-country"></svg><p class="note">Oksanen 2023 (scoping review)</p></div>
-  </div>
-  <div class="col3" style="left:1280px" data-s="2">
-    <h3>Still open</h3>
-    <div class="it"><p>Liking, spotting, originality and artistry are separate questions.</p><p class="note">van Hees 2025 · Horton 2023 (“novel” is perceived novelty)</p></div>
-    <div class="it"><p>Can a model be an artist? Participants hesitate; philosophers disagree.</p><p class="note">Mikalonytė &amp; Kneer 2022 · Hertzmann 2018 · Coeckelbergh 2017</p></div>
-  </div>
+  <div class="kicker pos" style="left:120px;top:96px">Question 4 · Where the field is now</div>
+  <div class="col3" style="left:120px" id="syn-a"><h3>Agree<small>Most studies point the same way</small></h3></div>
+  <div class="col3" style="left:695px" data-s="1" id="syn-d"><h3>Differ<small>Results depend on…</small></h3></div>
+  <div class="col3" style="left:1270px" data-s="2" id="syn-o"><h3>Still open<small>No study settles these</small></h3></div>
 </section>
 
-<!-- 12 INTERPRETATION -->
+<!-- 15 INTERPRETATION -->
 <section class="scene ink" id="sc-mine">
   <div class="kicker pos" style="left:120px;top:96px">My interpretation</div>
-  <div class="stmt" style="top:170px"><h4>The painting</h4><p>An AI-generated painting <em>can count as art</em>, through the people who make, select and look at it.</p></div>
-  <div class="stmt" style="top:470px" data-s="1"><h4>The model</h4><p>Calling the model an independent artist is a <em>separate claim</em>, and this research does not establish it.</p><p class="note" style="margin-top:16px;max-width:1000px">An outcome-focused theory could grant more. And no study shows machine consciousness; an expressive image is not evidence of it.</p></div>
-  <svg class="pos" id="mine-draw" style="left:1300px;top:170px" width="520" height="620" viewBox="1100 120 700 860" data-s="2" aria-label="The opening drawing"></svg>
-  <p class="hl md pos" style="left:1240px;top:810px;width:600px" data-s="2">This drawing was made by code, not a hand. Does that change it for you?</p>
+  <div class="stmt" style="top:170px"><h4>The painting</h4><p>An AI-generated painting <em>can count as art</em>, through the people who make, choose and look at it.</p></div>
+  <div class="stmt" style="top:470px" data-s="1"><h4>The model</h4><p>Calling the model an independent artist is a <em>separate claim</em>, and this research does not establish it.</p><p class="note" style="margin-top:16px;max-width:950px">An outcome-focused theory could grant more. And no study shows machine consciousness; an expressive image is not evidence of it.</p></div>
+  <svg class="pos" id="mine-draw" style="left:1200px;top:110px" width="600" height="690" viewBox="1060 90 780 900" data-s="2" aria-label="The opening drawing"></svg>
+  <p class="hl sm pos" style="left:1200px;top:820px;width:620px" data-s="2">This drawing was made by code, not a hand. Does that change it for you?</p>
 </section>
 
-<!-- 13 SIGNIFICANCE AND NEXT STEPS -->
+<!-- 16 Q4 · NEXT -->
 <section class="scene paper" id="sc-next">
-  <div class="kicker pos" style="left:120px;top:96px">Why it matters, and what to study next</div>
-  <p class="hl md pos" style="left:120px;top:140px;width:1680px">Labels shape <em>trust</em> in human work, who gets <em>credit</em>, and <em>whose taste</em> counts.</p>
-  <div class="fcard" id="f1" style="left:120px"><div class="face f"><small>Limitation</small><p>Studies used older, single models such as Artbreeder and DALL·E 2.</p><span></span></div><div class="face bk"><small>Next question</small><p>Do the findings hold across current, versioned models?</p><span></span></div></div>
-  <div class="fcard" id="f2" style="left:700px"><div class="face f"><small>Limitation</small><p>“Made by AI” hides the human work.</p><span></span></div><div class="face bk"><small>Next question</small><p>What changes when the workflow is documented?</p><p class="ev"><b>Rondini et al., 2026:</b> more human guidance raised the rated creativity of AI images.</p></div></div>
-  <div class="fcard" id="f3" style="left:1280px"><div class="face f"><small>Limitation</small><p>Narrow audiences, and narrow tools.</p><span></span></div><div class="face bk"><small>Next question</small><p>Whose taste do our ratings and scorers encode?</p><p class="ev"><b>Taylor et al., 2026:</b> a widely used aesthetic scorer favoured realistic landscapes, cities and portraits by Western and Japanese artists.</p></div></div>
-  <p class="note pos" style="left:120px;top:850px;width:1680px" data-s="1">The field has experiments, reviews and a meta-analysis, but no validated test of artistry across systems and cultures (my reading). These are proposed questions, not predictions.</p>
-  <div class="cites pos" style="left:120px;top:930px" data-s="1"><button class="cite" data-src="rondini">Rondini et al., 2026</button><button class="cite" data-src="taylor">Taylor et al., 2026</button><button class="cite" data-src="oksanen">Oksanen et al., 2023</button></div>
+  <div class="kicker pos" style="left:120px;top:96px">Question 4 · What to study next</div>
+  <p class="hl md pos" style="left:120px;top:136px;width:1680px">Labels shape <em>trust</em> in human work, who gets <em>credit</em>, and <em>whose taste</em> counts. Each limit points to a next question.</p>
+  <div class="fcard" style="left:120px"><div class="face f"><small>Limitation</small><p>Studies tested older tools: Artbreeder, DALL·E 2.</p><span></span></div><div class="face bk"><small>Next question</small><p>Do the effects hold for today’s models, named and versioned?</p><span></span></div></div>
+  <div class="fcard" style="left:550px"><div class="face f"><small>Limitation</small><p>Labels said only “AI” or “human”, hiding how the work was made.</p><span></span></div><div class="face bk"><small>Next question</small><p>Does showing the human workflow change judgments?</p><p class="ev"><b>Horton:</b> human–AI collaborations rated between the two. <b>Rondini:</b> human guidance raised AI drawings.</p></div></div>
+  <div class="fcard" style="left:980px"><div class="face f"><small>Limitation</small><p>Mostly quick online ratings of single images.</p><span></span></div><div class="face bk"><small>Next question</small><p>What happens in real galleries, and over time?</p><p class="ev"><b>Chiarella:</b> at a real art fair, the penalty appeared in only one order.</p></div></div>
+  <div class="fcard" style="left:1410px"><div class="face f"><small>Limitation</small><p>Mostly one-country samples, and tools with a narrow taste.</p><span></span></div><div class="face bk"><small>Next question</small><p>Do findings hold across cultures and kinds of art?</p><p class="ev"><b>Oksanen:</b> 37 of 44 studies sampled one country. <b>Taylor:</b> a popular aesthetic scorer favours Western and Japanese art.</p></div></div>
+  <div class="cites pos" style="left:120px;top:830px" data-s="1"><button class="cite" data-src="horton">Horton et al., 2023</button><button class="cite" data-src="rondini">Rondini et al., 2026</button><button class="cite" data-src="chiarella">Chiarella et al., 2022</button><button class="cite" data-src="oksanen">Oksanen et al., 2023</button><button class="cite" data-src="taylor">Taylor et al., 2026</button></div>
+  <p class="note pos" style="left:120px;top:900px;width:1680px" data-s="1">Proposed questions, not predictions (my reading).</p>
 </section>
 
-<!-- 14 CLOSE -->
+<!-- 17 CLOSE -->
 <section class="scene ink" id="sc-close">
   <svg class="pos" id="close-svg" style="left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080"><g id="c-write"></g></svg>
-  <div class="pos" style="left:120px;top:640px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:60px" data-s="0" id="close-ans">
+  <div class="pos" style="left:120px;top:640px;width:1680px;display:grid;grid-template-columns:1fr 1fr;gap:60px" id="close-ans">
     <div><div class="kicker">The painting</div><p class="hl md" style="margin-top:12px">Often, yes.</p></div>
     <div><div class="kicker">The model as artist</div><p class="hl md acc" style="margin-top:12px">Still an open question.</p></div>
   </div>
   <p class="pos" style="left:120px;top:900px;font:700 34px/1 var(--display);font-stretch:84%" id="close-ty">Thank you · Mahmoud Hafez</p>
 </section>
 
-<!-- 15 REFERENCES -->
+<!-- 18 REFERENCES -->
 <section class="scene paper" id="sc-refs">
   <div class="kicker pos" style="left:120px;top:70px">References</div>
   <ol class="refs pos" id="reflist" style="left:120px;top:120px;width:1680px"></ol>
-  <div class="pos" style="left:120px;bottom:40px;width:1680px;border-top:1px solid var(--rule);padding-top:12px"><p class="note" style="font-size:15px" id="credits"></p></div>
+  <div class="pos" style="left:120px;bottom:34px;width:1680px;border-top:1px solid var(--rule);padding-top:12px"><p class="note" style="font-size:15px" id="credits"></p></div>
 </section>
 
-<!-- 16–17 APPENDIX (outside the timed talk) -->
+<!-- 19–20 APPENDIX (outside the timed talk) -->
 <section class="scene paper" id="sc-appA"><div class="kicker pos" style="left:80px;top:60px">Appendix A · empirical studies</div><table class="matrix pos" style="left:80px;top:110px" data-rows="bellaiche,horton,chiarella,vanhees,mikalonyte,rondini"><thead><tr><th>Source</th><th>Evidence type</th><th>What people saw</th><th>Human role</th><th>Participants</th><th>Measures</th><th>Result</th><th>Limitation</th></tr></thead><tbody></tbody></table></section>
 <section class="scene paper" id="sc-appB"><div class="kicker pos" style="left:80px;top:60px">Appendix B · reviews, philosophy, audit, case</div><table class="matrix pos" style="left:80px;top:110px" data-rows="oksanen,derooij,hertzmann,coeckelbergh,taylor,kuta"><thead><tr><th>Source</th><th>Evidence type</th><th>Material</th><th>Human role</th><th>Basis</th><th>Measures</th><th>Result</th><th>Limitation</th></tr></thead><tbody></tbody></table></section>
 
@@ -503,7 +565,7 @@ body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !importan
 </div>
 <div id="notes" aria-live="polite"></div>
 <div id="overview"><p style="font:600 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#888">Overview · click a scene · Esc closes</p><div class="grid"></div></div>
-<div id="help"><kbd>→</kbd>/<kbd>Space</kbd>/click: next (finishes a running animation first)<br><kbd>←</kbd> back<br><kbd>1</kbd>–<kbd>5</kbd> choose or rate where asked<br><kbd>F</kbd> fullscreen · <kbd>H</kbd> record mode · <kbd>P</kbd> presenter<br><kbd>N</kbd> notes · <kbd>G</kbd> overview · <kbd>S</kbd> sources · <kbd>M</kbd> reduced motion</div>
+<div id="help"><kbd>→</kbd>/<kbd>Space</kbd>/click: next (finishes a running animation first)<br><kbd>←</kbd> back<br><kbd>1</kbd>–<kbd>4</kbd> pick a painting · <kbd>1</kbd>–<kbd>5</kbd> rate<br><kbd>F</kbd> fullscreen · <kbd>H</kbd> record mode · <kbd>P</kbd> presenter<br><kbd>N</kbd> notes · <kbd>G</kbd> overview · <kbd>S</kbd> sources · <kbd>M</kbd> reduced motion</div>
 <aside id="drawer"><button class="x" data-act="closedrawer">Close · Esc</button><div id="drawer-body"></div></aside>
 
 <script>
@@ -518,37 +580,39 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
 /* =====================================================================
-   SOURCES (final 12)
+   SOURCES (final 12). cat = evidence type → colour
    ===================================================================== */
+const CATS={exp:'Experiment',rev:'Review',phil:'Philosophy',aud:'Model audit',news:'News case'};
 const SOURCES={
- bellaiche:{short:"Bellaiche et al., 2023",type:"Controlled label experiment",full:"Bellaiche, L., Shahi, R., Turpin, M. H., Ragnhildstveit, A., Sprockett, S., Barr, N., Christensen, A., & Seli, P. (2023). Humans versus AI: Whether and why we prefer human-created compared to AI-created artwork. <i>Cognitive Research: Principles and Implications, 8</i>, Article 42.",url:"https://doi.org/10.1186/s41235-023-00499-6",
-  saw:"30 AI-made paintings (Artbreeder), half representational, half abstract",human:"Researchers made and chose the images; labels random",sample:"Study 1 online (about 150); Study 2 Prolific, N = 148",measures:"Study 1: separate 1–5 ratings of liking, beauty, profundity, worth. Study 2 adds emotion, narrativity, personal meaning, effort, time",result:"Human label raised all four; largest for worth (d ≈ .61) and profundity (.47), smaller for beauty (.22) and liking (.17)",limit:"Older Artbreeder images chosen by researchers; ratings cannot verify originality",ver:"Effect sizes from the review’s working analysis; re-check against Study 1."},
- horton:{short:"Horton et al., 2023",type:"Controlled label experiment",full:"Horton, C. B., Jr., White, M. W., & Iyengar, S. S. (2023). Bias against AI art can enhance perceptions of human creativity. <i>Scientific Reports, 13</i>, Article 19001.",url:"https://doi.org/10.1038/s41598-023-45202-3",
-  saw:"Pairs of human- and AI-made visual works",human:"Labels manipulated",sample:"Six experiments, N = 2,965 in total, incl. US-representative samples",measures:"1–7 composite: creative, novel, liked, appropriate for gallery sale",result:"Exp. 4, second work: human→AI 4.24; human→human 4.62; AI→human 4.85",limit:"Composite mixes constructs; hypothetical gallery",ver:"Means from the working analysis; confirm against Experiment 4."},
- chiarella:{short:"Chiarella et al., 2022",type:"Label experiment (field, physiological)",full:"Chiarella, S. G., Torromino, G., Gagliardi, D. M., Rossi, D., Babiloni, F., & Cartocci, G. (2022). Investigating the negative bias towards artificial intelligence: Effects of prior assignment of AI-authorship on the aesthetic appreciation of abstract paintings. <i>Computers in Human Behavior, 137</i>, Article 107406.",url:"https://doi.org/10.1016/j.chb.2022.107406",
-  saw:"Two human-made abstract paintings, physical canvases, at an art fair",human:"Fully human-painted; AI label assigned",sample:"Art-fair visitors",measures:"Appreciation; skin conductance; heart rate",result:"No overall label effect (p = .60); label × order (p = .016): AI-labelled work rated lower only after a human-labelled one; skin conductance higher on second viewing; heart rate unchanged",limit:"Two paintings; physical medium",ver:"p-values from the working analysis; re-check."},
- vanhees:{short:"van Hees et al., 2025",type:"Preference & detection experiment",full:"van Hees, J., Grootswagers, T., Quek, G. L., & Varlet, M. (2025). Human perception of art in the age of artificial intelligence. <i>Frontiers in Psychology, 15</i>, Article 1497469.",url:"https://doi.org/10.3389/fpsyg.2024.1497469",
-  saw:"Pairs: a lesser-known artwork by a famous representational artist and a DALL·E 2 image",human:"Researchers prompted and selected outputs",sample:"University students; separate groups per task",measures:"Preference choice; which-is-AI choice vs. 50% chance",result:"Both above chance; detectability correlated positively with AI preference across pairs",limit:"Selected DALL·E 2 images; student sample; small crops",ver:"Open access; materials on OSF (osf.io/n7w32)."},
- mikalonyte:{short:"Mikalonytė & Kneer, 2022",type:"Folk-judgment scenario experiments",full:"Mikalonytė, E. S., & Kneer, M. (2022). Can artificial intelligence make art? Folk intuitions as to whether AI-driven robots can be viewed as artists and produce art. <i>ACM Transactions on Human-Robot Interaction, 11</i>(4), Article 43.",url:"https://doi.org/10.1145/3530875",
+ bellaiche:{cat:'exp',short:"Bellaiche et al., 2023",type:"Controlled label experiment",full:"Bellaiche, L., Shahi, R., Turpin, M. H., Ragnhildstveit, A., Sprockett, S., Barr, N., Christensen, A., & Seli, P. (2023). Humans versus AI: Whether and why we prefer human-created compared to AI-created artwork. <i>Cognitive Research: Principles and Implications, 8</i>, Article 42.",url:"https://doi.org/10.1186/s41235-023-00499-6",
+  saw:"30 AI-made paintings from Artbreeder (15 representational, 15 abstract), each randomly labelled “human-created” or “AI-created”",human:"Researchers chose the images; labels random",sample:"Study 1: 149 adults online; Study 2: 148 (Prolific)",measures:"1–5: “How much do you like this image?” (liking), “How beautiful/aesthetically pleasing…?” (beauty), “How profound or meaningful…?” (profundity), “How much money would this work be worth?” (worth). Study 2 adds emotion, story, personal meaning, effort, time",result:"Human label raised all four (Study 1): liking d = .17, beauty .22, profundity .47, worth .61. Study 2: higher perceived effort raised liking and beauty more under a “human” label",limit:"Older Artbreeder images chosen by researchers; online ratings",ver:"Verified against the full text (Study 1, paired t-tests; Study 2 moderation)."},
+ horton:{cat:'exp',short:"Horton et al., 2023",type:"Controlled label experiments (six)",full:"Horton, C. B., Jr., White, M. W., & Iyengar, S. S. (2023). Bias against AI art can enhance perceptions of human creativity. <i>Scientific Reports, 13</i>, Article 19001.",url:"https://doi.org/10.1038/s41598-023-45202-3",
+  saw:"Exp. 1–2: 28 pretested human- and AI-made images (examples in Fig. 1). Exp. 3–4: the same two paintings for everyone, shown in sequence",human:"Labels manipulated",sample:"Six experiments, N = 2,965; Exp. 4 n = 789; Exp. 5–6 US-representative",measures:"Exp. 1: bright, colourful, complex, emotional, skilful, inspiring, expensive, likeable. Exp. 4: creative, novel, likeable, fit for a gallery (1–7, averaged), price, production time",result:"AI label lowered price and skill most (Exp. 1: d = .57, .48; liking .25). Exp. 2: 87% shown only AI labels still judged most images art. Exp. 4, painting 2: AI→human 4.85, human→human 4.62, human→AI 4.24. Exp. 6: collaborations rated between human and AI",limit:"Stimuli pretested to look alike; hypothetical gallery context",ver:"Verified against the full text (Tables 1–2; Exp. 2 and 6 text)."},
+ chiarella:{cat:'exp',short:"Chiarella et al., 2022",type:"Label experiment (field, physiological)",full:"Chiarella, S. G., Torromino, G., Gagliardi, D. M., Rossi, D., Babiloni, F., & Cartocci, G. (2022). Investigating the negative bias towards artificial intelligence: Effects of prior assignment of AI-authorship on the aesthetic appreciation of abstract paintings. <i>Computers in Human Behavior, 137</i>, Article 107406.",url:"https://doi.org/10.1016/j.chb.2022.107406",
+  saw:"Two human-made abstract canvases, Abstract 12 and Abstract 18 (acrylic, 120 × 120 cm), shown one at a time at an art fair",human:"Fully human-painted; one labelled AI",sample:"Art-fair visitors",measures:"“I really like this painting” (1–5); skin conductance; heart rate",result:"No overall label effect; the AI-labelled painting was liked less only when it came second; skin conductance higher on second viewing",limit:"Two paintings; one setting",ver:"Design from Fig. 1 (supplied). p-values (.60; .016) from the working analysis, not shown on slides."},
+ vanhees:{cat:'exp',short:"van Hees et al., 2025",type:"Preference & detection experiment",full:"van Hees, J., Grootswagers, T., Quek, G. L., & Varlet, M. (2025). Human perception of art in the age of artificial intelligence. <i>Frontiers in Psychology, 15</i>, Article 1497469.",url:"https://doi.org/10.3389/fpsyg.2024.1497469",
+  saw:"50 pairs: a lesser-known work by a famous painter and a DALL·E 2 image matched by artist and genre (Fig. 1)",human:"Researchers prompted and selected outputs",sample:"Separate groups per task",measures:"Experiment 1: which do you prefer? Experiment 2: which one is AI?",result:"AI images preferred above chance; AI images detected above chance; across pairs, preference and detection correlated (r = .42, p = .002)",limit:"Selected DALL·E 2 images; small images",ver:"Figure values from the supplied figures; open access, materials on OSF (osf.io/n7w32)."},
+ mikalonyte:{cat:'exp',short:"Mikalonytė & Kneer, 2022",type:"Folk-judgment scenario experiments",full:"Mikalonytė, E. S., & Kneer, M. (2022). Can artificial intelligence make art? Folk intuitions as to whether AI-driven robots can be viewed as artists and produce art. <i>ACM Transactions on Human-Robot Interaction, 11</i>(4), Article 43.",url:"https://doi.org/10.1145/3530875",
   saw:"Written stories, no images",human:"—",sample:"Two experiments, N = 693",measures:"Agreement that the painting is art and the creator an artist; attributed mental states",result:"Robot paintings judged art about as readily as human ones overall (varied by condition); robots much less often judged artists, partly via attributed intention",limit:"Hypothetical robots; folk judgments",ver:"Cite the ACM version; check per-condition results in the paper."},
- rondini:{short:"Rondini et al., 2026",type:"Controlled creativity experiment",full:"Rondini, S., Dediu, D., Rodríguez-Fornells, A., & Cerdá-Company, X. (2026). Stable diffusion models reveal a persisting human and AI gap in visual creativity. <i>Advanced Science</i>.",url:"https://doi.org/10.1002/advs.202524142",
-  saw:"Images from a visual-creativity task by visual artists, non-artists and Stable Diffusion",human:"High vs. low human guidance of the model",sample:"255 human raters, plus GPT-4o",measures:"Rated creativity",result:"Visual artists > non-artists > human-guided AI > self-guided AI; human and GPT-4o ratings differed",limit:"One model family; a specific task, not painting",ver:"Confirm the full author list on the journal page; preprint arXiv:2511.16814."},
- oksanen:{short:"Oksanen et al., 2023",type:"Systematic scoping review",full:"Oksanen, A., Cvetkovic, A., Akin, N., Latikka, R., Bergdahl, J., Chen, Y., & Savela, N. (2023). Artificial intelligence in fine arts: A systematic review of empirical research. <i>Computers in Human Behavior: Artificial Humans, 1</i>(2), Article 100004.",url:"https://doi.org/10.1016/j.chbah.2023.100004",
-  saw:"—",human:"—",sample:"723 records screened → 44 studies",measures:"Coverage of art forms, methods, samples",result:"24 of 44 on visual images; 37 single-country samples",limit:"Search ends 2022",ver:"Open access."},
- derooij:{short:"de Rooij, 2025",type:"Meta-analysis",full:"de Rooij, A. (2025). Bias against artificial intelligence in visual art: A meta-analysis. <i>Psychology of Aesthetics, Creativity, and the Arts</i>. Advance online publication.",url:"https://doi.org/10.1037/aca0000833",
-  saw:"—",human:"—",sample:"Pooled experiments",measures:"Sensory, emotional, meaning domains",result:"Small average penalties for sensory and emotional responses; moderate for meaning",limit:"Overlaps primary studies; supplied full text has inconsistent domain counts, so no numbers are shown",ver:"Qualitative use only."},
- hertzmann:{short:"Hertzmann, 2018",type:"Philosophical account",full:"Hertzmann, A. (2018). Can computers create art? <i>Arts, 7</i>(2), Article 18.",url:"https://doi.org/10.3390/arts7020018",saw:"—",human:"—",sample:"Argument",measures:"—",result:"Art is a social activity of social agents; computers are not artists; human computer art is art",limit:"A contested criterion",ver:"Cite the Arts version."},
- coeckelbergh:{short:"Coeckelbergh, 2017",type:"Philosophical account",full:"Coeckelbergh, M. (2017). Can machines create art? <i>Philosophy & Technology, 30</i>(3), 285–303.",url:"https://doi.org/10.1007/s13347-016-0231-5",saw:"—",human:"—",sample:"Argument",measures:"—",result:"Outcome, process and relational accounts give different verdicts; boundaries can hide networks of creation",limit:"No single test",ver:"Publisher version."},
- taylor:{short:"Taylor et al., 2026",type:"Algorithm audit & trace ethnography",full:"Taylor, J., Agnew, W., Sap, M., Fox, S. E., & Zhu, H. (2026). The algorithmic gaze of image quality assessment: An audit and trace ethnography of the LAION-Aesthetics Predictor. In <i>Proceedings of the 2026 ACM Conference on Fairness, Accountability, and Transparency (FAccT ’26)</i>.",url:"https://doi.org/10.1145/3805689.3806462",
+ rondini:{cat:'exp',short:"Rondini et al., 2026",type:"Controlled creativity experiment",full:"Rondini, S., Dediu, D., Rodríguez-Fornells, A., & Cerdá-Company, X. (2026). Stable diffusion models reveal a persisting human and AI gap in visual creativity. <i>Advanced Science</i>.",url:"https://doi.org/10.1002/advs.202524142",
+  saw:"Drawings completing the same starting lines (a straight line and an arc): visual artists (272), non-artists (276), SDXL guided by human ideas (230), SDXL self-guided (222)",human:"Human ideas fed to the model in one AI condition",sample:"255 human raters, plus GPT-4o",measures:"1–7: liking, vividness, originality, aesthetics, curiosity",result:"Visual artists > non-artists > human-guided AI > self-guided AI; human and GPT-4o ratings differed",limit:"One model family; a drawing task, not painting",ver:"Method from the supplied figure; confirm the full author list on the journal page."},
+ oksanen:{cat:'rev',short:"Oksanen et al., 2023",type:"Systematic scoping review",full:"Oksanen, A., Cvetkovic, A., Akin, N., Latikka, R., Bergdahl, J., Chen, Y., & Savela, N. (2023). Artificial intelligence in fine arts: A systematic review of empirical research. <i>Computers in Human Behavior: Artificial Humans, 1</i>(2), Article 100004.",url:"https://doi.org/10.1016/j.chbah.2023.100004",
+  saw:"—",human:"—",sample:"723 records screened → 44 studies",measures:"Coverage of art forms, methods, samples",result:"24 of 44 on visual images; 37 single-country samples",limit:"Search ends 2022",ver:"Counts from the working analysis; re-check against the paper."},
+ derooij:{cat:'rev',short:"de Rooij, 2025",type:"Meta-analysis",full:"de Rooij, A. (2025). Bias against artificial intelligence in visual art: A meta-analysis. <i>Psychology of Aesthetics, Creativity, and the Arts</i>. Advance online publication.",url:"https://doi.org/10.1037/aca0000833",
+  saw:"—",human:"—",sample:"Pooled experiments",measures:"Sensory, emotional, meaning domains",result:"Small average penalties for sensory and emotional responses; moderate for meaning",limit:"Overlaps primary studies; the supplied text reports inconsistent domain counts, so no numbers are shown",ver:"Qualitative use only."},
+ hertzmann:{cat:'phil',short:"Hertzmann, 2018",type:"Philosophical account",full:"Hertzmann, A. (2018). Can computers create art? <i>Arts, 7</i>(2), Article 18.",url:"https://doi.org/10.3390/arts7020018",saw:"—",human:"—",sample:"Argument",measures:"—",result:"Art is a social activity of social agents; computers are tools, not artists; people make art with them",limit:"A contested criterion",ver:"Cite the Arts version."},
+ coeckelbergh:{cat:'phil',short:"Coeckelbergh, 2017",type:"Philosophical account",full:"Coeckelbergh, M. (2017). Can machines create art? <i>Philosophy & Technology, 30</i>(3), 285–303.",url:"https://doi.org/10.1007/s13347-016-0231-5",saw:"—",human:"—",sample:"Argument",measures:"—",result:"Outcome, process and relational accounts give different verdicts; sharp human/machine boundaries can hide networks of creation",limit:"No single test",ver:"Publisher version."},
+ taylor:{cat:'aud',short:"Taylor et al., 2026",type:"Algorithm audit & trace ethnography",full:"Taylor, J., Agnew, W., Sap, M., Fox, S. E., & Zhu, H. (2026). The algorithmic gaze of image quality assessment: An audit and trace ethnography of the LAION-Aesthetics Predictor. In <i>Proceedings of the 2026 ACM Conference on Fairness, Accountability, and Transparency (FAccT ’26)</i>.",url:"https://doi.org/10.1145/3805689.3806462",
   saw:"LAION-Aesthetics, Met public-domain images, WikiArt",human:"Developers’ choices traced",sample:"Three image datasets",measures:"Predictor scores",result:"Higher scores for realistic landscapes, cities and portraits by Western and Japanese artists",limit:"One predictor",ver:"Open text: arxiv.org/abs/2601.09896."},
- kuta:{short:"Kuta, 2022",type:"Journalism (one case)",full:"Kuta, S. (2022, September 6). Art made with artificial intelligence wins at state fair. <i>Smithsonian Magazine</i>.",url:"https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/",saw:"—",human:"About 80 hours, 900+ renderings, selection and editing (as reported)",sample:"One case",measures:"—",result:"Won the digital-art category, Colorado State Fair 2022",limit:"One case",ver:"News report."}
+ kuta:{cat:'news',short:"Kuta, 2022",type:"Journalism (one case)",full:"Kuta, S. (2022, September 6). Art made with artificial intelligence wins at state fair. <i>Smithsonian Magazine</i>.",url:"https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/",saw:"—",human:"About 80 hours, 900+ renderings, selection and editing (as reported)",sample:"One case",measures:"—",result:"First place, digital-art contest for emerging artists, Colorado State Fair 2022",limit:"One case",ver:"News report."}
 };
 const SRC_ORDER=["bellaiche","chiarella","coeckelbergh","derooij","hertzmann","horton","kuta","mikalonyte","oksanen","rondini","taylor","vanhees"];
+const dot=id=>`<i class="dot" style="background:var(--c-${SOURCES[id].cat})"></i>`;
 
 /* =====================================================================
-   PEN: single-stroke script writing + hand-wobbled drawing, animated stroke by stroke
+   PEN: single-stroke script writing + a generated pen landscape
    ===================================================================== */
-function scriptPolys(text,x,y,size){ // returns arrays of points in stage coords, in writing order
+function scriptPolys(text,x,y,size){
   const g=SCRIPT_FONT.g,s=size/1000,out=[];let cx=x;
   for(const ch of text){const gl=g[ch]||g[' '];const [adv,polys]=gl||[SCRIPT_FONT.adv,[]];
     polys.forEach(pl=>{const pts=[];for(let i=0;i<pl.length;i+=2)pts.push([cx+pl[i]*s,y-pl[i+1]*s]);if(pts.length>1)out.push(pts)});cx+=adv*s}
@@ -559,60 +623,124 @@ function line(a,b,n=24){const o=[];for(let i=0;i<=n;i++)o.push([a[0]+(b[0]-a[0])
 function bez(p0,p1,p2,p3,n=40){const o=[];for(let i=0;i<=n;i++){const t=i/n,u=1-t;o.push([u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]])}return o}
 function ellipse(cx,cy,rx,ry,a0=0,a1=Math.PI*2,n=60){const o=[];for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;o.push([cx+Math.cos(a)*rx,cy+Math.sin(a)*ry])}return o}
 const toD=pts=>'M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L');
-/* the opening drawing: an easel holding a small landscape canvas, and a brush */
+
+/* The opening drawing: a mountain lake at dusk, generated stroke by stroke.
+   Returns [{pts, w, o, g}] — width, opacity and drawing group. Deterministic (seeded). */
+let _drawing=null;
 function drawingPolys(){
-  const P=[],W=(pts,a=2.2,s=P.length+3)=>P.push(wobbly(pts,a,s*31));
-  // canvas on the easel
-  W([...line([1250,262],[1632,256],30),...line([1632,256],[1636,742],30),...line([1636,742],[1246,746],30),...line([1246,746],[1250,262],30)],2.6);
-  // ledge, then the easel legs, drawn only where the canvas does not hide them
-  W(line([1258,770],[1630,768],30),1.6);W(line([1258,790],[1630,788],30),1.2);
-  W(line([1420,150],[1405,252],10),1.4);W(line([1468,150],[1482,252],10),1.4);
-  W(line([1327,792],[1300,980],16),1.8);W(line([1562,792],[1590,980],16),1.8);W(line([1445,792],[1446,1000],14),1.4);
-  // landscape inside the canvas
-  W(bez([1262,612],[1330,560],[1400,548],[1462,590]),1.4);W(bez([1430,600],[1500,540],[1570,532],[1624,572]),1.4);
-  W(bez([1262,650],[1380,630],[1500,640],[1624,624]),1.2);
-  W(line([1335,604],[1338,500],20),1.2);
-  W(ellipse(1336,470,40,36,Math.PI*0.6,Math.PI*2.55,50),1.6);
-  W(ellipse(1556,350,34,34,0,Math.PI*2.1,46),1.2);
-  for(let k=0;k<5;k++)W(line([1290+k*40,680+k*9],[1350+k*44,680+k*9],8),1.0);
-  // brush resting on the ledge
-  W(line([1560,760],[1748,640],20),1.2);W(ellipse(1754,636,10,6,0,Math.PI*2,20),0.8);
-  return P;
+  if(_drawing)return _drawing;
+  const R=rng(20260409),P=[];
+  const X0=1110,X1=1790,Y0=140,Y1=960,LAKE=650,SHORE=812;
+  const add=(pts,w,o,g)=>{if(pts.length>1)P.push({pts,w,o,g})};
+  // occluders (pine silhouettes), filled in first so earlier layers can be cut around them
+  const occ=[];
+  const inOcc=(x,y)=>occ.some(t=>{if(y<t.top||y>t.base)return false;const half=(y-t.top)/(t.base-t.top)*t.hw+3;return Math.abs(x-t.x)<half});
+  const cut=(pts,w,o,g)=>{let seg=[];for(const p of pts){if(inOcc(p[0],p[1])||p[0]<X0||p[0]>X1){if(seg.length>1)add(seg,w,o,g);seg=[]}else seg.push(p)}if(seg.length>1)add(seg,w,o,g)};
+  const pines=[[1160,868,340,50],[1236,850,250,40],[1300,872,170,30],[1752,860,236,38]];
+  pines.forEach(([x,base,h,hw])=>occ.push({x,base,top:base-h,hw}));
+  occ.push({x:1472,base:756,top:640,hw:60});
+  // frame: double rule, slightly wobbled
+  const rect=(x0,y0,x1,y1,n)=>[...line([x0,y0],[x1,y0],n),...line([x1,y0],[x1,y1],n),...line([x1,y1],[x0,y1],n),...line([x0,y1],[x0,y0],n)];
+  add(wobbly(rect(1080,110,1820,990,40),2.2,11),3,1,0);add(wobbly(rect(1094,124,1806,976,40),1.4,12),1.2,.7,0);
+  // mountain ridges, far to near: peaks as sharp hand-drawn ridgelines
+  const ridges=[];
+  const specs=[[580,3,[230,300],[.8,1.1]],[600,5,[120,185],[.9,1.35]],[625,5,[70,125],[1,1.5]],[646,6,[26,62],[1.1,1.7]]];
+  specs.forEach(([base,np,[h0,h1],[s0,s1]],k)=>{const pk=[];for(let i=0;i<np;i++){const x=X0+(i+.25+R()*.5)*(X1-X0)/np;pk.push([x,h0+R()*(h1-h0),s0+R()*(s1-s0),R()*6])}ridges.push({base,pk,ph:R()*6})});
+  const ridgeY=(k,x)=>{const r=ridges[k];let h=0;for(const [px,ph,sl] of r.pk)h=Math.max(h,ph-Math.abs(x-px)*sl);return r.base-h+Math.sin(x*.09+r.ph)*2.2+Math.sin(x*.23+r.ph*2)*1.2};
+  const peakOf=(k,x)=>{let best=null,bh=-1;for(const p of ridges[k].pk){const h=p[1]-Math.abs(x-p[0])*p[2];if(h>bh){bh=h;best=p}}return best};
+  const nearer=(k,x)=>{let m=LAKE;for(let j=k+1;j<ridges.length;j++)m=Math.min(m,ridgeY(j,x));return m};
+  ridges.forEach((r,k)=>{
+    const w=[1.3,1.6,2,2.4][k],o=[.45,.62,.8,1][k];
+    let seg=[];for(let x=X0;x<=X1;x+=4){const y=Math.min(ridgeY(k,x),LAKE);if(y<nearer(k,x)-2&&y<LAKE-1)seg.push([x,y]);else{if(seg.length>1)cut(seg,w,o,2+k);seg=[]}}if(seg.length>1)cut(seg,w,o,2+k);
+    // shading: short strokes down the fall line on each peak's shadowed (left) flank
+    const step=[9,8,7,6][k];
+    for(let x=X0+3;x<X1-3;x+=step+(R()-.5)*2){const pk=peakOf(k,x);if(!pk||x>pk[0]-4)continue;const y=ridgeY(k,x);const lim=Math.min(nearer(k,x)-4,LAKE-3);if(y>=lim-8)continue;
+      const d=(pk[0]-x)/((pk[1])/pk[2]);const len=Math.min(lim-y,(14+R()*26)*(1-d*.6)*(1+k*.1));if(len<6)continue;
+      cut([[x,y+3],[x-len*.28,y+3+len]],w*.55,o*.85,2+k)}
+    // snow line on the far, tall peaks
+    if(k===0)r.pk.forEach(([px,ph,sl],j)=>{if(ph<215)return;const pts=[];for(let x=px-ph*.16/sl;x<=px+ph*.2/sl;x+=7){const y=ridgeY(0,x)+22+((Math.round(x/7)%2)?7:-3);pts.push([x,y])}if(pts.every(q=>q[1]<nearer(0,q[0])-3))cut(pts,1,.45,2)});
+  });
+  const skyline=x=>{let m=LAKE;for(let j=0;j<ridges.length;j++)m=Math.min(m,ridgeY(j,x));return m};
+  const skyCut=(pts,w,o,g)=>{let seg=[];for(const p of pts){if(p[1]>skyline(p[0])-3){if(seg.length>1)cut(seg,w,o,g);seg=[]}else seg.push(p)}if(seg.length>1)cut(seg,w,o,g)};
+  const SUNX=1600,SUNY=250;
+  // sun, halo and clouds: drawn behind the mountains
+  skyCut(wobbly(ellipse(SUNX,SUNY,40,40,-1.2,-1.2+Math.PI*2.06,60),1,13),2.4,1,1);
+  [62,84,108].forEach((r,k)=>{for(let a=0;a<6;a++){const a0=a*Math.PI/3+k*.4+.15;skyCut(ellipse(SUNX,SUNY,r,r,a0,a0+.62-k*.08,14),1.2,.55-k*.12,1)}});
+  // clouds: long hand strokes
+  [[1150,232,1420,6],[1190,256,1380,4],[1180,172,1330,3],[1700,150,1780,3]].forEach(([a,y,b,am],k)=>{const pts=[];for(let x=a;x<=b;x+=8)pts.push([x,y+Math.sin(x*.03+k)*am*.6+(R()-.5)*1.4]);skyCut(pts,1.3,.6,1)});
+  // reflections of the two nearest ridges, as broken horizontal dashes
+  [3,2].forEach(k=>{for(let x=X0+8;x<X1-14;x+=13+R()*6){const y=ridgeY(k,x);if(y>=LAKE-2)continue;const ry=LAKE+(LAKE-y)*.55;if(ry>SHORE-14)continue;cut([[x,ry],[x+7+R()*8,ry+(R()-.5)]],k===3?1.4:1,k===3?.75:.5,6)}});
+  // lake: ripple strokes, reflections of the sun
+  for(let y=LAKE+6;y<SHORE-10;y+=7+((y-LAKE)/30)){let x=X0+6+R()*30;while(x<X1-20){const len=20+R()*90*(1-(y-LAKE)/260);const gap=12+R()*50;
+      if(R()<.8)cut([[x,y+(R()-.5)],[x+len*.5,y+(R()-.5)*1.4],[x+len,y+(R()-.5)]],1,.55,6);x+=len+gap}}
+  for(let k=0;k<9;k++){const y=LAKE+10+k*15,hw=46-k*4.5;cut([[1600-hw,y],[1600+hw,y]],1.6,.9,6)}
+  add(wobbly(line([X0,LAKE],[X1,LAKE],60),1.2,21),1.6,.9,6);
+  // a small sailboat and its reflection
+  {const bx=1470,by=742;add(wobbly(bez([bx-46,by-8],[bx-30,by+10],[bx+30,by+10],[bx+50,by-10],16),1,71),2,1,7);add(wobbly(line([bx-46,by-8],[bx+50,by-10],10),.8,72),1.6,1,7);
+   add(wobbly(line([bx+2,by-10],[bx+2,by-96],12),.8,73),1.8,1,7);add(wobbly([[bx+6,by-92],[bx+44,by-18],[bx+6,by-16]],1,74),1.8,1,7);add(wobbly([[bx-2,by-84],[bx-34,by-18],[bx-2,by-16]],1,75),1.5,.9,7);
+   for(let k=0;k<4;k++)add([[bx-30+k*6,by+14+k*9],[bx+34-k*7,by+14+k*9]],1,.6,7);for(let k=0;k<4;k++)add([[bx+1,by+18+k*12],[bx+3,by+25+k*12]],1.2,.6,7)}
+  // shore and foreground
+  const shore=[];for(let x=X0;x<=X1;x+=6)shore.push([x,SHORE+Math.sin(x*.012)*10+Math.sin(x*.041)*4]);cut(shore,2.2,1,7);
+  for(let i=0;i<70;i++){const x=X0+20+R()*(X1-X0-40),y=SHORE+30+R()*(Y1-SHORE-60);if(inOcc(x,y))continue;const h=10+R()*22;
+    add([[x-4,y],[x-7,y-h*.8]],1.1,.8,8);add([[x,y],[x+1,y-h]],1.1,.8,8);add([[x+4,y],[x+8,y-h*.7]],1.1,.8,8)}
+  [[1460,900,46,16],[1540,920,30,10],[1610,892,20,8]].forEach(([cx,cy,rx,ry],k)=>{add(wobbly(ellipse(cx,cy,rx,ry,Math.PI,Math.PI*2.02,30),1,30+k),2,1,8);
+    for(let i=0;i<5;i++){const x=cx-rx*.6+i*rx*.28;add([[x,cy-ry*.5],[x-6,cy]],1,.7,8)}});
+  // pines, drawn as zig-zag silhouettes with a trunk
+  pines.forEach(([x,base,h,hw],k)=>{const top=base-h;add(line([x,top],[x,base+10],14),1.6,1,9);
+    [-1,1].forEach(sd=>{const pts=[[x,top]];const tiers=Math.round(h/30);for(let t=1;t<=tiers;t++){const y=top+t*(h-16)/tiers,wd=(t/tiers)*hw;pts.push([x+sd*wd,y+3]);if(t<tiers)pts.push([x+sd*wd*.32,y-4])}
+      add(wobbly(pts,1.6,40+k*2+(sd>0?1:0)),1.9,1,9)})});
+  // birds
+  [[1420,300,13],[1452,322,10],[1388,334,9],[1488,296,8]].forEach(([x,y,s],k)=>add(wobbly([...bez([x-s,y-3],[x-s*.6,y-s*.5],[x-s*.2,y-s*.4],[x,y],6),...bez([x,y],[x+s*.2,y-s*.4],[x+s*.6,y-s*.5],[x+s,y-3],6).slice(1)],.6,60+k),1.4,1,10));
+  P.forEach(p=>p.pts=p.pts.map(q=>[+q[0].toFixed(1),+q[1].toFixed(1)]));
+  return _drawing=P;
 }
-/* animate a list of SVG paths as one continuous pen (constant speed) */
-function penAnimate(paths,speed,onDone){ // speed px/ms
+/* animate many strokes with overlapping timing (a sketcher's hand returns to areas) */
+function sketchAnimate(paths,groups,total,onDone){
+  const lens=paths.map(p=>p.getTotalLength());const n=paths.length;
+  const G=Math.max(...groups)+1,win=[];for(let g=0;g<G;g++){const a=g/G*0.8*total,b=a+total*0.36;win.push([a,Math.min(total,b)])}
+  const idx={};groups.forEach((g,i)=>(idx[g]=idx[g]||[]).push(i));
+  const t0s=new Array(n),durs=new Array(n);
+  Object.entries(idx).forEach(([g,ids])=>{const [a,b]=win[g];ids.forEach((i,k)=>{const d=Math.max(90,Math.min(650,lens[i]/0.9));durs[i]=d;t0s[i]=a+(b-a-d)*k/Math.max(1,ids.length-1)})});
+  paths.forEach((p,i)=>{p.style.strokeDasharray=lens[i]+' '+lens[i];p.style.strokeDashoffset=lens[i];p.style.visibility='hidden'});
+  let start=null,raf=0,done=false;
+  const set=t=>{for(let i=0;i<n;i++){const v=Math.max(0,Math.min(1,(t-t0s[i])/durs[i]));const p=paths[i];p.style.visibility=v>0?'visible':'hidden';p.style.strokeDashoffset=lens[i]*(1-v)}};
+  const tick=now=>{if(start==null)start=now;const t=now-start;set(t);if(t<total+700)raf=requestAnimationFrame(tick);else finish()};
+  function finish(){if(done)return;done=true;cancelAnimationFrame(raf);paths.forEach(p=>{p.style.strokeDasharray='none';p.style.visibility='visible'});onDone&&onDone()}
+  raf=requestAnimationFrame(tick);return {finish};
+}
+function penAnimate(paths,speed,onDone){
   const lens=paths.map(p=>p.getTotalLength());const total=lens.reduce((a,b)=>a+b,0);
   paths.forEach((p,i)=>{p.style.strokeDasharray=lens[i]+' '+lens[i];p.style.strokeDashoffset=lens[i]});
-  const dur=total/speed;let t0=null,raf=0,done=false;
-  const set=d=>{let left=d;paths.forEach((p,i)=>{const L=lens[i];const v=Math.max(0,Math.min(L,left));p.style.strokeDashoffset=L-v;p.style.opacity=v>0?1:0;left-=L})};
+  let t0=null,raf=0,done=false;
+  const set=d=>{let left=d;paths.forEach((p,i)=>{const L=lens[i];const v=Math.max(0,Math.min(L,left));p.style.strokeDashoffset=L-v;p.style.visibility=v>0?'visible':'hidden';left-=L})};
   const tick=now=>{if(t0==null)t0=now;const d=(now-t0)*speed;set(d);if(d<total)raf=requestAnimationFrame(tick);else finish()};
   function finish(){if(done)return;done=true;cancelAnimationFrame(raf);set(total);onDone&&onDone()}
   raf=requestAnimationFrame(tick);return {finish};
 }
-function addPaths(g,polys,stroke,width){return polys.map(pts=>el('path',{d:toD(pts),stroke,'stroke-width':width,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},g))}
+function addPaths(g,polys,stroke,width){return polys.map(q=>{const o=Array.isArray(q)?{pts:q}:q;return el('path',{d:toD(o.pts),stroke,'stroke-width':o.w||width,'stroke-opacity':o.o==null?1:o.o,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'},g)})}
 
 /* =====================================================================
-   SCENES: steps, narration, behaviour (show(step, forward) must render that step fully)
+   SCENES
    ===================================================================== */
-const S={i:0,step:0,busy:null,rm:matchMedia('(prefers-reduced-motion: reduce)').matches,started:null,pick:null,r1:null,r2:null,vote:{art:null,artist:null}};
+const S={i:0,step:0,busy:null,rm:matchMedia('(prefers-reduced-motion: reduce)').matches,started:null,hang:{},spot:{},r1:null,r2:null,vote:{art:null,artist:null}};
 const anim=()=>!S.rm;
 
 const opening=(()=>{
-  const gD=$('#o-draw'),gW=$('#o-write'),gM=$('#o-mark');let built=false,parts={};
+  const gD=$('#o-draw'),gW=$('#o-write'),gM=$('#o-mark');let built=false,parts={},groups=[];
   function build(){if(built)return;built=true;
-    parts.draw=addPaths(gD,drawingPolys(),'#121211',3);
-    const l1=scriptPolys('Would you still',120,400,165),l2=scriptPolys('call it art?',146,590,165);
-    parts.write=addPaths(gW,[...l1.polys,...l2.polys],'#121211',6.5);
-    const pre=scriptPolys('call it ',146,590,165).width,artW=scriptPolys('art?',0,0,165).width;
-    const x0=146+pre-6,x1=146+pre+artW+10;
-    parts.mark=addPaths(gM,[wobbly(bez([x0,622],[x0+(x1-x0)*.3,610],[x0+(x1-x0)*.7,634],[x1,616],30),2,9)],'#C33A28',7);
+    const D=drawingPolys();parts.draw=addPaths(gD,D,'#121211',2);groups=D.map(d=>d.g);
+    const l1=scriptPolys('Would you still',112,380,145),l2=scriptPolys('call it art?',136,548,145);
+    parts.write=addPaths(gW,[...l1.polys,...l2.polys],'#121211',6);
+    const pre=scriptPolys('call it ',136,548,145).width,artW=scriptPolys('art?',0,0,145).width;
+    const x0=136+pre-6,x1=136+pre+artW+10;
+    parts.mark=addPaths(gM,[wobbly(bez([x0,578],[x0+(x1-x0)*.3,567],[x0+(x1-x0)*.7,589],[x1,572],30),2,9)],'#C33A28',7);
   }
-  function blank(){build();[...parts.draw,...parts.write,...parts.mark].forEach(p=>{p.style.strokeDasharray='0 99999';p.style.opacity=0});$('#open-sub').classList.remove('shown')}
-  function full(){build();[...parts.draw,...parts.write,...parts.mark].forEach(p=>{p.style.strokeDasharray='none';p.style.strokeDashoffset=0;p.style.opacity=1});$('#open-sub').classList.add('shown')}
+  const all=()=>[...parts.draw,...parts.write,...parts.mark];
+  function blank(){build();all().forEach(p=>{p.style.strokeDasharray='0 99999';p.style.visibility='hidden'});$('#open-sub').classList.remove('shown')}
+  function full(){build();all().forEach(p=>{p.style.strokeDasharray='none';p.style.strokeDashoffset=0;p.style.visibility='visible'});$('#open-sub').classList.add('shown')}
   function play(){build();blank();
-    // drawing → handwriting → red underline → subtitle; one press may finish it, never skip it
     let cur=null,stage=0,cancelled=false;
-    const seq=[()=>penAnimate(parts.draw,1.25,nextStage),()=>penAnimate(parts.write,1.5,nextStage),()=>penAnimate(parts.mark,0.9,nextStage)];
+    const seq=[()=>sketchAnimate(parts.draw,groups,7200,nextStage),()=>penAnimate(parts.write,1.6,nextStage),()=>penAnimate(parts.mark,0.9,nextStage)];
     function nextStage(){if(cancelled)return;stage++;if(stage<seq.length)cur=seq[stage]();else{$('#open-sub').classList.add('shown');S.busy=null}}
     cur=seq[0]();
     S.busy={finish(){cancelled=true;cur&&cur.finish();full();S.busy=null}};
@@ -621,29 +749,35 @@ const opening=(()=>{
 })();
 
 const SCENES=[
- {id:'sc-open',t:'Opening',steps:2,notes:['[Blank canvas. Press → to begin; the drawing and handwriting take about 8 s.]','Would you still call it art? I’m Mahmoud Hafez, and this is my review of research on AI-generated digital painting.'],
+ {id:'sc-open',t:'Opening',steps:2,notes:['[Blank canvas. Press → once; the drawing and handwriting take about 11 s.]','Would you still call it art? I’m Mahmoud Hafez; this is my review of research on AI-generated digital painting.'],
   show(st,fwd){if(st===0)opening.blank();else if(fwd&&anim())opening.play();else opening.full()}},
- {id:'sc-q',t:'Three questions',steps:3,notes:['Three questions guide it. Can an AI-generated painting have aesthetic or emotional value?','Does art need a human artist, with intention or consciousness?','And does knowing a picture came from AI change how we judge it?'],
-  show(st){['#q1','#q2','#q3'].forEach((q,k)=>$(q).classList.toggle('dim',k<st))}},
- {id:'sc-gen',t:'What is an AI painting?',steps:3,notes:['Someone types a prompt,','and a model turns noise into a picture; the same prompt gives different results.','That is my working definition: a still image made mainly by a model to look painted.'],
-  show(st,fwd){genScene(st,fwd)}},
- {id:'sc-rev',t:'Review process',steps:2,notes:['I reviewed twelve sources: experiments, reviews, philosophy, a model audit and a news case,','read in full, sorted by evidence type, and compared by what people saw, what changed and what was measured.'],show(){}},
- {id:'sc-pick',t:'Your choice',steps:3,hold:[6,2,0],notes:['First, a test. Which would you hang on your wall?','Two are human paintings; two came from Stable Diffusion.','Does knowing change how you feel about your choice? Researchers have tested that.'],
-  show(st,fwd){pickScene(st,fwd)}},
- {id:'sc-val',t:'Q1 · Value',steps:3,notes:['Value first. Van Hees’s team showed the same pairs to two separate groups.','One group preferred the AI image more often than chance; the other could still spot it.','But on creativity, Rondini’s raters still ranked human images above AI ones, and more human guidance helped the AI.'],show(){}},
- {id:'sc-lab',t:'Q3 · The label',steps:3,hold:[3,3,0],notes:['Now the label. Rate this painting, labelled human.','Same pixels, new label. Rate it again.','Bellaiche’s team did this with AI images and random labels. A human label raised every rating, most for worth and profundity, least for liking.'],
+ {id:'sc-q',t:'Four questions',steps:4,notes:['Four questions. Can an AI painting have aesthetic or emotional value?','Does art need a human artist, with intention?','Does knowing it’s AI change how we judge it?','And where is the field now, and where should it go?'],
+  show(st){['#q1','#q2','#q3','#q4'].forEach((q,k)=>$(q).classList.toggle('dim',k<st))}},
+ {id:'sc-gen',t:'What we mean',steps:2,notes:['These two were made with Artbreeder, an AI tool, and used in a real experiment.','That’s my definition: an image that looks painted, made mainly by a generative model.'],show(){}},
+ {id:'sc-rev',t:'Review process',steps:2,notes:['I reviewed twelve sources: six experiments, two reviews, two philosophy papers, an audit and a news case.','I compared what people saw, what changed and what was measured, and checked every number.'],
+  show(st){$('#stages').classList.toggle('on',st>=1);$$('#stages div').forEach((d,k)=>d.style.transitionDelay=(st>=1&&anim()?k*.12:0)+'s')}},
+ {id:'sc-game',t:'Your turn',steps:3,hold:[5,4,1],notes:['Your turn. Two real pairs from a study, each one human and one AI. Which would you hang?','Now: which one is AI?','The AI images are the bright mountain and the white bouquet.'],
+  show(st,fwd){gameScene(st,fwd)}},
+ {id:'sc-val',t:'Q1 · Value',steps:2,notes:['Van Hees’s team asked one group which image they preferred, another which was AI, across fifty pairs.','Each dot is a pair. Liked AI images were also easier to spot; your flowers fooled most people.'],
+  show(st,fwd){valScene(st,fwd)}},
+ {id:'sc-ron',t:'Q1 · Creativity',steps:2,notes:['Rondini’s team gave artists, non-artists and an image model the same two lines to finish.','Raters put artists first and the unguided model last; human ideas helped the model.'],
+  show(st,fwd){ronScene(st,fwd)}},
+ {id:'sc-lab',t:'Q3 · The label',steps:3,hold:[3,2,0],notes:['Now the label. How profound does this painting feel? It says a human made it.','Same painting, new label. Again?','Bellaiche used thirty AI paintings with random labels. A human label raised every rating, most for money worth and profundity.'],
   show(st,fwd){labScene(st,fwd)}},
- {id:'sc-ord',t:'Q3 · Context',steps:3,notes:['Context matters too. In Horton’s study, people saw two works and rated the second.','Human-labelled work scored highest right after AI-labelled work.','It is not a law: at an art fair, Chiarella found a penalty only when the AI-labelled painting came second. De Rooij’s meta-analysis finds small penalties, larger for meaning.'],
+ {id:'sc-ord',t:'Q3 · Context',steps:2,notes:['In Horton’s study, people rated two paintings in a row; only the labels changed.','The same painting scored highest right after an AI-labelled one; the contrast made it look more creative.'],
   show(st,fwd){ordScene(st,fwd)}},
- {id:'sc-int',t:'Q2 · Artist?',steps:3,hold:[4,0,0],notes:['Why would a label matter? Mikalonytė and Kneer gave people stories like this. What would you say?','People called the robot’s painting art about as readily, though it varied by story, but hesitated to call the robot an artist, seeing less intention.','Philosophers differ: for Hertzmann, art comes from social agents, so computers are tools; for Coeckelbergh, it depends on whether you judge outcome, process or relationships.'],
+ {id:'sc-chi',t:'Q3 · Real setting',steps:2,notes:['At a real art fair, Chiarella’s team showed two canvases for a minute each, then asked about liking.','The AI label hurt only when it came second. Pooled studies show a small penalty, larger for meaning.'],
+  show(st){$('#proc').classList.toggle('on',st===0);$$('#proc .st').forEach((d,k)=>d.style.transitionDelay=(anim()?k*.25:0)+'s');$('#chi-h').textContent=st===0?'Two real canvases, shown one at a time at an art fair.':'In a real setting, the penalty depended on order.'}},
+ {id:'sc-int',t:'Q2 · Artist?',steps:2,hold:[3,0],notes:['Mikalonytė and Kneer gave people stories like this. What do you think?','People called the robot’s painting art, but rarely called the robot an artist.'],
   show(st,fwd){intScene(st,fwd)}},
- {id:'sc-prac',t:'Human practice',steps:3,notes:['And “AI” images often hide human work. Jason Allen reportedly generated over nine hundred renderings in about eighty hours,','then selected,','and edited one.'],
+ {id:'sc-phil',t:'Q2 · Philosophy',steps:2,notes:['For Hertzmann, art is an exchange between people; software is a tool, like a camera.','For Coeckelbergh, it depends whether you judge the outcome, the process or the relationships.'],show(){}},
+ {id:'sc-prac',t:'Human practice',steps:3,notes:['Behind an “AI” painting there is often human work: Jason Allen generated over nine hundred images in about eighty hours,','chose one,','and edited it. It won first place.'],
   show(st,fwd){pracScene(st,fwd)}},
- {id:'sc-syn',t:'Synthesis',steps:3,notes:['The studies agree that a human label raises judgments of the same image, and that people can like AI paintings.','They differ by judgment, order and medium, and thirty-seven of forty-four studies used one country.','Still open: liking, spotting, originality and artistry are separate questions.'],show(){}},
- {id:'sc-mine',t:'Interpretation',steps:3,notes:['My interpretation: an AI-generated painting can count as art, through the people who make, select and look at it.','Calling the model an independent artist is a separate claim this research does not establish.','And the drawing that opened this talk was made by code. Does that change it for you?'],
+ {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Studies agree: an AI label lowers judgments of the same image, most for meaning and value, yet people still like AI images.','Results differ by order, setting, image and judge; most samples come from one country.','Still open: can a model be an artist, and how much human work makes it count?'],show(){}},
+ {id:'sc-mine',t:'Interpretation',steps:3,notes:['My view: an AI painting can count as art, through the people who make, choose and look at it.','Calling the model an artist is a separate claim, not established here.','And the opening drawing? Code made it. Does that change it for you?'],
   show(st){if(st>=2)drawMini()}},
- {id:'sc-next',t:'Next steps',steps:2,notes:['This matters for trust, credit and whose taste counts. The limitations point to next questions:','current models, documented workflows, as Rondini did, and other cultures, since Taylor found a popular aesthetic scorer favours Western and Japanese art.'],
-  show(st){$$('#sc-next .fcard').forEach((c,k)=>{c.style.transitionDelay='0s';c.classList.toggle('flip',st>=1);c.querySelectorAll('.face').forEach(f=>f.style.transitionDelay=(st>=1&&anim()?k*.18:0)+'s')})}},
+ {id:'sc-next',t:'Q4 · Next',steps:2,notes:['This matters for trust, credit and whose taste counts. Each limitation points to a question:','today’s models, disclosed workflows, real galleries over time, and other cultures.'],
+  show(st){$$('#sc-next .fcard').forEach((c,k)=>{c.classList.toggle('flip',st>=1);c.querySelectorAll('.face').forEach(f=>f.style.transitionDelay=(st>=1&&anim()?k*.18:0)+'s')})}},
  {id:'sc-close',t:'Close',steps:1,notes:['So, would you still call it art? Often, yes. Is the model the artist? Still open. Thank you.'],
   show(st,fwd){closeScene(fwd)}},
  {id:'sc-refs',t:'References',steps:1,notes:['[Hold on references for about three seconds. No narration.]'],show(){}},
@@ -652,53 +786,57 @@ const SCENES=[
 ];
 SCENES.forEach(sc=>sc.el=document.getElementById(sc.id));
 
-/* ---------- generation scene ---------- */
-const PROMPT=(IMG.squirrel1&&IMG.squirrel1.prompt)||'A painting of a squirrel eating a burger';
-function noiseFill(cv){const c=cv.getContext('2d'),d=c.createImageData(cv.width,cv.height);for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255;d.data[i]=v;d.data[i+1]=v*(.9+Math.random()*.2);d.data[i+2]=v*(.85+Math.random()*.3);d.data[i+3]=255}c.putImageData(d,0,0)}
-function genScene(st,fwd){
-  const ptxt=$('#ptxt');
-  const setImg=(k,v)=>{const g=$('#gen'+k),img=g.querySelector('img'),cv=g.querySelector('canvas');cv.style.opacity=1-v;img.style.filter=`blur(${(1-v)*22}px)`;img.style.opacity=v<.02?0:1};
-  [1,2].forEach(k=>{noiseFill($('#gen'+k+' canvas'))});
-  if(st===0){setImg(1,0);setImg(2,0);
-    if(fwd&&anim()){ptxt.textContent='';let i=0,cancel=false;const iv=setInterval(()=>{if(cancel)return;ptxt.textContent=PROMPT.slice(0,++i);if(i>=PROMPT.length){clearInterval(iv);S.busy=null}},45);
-      S.busy={finish(){cancel=true;clearInterval(iv);ptxt.textContent=PROMPT;S.busy=null}}}else ptxt.textContent=PROMPT;return}
-  ptxt.textContent=PROMPT;
-  if(st===1&&fwd&&anim()){let t0=null,raf,done=false;const D=2600;
-    const tick=now=>{if(t0==null)t0=now;const t=(now-t0)/D;const e=v=>1-Math.pow(1-Math.max(0,Math.min(1,v)),2);
-      // noise is refined in visible steps, image 2 a beat later
-      const q=v=>Math.floor(e(v)*12)/12;setImg(1,q(t*1.25));setImg(2,q(t*1.25-.35));if(t<1.3)raf=requestAnimationFrame(tick);else fin()};
-    function fin(){if(done)return;done=true;cancelAnimationFrame(raf);setImg(1,1);setImg(2,1);S.busy=null}
-    raf=requestAnimationFrame(tick);S.busy={finish:fin}}else{setImg(1,1);setImg(2,1)}
-}
-
 /* ---------- review shelf ---------- */
 function buildShelf(){
-  const groups=[["Experiments",["bellaiche","horton","chiarella","vanhees","mikalonyte","rondini"]],["Reviews",["oksanen","derooij"]],["Philosophy",["hertzmann","coeckelbergh"]],["Model audit",["taylor"]],["News case",["kuta"]]];
-  const host=$('#shelf');let x=0;
-  groups.forEach(([name,ids])=>{const x0=x;ids.forEach(id=>{const b=document.createElement('button');b.className='spine';b.dataset.src=id;b.style.left=x+'px';b.style.height=[340,372,318,356,380,330,364,344,326,370,350,336][host.querySelectorAll('.spine').length]+'px';b.innerHTML=`<span>${esc(SOURCES[id].short)}</span>`;host.appendChild(b);x+=84});
-    const l=document.createElement('div');l.className='shelf-lab';l.style.left=x0+'px';l.style.top='396px';l.innerHTML=esc(name)+'<br>'+ids.length;host.appendChild(l);x+=120});
-  const shelf=document.createElement('div');shelf.style.cssText=`position:absolute;left:-20px;top:380px;width:${x-80}px;height:3px;background:var(--fg)`;host.appendChild(shelf);
+  const groups=[['exp',"Experiments",["bellaiche","horton","chiarella","vanhees","mikalonyte","rondini"]],['rev',"Reviews",["oksanen","derooij"]],['phil',"Philosophy",["hertzmann","coeckelbergh"]],['aud',"Model audit",["taylor"]],['news',"News case",["kuta"]]];
+  const host=$('#shelf');let x=0,n=0;const H=[300,330,284,318,340,296,326,306,290,334,312,298];
+  groups.forEach(([c,name,ids])=>{const g=document.createElement('div');g.className='grp';g.style.left=x+'px';g.innerHTML=`<div class="num" style="color:var(--c-${c})">${ids.length}</div><div class="nm"><i style="background:var(--c-${c})"></i>${esc(name)}</div>`;host.appendChild(g);
+    ids.forEach(id=>{const b=document.createElement('button');b.className='spine';b.dataset.src=id;b.style.left=x+'px';b.style.height=(H[n++]+4)+'px';b.style.background=`var(--c-${c})`;b.innerHTML=`<span>${esc(SOURCES[id].short)}</span>`;host.appendChild(b);x+=84});x+=ids.length===1?150:70});
+  const shelf=document.createElement('div');shelf.style.cssText=`position:absolute;left:-20px;bottom:-4px;width:${x-40}px;height:4px;background:var(--fg)`;host.appendChild(shelf);
 }
 
-/* ---------- your choice ---------- */
-const GAL=['tower','turner','courtyard','kandinsky'];
-function buildGallery(){const host=$('#gallery');
-  GAL.forEach((k,i)=>{const m=IMG[k]||{};const c=document.createElement('div');c.className='gcard';c.dataset.k=k;c.style.left=(120+i*425)+'px';
-    c.innerHTML=`<div class="pic">${m.src?`<img src="${m.src}" alt="Painting ${i+1}">`:''}</div><svg class="ring" viewBox="-28 -28 436 496" width="436" height="496"></svg>
-    <div class="who"><b class="${m.source==='ai'?'ai':''}">${m.source==='ai'?'AI · '+esc(m.system||'model'):'Human · '+esc(m.creator||'')}</b><span>${m.source==='ai'?'sample published by its developers':esc((m.title||'')+(m.year?', '+m.year:''))}</span></div>`;
-    host.appendChild(c)})}
-function drawRing(card,animate){const svg=card.querySelector('.ring');svg.innerHTML='';
-  const pts=wobbly(ellipse(190,214,210,236,-1.9,-1.9+Math.PI*2.08,80),3,7);const p=addPaths(svg,[pts],'var(--acc)',6)[0];
-  if(animate&&anim())penAnimate([p],2.2);}
-function pickScene(st,fwd){
-  $$('.gcard').forEach(c=>{const on=c.dataset.k===S.pick;const svg=c.querySelector('.ring');if(on){if(!svg.childNodes.length)drawRing(c,false)}else svg.innerHTML=''});
-  const whos=$$('.gcard .who');whos.forEach(w=>{w.classList.remove('on');w.style.transitionDelay='0s'});
-  if(st>=1){whos.forEach((w,i)=>{w.style.transitionDelay=(fwd&&st===1&&anim()?i*.5:0)+'s';w.classList.add('on')})}
-  $('#pick-h').textContent=st===0?'Which one would you hang on your wall?':'Two human paintings. Two AI images.';
-  const m=S.pick&&IMG[S.pick];
-  $('#pick-out').innerHTML=!m?'No choice made. That is fine: the question still stands.':m.source==='ai'?'You chose an image <em>made by AI.</em>':'You chose a <em>human</em> painting.';
+/* ---------- the game: real van Hees pairs ---------- */
+const PAIRS={A:[{k:'vh_b_h',ai:false,who:'Human · Albert Bierstadt',sub:'Landscape'},{k:'vh_b_ai',ai:true,who:'AI · DALL·E 2',sub:'Made to match'}],
+             B:[{k:'vh_f_ai',ai:true,who:'AI · DALL·E 2',sub:'Made to match'},{k:'vh_f_h',ai:false,who:'Human · Eugène Boudin',sub:'Still life, flower bouquet'}]};
+function buildGame(){['A','B'].forEach(P=>{const host=$('#pair'+P);PAIRS[P].forEach((m,i)=>{const d=document.createElement('div');d.className='gpic';d.dataset.p=P;d.dataset.i=i;
+  d.innerHTML=`<div class="pic"><img data-img="${m.k}" alt="Painting ${P==='A'?i+1:i+3}"></div><svg class="mark" viewBox="-34 -34 453 458"></svg><div class="who"><b class="${m.ai?'ai':''}">${esc(m.who)}</b><span>${esc(m.sub)}</span></div>`;host.appendChild(d)})})}
+function markRing(svg,animate){const pts=wobbly(ellipse(192,195,214,222,-1.9,-1.9+Math.PI*2.08,80),3,7);const p=addPaths(svg,[pts],'var(--acc)',6)[0];if(animate&&anim())penAnimate([p],2.4)}
+function markAI(svg,animate){const t=scriptPolys('AI?',0,0,104);const ps=addPaths(svg,t.polys.map(p=>p.map(q=>[q[0]+356-t.width,q[1]+96])),'var(--acc)',7);
+  const u=addPaths(svg,[wobbly(line([352-t.width,120],[362,114],12),2,3)],'var(--acc)',5);if(animate&&anim())penAnimate([...ps,...u],1.6)}
+function gameMarks(animate){$$('.gpic').forEach(d=>{const svg=d.querySelector('svg.mark');svg.innerHTML='';const P=d.dataset.p,i=+d.dataset.i;
+  if(S.step===0&&S.hang[P]===i)markRing(svg,animate&&animate.p===P);
+  if(S.step>=1&&S.spot[P]===i)markAI(svg,animate&&animate.p===P);
+  if(S.step===1&&S.hang[P]===i&&S.spot[P]!==i){}})}
+function gameScene(st,fwd){
+  $('#game-h').textContent=st===0?'Which one would you hang on your wall?':st===1?'Now: which one is AI?':'Here’s who made them.';
+  gameMarks(null);
+  $$('.gpic').forEach((d,k)=>{const m=PAIRS[d.dataset.p][+d.dataset.i];const w=d.querySelector('.who');w.style.transitionDelay=(st===2&&fwd&&anim()?(k*.35)+'s':'0s');w.classList.toggle('on',st>=2);d.classList.toggle('isai',st>=2&&m.ai)});
+  const hangAI=['A','B'].filter(P=>S.hang[P]!=null&&PAIRS[P][S.hang[P]].ai).length,hangN=['A','B'].filter(P=>S.hang[P]!=null).length;
+  const spotOK=['A','B'].filter(P=>S.spot[P]!=null&&PAIRS[P][S.spot[P]].ai).length,spotN=['A','B'].filter(P=>S.spot[P]!=null).length;
+  const parts=[];if(hangN)parts.push(`You’d hang <em>${hangAI} AI image${hangAI===1?'':'s'}</em>`);if(spotN)parts.push(`${hangN?'':'You '}spotted the AI in <em>${spotOK} of ${spotN}</em>`);
+  $('#game-out').innerHTML=parts.length?parts.join(' and ')+'.':'';
 }
-function choosePick(k){if(SCENES[S.i].id!=='sc-pick'||S.step!==0)return;S.pick=(S.pick===k?null:k);$$('.gcard').forEach(c=>{c.querySelector('.ring').innerHTML='';if(c.dataset.k===S.pick)drawRing(c,true)})}
+function gamePick(P,i){const st=S.step;if(SCENES[S.i].id!=='sc-game'||st>1)return;const o=st===0?S.hang:S.spot;o[P]=o[P]===i?null:i;gameMarks({p:P});if(o[P]==null)gameMarks(null)}
+
+/* ---------- van Hees figure overlay ---------- */
+function valScene(st,fwd){$('#val-h').textContent=st===0?'Fifty pairs. Two separate groups. Two different questions.':'Pairs where the AI image was liked more were also easier to spot.';
+  const svg=$('#vh-marks');svg.innerHTML='';if(st<1)return;
+  // figure 851×699 drawn with object-fit:contain into 960×790 → scale s, offset oy
+  const s=Math.min(960/851,790/699),ox=(960-851*s)/2,oy=(790-699*s)/2,P=(x,y)=>[ox+x*s,oy+y*s];
+  const ring=(x,y,rx,ry,seed)=>wobbly(ellipse(x,y,rx,ry,-1.9,-1.9+Math.PI*2.1,50),2.5,seed);
+  const [ax,ay]=P(640,135),[bx,by]=P(291,507);
+  const items=[...addPaths(svg,[ring(ax,ay,38,30,3),ring(bx,by,38,30,5)],'#C33A28',4)];
+  const t1=scriptPolys('your mountains',0,0,46),t2=scriptPolys('your flowers',0,0,46);
+  items.push(...addPaths(svg,t1.polys.map(p=>p.map(q=>[q[0]+ax-t1.width+20,q[1]+ay-74])),'#C33A28',3));
+  items.push(...addPaths(svg,t2.polys.map(p=>p.map(q=>[q[0]+bx+50,q[1]+by+14])),'#C33A28',3));
+  if(fwd&&anim())penAnimate(items,1.5)}
+
+/* ---------- Rondini: the starting lines ---------- */
+function ronScene(st,fwd){const svg=$('#ron-svg');svg.innerHTML='';
+  el('rect',{x:10,y:10,width:600,height:500,fill:'none',stroke:'var(--rule)','stroke-width':2},svg);
+  const ps=addPaths(svg,[wobbly(line([250,330],[450,130],30),1.4,3),wobbly(bez([150,440],[250,300],[400,300],[480,430],40),1.4,4)],'currentColor',6);
+  if(st===0&&fwd&&anim())penAnimate(ps,0.7);
+  $('#makers').classList.toggle('ranked',st>=1)}
 
 /* ---------- label test ---------- */
 function rateUI(){const val=S.step===0?S.r1:S.r2;$$('#rate button').forEach((b,i)=>b.classList.toggle('on',val===i+1));
@@ -706,73 +844,82 @@ function rateUI(){const val=S.step===0?S.r1:S.r2;$$('#rate button').forEach((b,i
 function labScene(st,fwd){
   $('#lbl').classList.toggle('flip',st>=1);
   const note=$('#same-note');note.innerHTML='';
-  if(st===1){const t=scriptPolys('same image',0,0,70);const ps=addPaths(note,t.polys.map(p=>p.map(q=>[q[0]+20,q[1]+520])),'var(--acc)',3.5);
+  if(st===1){const t=scriptPolys('same painting',0,0,64);const ps=addPaths(note,t.polys.map(p=>p.map(q=>[q[0]+20,q[1]+520])),'var(--acc)',3.5);
     const arr=addPaths(note,[wobbly(bez([20,560],[-10,600],[-20,640],[-60,700],20),1.5,4),wobbly([[-74,682],[-60,700],[-46,684]],1,5)],'var(--acc)',3.5);
     if(fwd&&anim())penAnimate([...ps,...arr],1.4)}
   $('#rate-q').textContent=st===0?'How profound does this painting feel?':'And now? How profound does it feel?';
   $('#bars').classList.toggle('go',st>=2);rateUI();
 }
-function buildBars(){const data=[["Liking",.17],["Beauty",.22],["Profundity",.47],["Worth",.61]];const max=.8;
-  $('#bars').innerHTML=data.map(([k,v])=>`<div class="row${v>.4?' hi':''}"><b>${k}</b><div class="track"><i style="width:${v/max*100}%"></i></div><span class="v">${v.toFixed(2).replace(/^0/,'')}</span></div>`).join('')+
+function buildBars(){const data=[["Liking",.17,"How much do you like this image?"],["Beauty",.22,"How beautiful / aesthetically pleasing is it?"],["Profundity",.47,"How profound or meaningful is it?"],["Worth",.61,"How much money would it be worth?"]];const max=.8;
+  $('#bars').innerHTML=data.map(([k,v,q])=>`<div class="row${v>.4?' hi':''}"><div><b>${k}</b><q>${q}</q></div><div class="track"><i style="width:${v/max*100}%"></i></div><span class="v">${v.toFixed(2).replace(/^0/,'')}</span></div>`).join('')+
   `<div class="ticks">${[[.2,'.2 small'],[.5,'.5 medium'],[.8,'.8 large']].map(([v,l])=>`<span style="left:${v/max*100}%">${l}</span>`).join('')}</div>`}
 
-/* ---------- order ---------- */
-const ORD={a:{x:300,y:300},b:{x:1180,y:300}};
-function ordScene(st,fwd){
-  const A=$('#ordA'),B=$('#ordB');
-  const place=(e,p,animate)=>{const was={x:parseFloat(e.style.left)||p.x,y:parseFloat(e.style.top)||p.y};e.style.left=p.x+'px';e.style.top=p.y+'px';
-    if(animate&&anim()&&Math.abs(was.x-p.x)>10&&e.animate){const up=(e===A)?-170:170;e.animate([{left:was.x+'px',top:was.y+'px'},{left:(was.x+p.x)/2+'px',top:(was.y+up)+'px'},{left:p.x+'px',top:p.y+'px'}],{duration:1300,easing:'cubic-bezier(.65,0,.35,1)'})}};
-  // A = the human-labelled work, B = the AI-labelled work. Step 0: human first. Step 1+: AI first.
-  if(st===0){place(A,ORD.a,fwd);place(B,ORD.b,fwd)}else{place(B,ORD.a,fwd&&st===1);place(A,ORD.b,fwd&&st===1)}
-  A.classList.toggle('rated',st>=1);B.classList.toggle('rated',st===0);
-  A.querySelector('.t').textContent=st===0?'first':'second · rated';B.querySelector('.t').textContent=st===0?'second · rated':'first';
-  $('#ord-h').textContent=st===0?'People saw two works and rated the second.':st===1?'Human-labelled work scored highest right after AI-labelled work.':'Not a law: order and medium matter.';
-  [A,B].forEach(e=>{e.style.opacity=st>=2?.0:1});
-  $('#ruler').classList.toggle('go',st>=1);
-}
-function buildRuler(){const svg=$('#ruler');const X=v=>520+(v-1)/6*1080;const T='font:500 20px var(--sans)';
-  // one row per order, so close means never overlap; shared 1–7 axis underneath
-  for(let v=1;v<=7;v++){el('line',{x1:X(v),x2:X(v),y1:14,y2:206,stroke:'var(--rule)','stroke-width':1.5},svg);el('text',{x:X(v),y:242,'text-anchor':'middle',fill:'var(--muted)',style:T},svg,v)}
-  el('line',{x1:X(1),x2:X(7),y1:214,y2:214,stroke:'currentColor','stroke-width':2},svg);
-  [["“AI” first, then “human”",4.85,'currentColor'],["“Human” first, then “human”",4.62,'currentColor'],["“Human” first, then “AI”",4.24,'var(--acc)']].forEach(([l,v,c],i)=>{const y=44+i*64;
-    el('text',{x:0,y:y+8,fill:c,style:'font:600 26px var(--sans)'},svg,l);
-    el('line',{x1:X(1),x2:X(v),y1:y,y2:y,stroke:c,'stroke-width':2,'stroke-dasharray':'2 7','stroke-linecap':'round'},svg);
-    el('circle',{cx:X(v),cy:y,r:12,fill:c},svg);
-    el('text',{x:X(v)+24,y:y+8,fill:c,style:'font:700 26px var(--sans)'},svg,v.toFixed(2))});
-}
+/* ---------- Horton: the three label orders and painting 2's score ---------- */
+const HV=[4.62,4.24,4.85];
+function buildHplot(){const svg=$('#hplot');const X=v=>140+(v-1)/6*940;
+  for(let v=1;v<=7;v++){el('line',{x1:X(v),x2:X(v),y1:20,y2:450,stroke:'var(--rule)','stroke-width':1.5},svg);el('text',{x:X(v),y:500,'text-anchor':'middle',fill:'var(--muted)',style:'font:500 22px var(--sans)'},svg,v)}
+  el('line',{x1:X(1),x2:X(7),y1:460,y2:460,stroke:'currentColor','stroke-width':2},svg);
+  el('text',{x:X(7),y:-6,'text-anchor':'end',fill:'var(--soft)',style:'font:600 17px var(--sans);letter-spacing:.08em'},svg,'PAINTING 2 · MEAN CREATIVITY, 1–7');
+  HV.forEach((v,i)=>{const y=68+i*170;const g=el('g',{class:'hd',transform:`translate(${X(1)-X(v)},0)`,style:'transition:transform 1.1s cubic-bezier(.16,1,.3,1)'},svg);g.dataset.v=v;
+    el('line',{x1:X(1),x2:X(v),y1:y,y2:y,stroke:i===2?'var(--fg)':'var(--soft)','stroke-width':2,'stroke-dasharray':'2 8','stroke-linecap':'round'},g);
+    el('circle',{cx:X(v),cy:y,r:i===2?16:12,fill:i===1?'var(--acc)':'var(--fg)'},g);
+    el('text',{x:X(v)+28,y:y+10,fill:i===1?'var(--acc)':'var(--fg)',style:`font:700 ${i===2?34:28}px var(--sans)`},g,v.toFixed(2))});}
+function ordScene(st,fwd){$('#ord-h').textContent=st===0?'Two paintings in a row. Only the labels changed.':'After an “AI” painting, the same human-labelled painting scored highest.';
+  $$('#hplot .hd').forEach((g,i)=>{g.style.transitionDelay=(st>=1&&fwd&&anim()?i*.2:0)+'s';g.style.opacity=st>=1?1:0;const X=v=>140+(v-1)/6*940;g.setAttribute('transform',st>=1?'translate(0,0)':`translate(${X(1)-X(+g.dataset.v)},0)`)});
+  $('#hr2').style.opacity=1;$$('.hrow').forEach((r,k)=>r.style.opacity=st>=1&&k!==2?.55:1)}
 
-/* ---------- intention ---------- */
-function intScene(st){
+/* ---------- art vs artist ---------- */
+let wordGeom=null;
+function layoutWord(){const a=$('#w-art'),i=$('#w-ist'),g=$('#w-ghost');const aw=a.getComputedTextLength(),iw=i.getComputedTextLength();
+  const left=(1920-aw-iw)/2;wordGeom={aw,iw,left};
+  a.setAttribute('x',left);g.setAttribute('x',left);i.setAttribute('x',left+aw);}
+function intScene(st,fwd){
   $$('#sc-int .yn').forEach(g=>g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',S.vote[g.dataset.k]===+b.dataset.v)));
-  const w=$('#word');w.classList.toggle('split',st>=1);
-  const yn=v=>v==null?'—':v?'yes':'no';
-  $('#vote-echo').textContent=(S.vote.art==null&&S.vote.artist==null)?'':`Your answers: art, ${yn(S.vote.art)}; artist, ${yn(S.vote.artist)}.`+(S.vote.art===1&&S.vote.artist===0?' The same split the study found overall.':'');
-}
-function layoutWord(){const w=$('#word'),a1=w.querySelector('.a1'),gh=w.querySelector('.ghost'),i=w.querySelector('.i');
-  const aw=a1.offsetWidth,iw=i.offsetWidth,gap=140,total=aw+iw,left=(1920-total)/2;
-  a1.style.left=left+'px';gh.style.left=left+'px';i.style.left=(left+aw)+'px';
-  const L=120,R=1920-120-(aw+iw); // split: ART to the left margin, ARTIST to the right margin
-  let st=$('#word-css');if(!st){st=document.createElement('style');st.id='word-css';document.head.appendChild(st)}
-  st.textContent=`#word.split .a1{transform:translateX(${L-left}px)}#word.split .ghost,#word.split .i{transform:translateX(${R-left}px)}`;
-  $('#res-r').style.left=R+'px';
+  if(!wordGeom||!wordGeom.aw)layoutWord();
+  const {aw,iw,left}=wordGeom,on=st>=1;
+  // split: ART slides to the left margin; a ghost ART joins IST at the right margin to spell ARTIST
+  const dA=120-left,dI=(1800-iw)-(left+aw),dG=(1800-iw-aw)-left;
+  $('#w-art').style.transform=on?`translateX(${dA}px)`:'none';
+  $('#w-ist').style.transform=on?`translateX(${dI}px)`:'none';
+  const gh=$('#w-ghost');gh.style.transform=on?`translateX(${dG}px)`:'none';gh.setAttribute('opacity',on?1:0);
+  $('#w-ist').setAttribute('fill',on?'none':'currentColor');$('#w-ist').setAttribute('stroke',on?'var(--acc)':'none');$('#w-ist').setAttribute('stroke-width',3);
+  $('#split').classList.toggle('split-on',on);
+  const yn=v=>v==null?null:v?'yes':'no';const a=yn(S.vote.art),b=yn(S.vote.artist);
+  $('#vote-echo').innerHTML=(a||b)?`<b>You said:</b> art, ${a||'—'}; artist, ${b||'—'}.`+(S.vote.art===1&&S.vote.artist===0?' The same split most participants made.':''):'';
+  $('#vote-echo').style.display=(a||b)?'block':'none';
 }
 function vote(k,v){if(SCENES[S.i].id!=='sc-int'||S.step!==0)return;S.vote[k]=(S.vote[k]===v?null:v);intScene(0)}
 
 /* ---------- practice ---------- */
 const PICK=623;
-function buildGrid(){const svg=$('#grid900');for(let r=0;r<20;r++)for(let c=0;c<45;c++){el('rect',{x:c*28,y:r*28,width:22,height:22,fill:'none',stroke:'currentColor','stroke-width':1.6,opacity:0},svg)}}
+function buildGrid(){const svg=$('#grid900');for(let r=0;r<20;r++)for(let c=0;c<45;c++){el('rect',{x:c*28,y:r*28,width:22,height:22,fill:'none',stroke:'currentColor','stroke-width':1.6,opacity:0},svg)}
+  const c=PICK%45,r=Math.floor(PICK/45);const ox=560+c*28+11,oy=230+r*28+11;$('#allen').style.setProperty('--ox',(ox-740)+'px');$('#allen').style.setProperty('--oy',(oy-200)+'px')}
 function pracScene(st,fwd){const rects=[...$('#grid900').children];const cnt=$('#cnt');
   const setN=n=>{rects.forEach((r,i)=>{r.style.opacity=i<n?1:0;r.setAttribute('fill','none');r.setAttribute('stroke','currentColor')});cnt.textContent=n>=900?'900+':n};
-  $('#st-g').classList.add('on');$('#st-s').classList.toggle('on',st>=1);$('#st-e').classList.toggle('on',st>=2);
+  $('#st-g').classList.add('on');$('#st-s').classList.toggle('on',st>=1);$('#st-e').classList.toggle('on',st>=2);$('#allen').classList.toggle('on',st>=2);
   if(st===0){if(fwd&&anim()){let t0=null,raf,done=false;const D=2600;const tick=now=>{if(t0==null)t0=now;const t=Math.min(1,(now-t0)/D);setN(Math.round(900*(t<1?t*t*(3-2*t):1)));if(t<1)raf=requestAnimationFrame(tick);else fin()};
       function fin(){if(done)return;done=true;cancelAnimationFrame(raf);setN(900);S.busy=null}raf=requestAnimationFrame(tick);S.busy={finish:fin}}else setN(900);return}
   cnt.textContent='900+';
-  rects.forEach((r,i)=>{r.style.opacity=i===PICK?1:.12;r.setAttribute('fill',i===PICK&&st>=1?'var(--acc)':'none');r.setAttribute('stroke',i===PICK?'var(--acc)':'currentColor')});
-  $('#cnt-l').textContent='renderings generated';
+  rects.forEach((r,i)=>{r.style.opacity=i===PICK?1:(st>=2?.06:.12);r.setAttribute('fill',i===PICK?'var(--acc)':'none');r.setAttribute('stroke',i===PICK?'var(--acc)':'currentColor')});
 }
 
+/* ---------- synthesis ---------- */
+const SYN={
+ a:[["An “AI” label lowers judgments of the very same image.",["bellaiche","horton","derooij"]],
+    ["The penalty is biggest for meaning and money, smallest for liking.",["bellaiche","horton","derooij"],"Worth d = .61 vs liking .17; price .57 vs liking .25"],
+    ["People still like AI images, and often can’t tell them apart.",["vanhees","horton"],"Over 70% said they couldn’t tell without labels"],
+    ["Visible human input raises value.",["rondini","bellaiche","horton"],"Guidance, perceived effort, collaboration"]],
+ d:[["By order and setting: online the penalty is steady; at an art fair it appeared in one order only.",["horton","chiarella"]],
+    ["By image: some AI images were easy to spot; others fooled most people.",["vanhees"]],
+    ["By judge: human raters and GPT-4o disagreed.",["rondini"]],
+    ["By sample: 37 of 44 studies drew on one country.",["oksanen"]]],
+ o:[["Can a model be an artist, with intention or consciousness? Participants hesitate; philosophers disagree.",["mikalonyte","hertzmann","coeckelbergh"]],
+    ["How much human work makes an AI image count as someone’s art?",["horton","kuta"],"Collaborations rated between human and AI"],
+    ["Do penalties last as AI images become ordinary, and as tools change?",["oksanen","taylor"]]]};
+function buildSyn(){[['a','#syn-a'],['d','#syn-d'],['o','#syn-o']].forEach(([k,sel])=>{$(sel).insertAdjacentHTML('beforeend',SYN[k].map(([t,ids,sub])=>`<div class="it"><p>${t}</p><div class="src">${sub?`<span style="color:var(--fg)">${sub}</span>`:''}${ids.map(id=>`<span><i style="background:var(--c-${SOURCES[id].cat})"></i>${SOURCES[id].short.replace(', ',' ')}</span>`).join('')}</div></div>`).join(''))})}
+
 /* ---------- interpretation mini drawing, close ---------- */
-function drawMini(){const svg=$('#mine-draw');if(svg.childNodes.length)return;addPaths(svg,drawingPolys(),'currentColor',3)}
+function drawMini(){const svg=$('#mine-draw');if(svg.childNodes.length)return;addPaths(svg,drawingPolys(),'currentColor',2)}
 function closeScene(fwd){const g=$('#c-write');g.innerHTML='';
   const l=scriptPolys('Would you still call it art?',120,380,150);const ps=addPaths(g,l.polys,'#F3F1EC',5.5);
   if(fwd&&anim()){$('#close-ans').style.opacity=0;$('#close-ty').style.opacity=0;const pa=penAnimate(ps,2.4,()=>{$('#close-ans').style.opacity=1;$('#close-ty').style.opacity=1;S.busy=null});
@@ -794,12 +941,12 @@ function prev(){if(S.busy){S.busy.finish();S.busy=null}const sc=SCENES[S.i];if(S
 function go(i,st){if(S.busy){S.busy.finish();S.busy=null}S.i=Math.max(0,Math.min(SCENES.length-1,i));S.step=st||0;closeDrawer();render(false)}
 
 /* timing estimate for the presenter */
-const WPS=145/60;
+const WPS=145/60,OPEN_ANIM=11;
 function words(t){return t.startsWith('[')?0:t.split(/\s+/).filter(Boolean).length}
-function targetAt(i,st){let t=0;for(let k=0;k<SCENES.length;k++)for(let j=0;j<SCENES[k].steps;j++){if(k===i&&j===st)return t;const n=SCENES[k].notes[j]||'';t+=(n.startsWith('[')?0:words(n)/WPS+.6)+((SCENES[k].hold||[])[j]||0)+(k===0&&j===1?8:0)}return t}
+function targetAt(i,st){let t=0;for(let k=0;k<SCENES.length;k++)for(let j=0;j<SCENES[k].steps;j++){if(k===i&&j===st)return t;const n=SCENES[k].notes[j]||'';t+=(n.startsWith('[')?0:words(n)/WPS+.6)+((SCENES[k].hold||[])[j]||0)+(k===0&&j===1?OPEN_ANIM:0)}return t}
 const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function updateChrome(){const sc=SCENES[S.i];$('#pos').textContent=(S.i+1)+' / '+SCENES.length+' · step '+(S.step+1)+'/'+sc.steps;$('#ttl').textContent=sc.t;renderNotes();renderPresenter();$$('#overview button').forEach((b,k)=>b.classList.toggle('cur',k===S.i))}
-function renderNotes(){const N=$('#notes');if(!N.classList.contains('open'))return;const sc=SCENES[S.i];N.innerHTML=`<div class="meta"><span>${sc.t} · step ${S.step+1}/${sc.steps}</span><span>target ${fmt(targetAt(S.i,S.step))} of ${fmt(targetAt(99,0))}</span></div><div style="color:#fff">${sc.notes[S.step]||''}</div>`}
+function renderNotes(){const N=$('#notes');if(!N.classList.contains('open'))return;const sc=SCENES[S.i];N.innerHTML=`<div class="meta"><span>${sc.t} · step ${S.step+1}/${sc.steps}</span><span>target ${fmt(targetAt(S.i,S.step))} of ${fmt(targetAt(SCENES.findIndex(s=>s.id==='sc-refs'),0))}</span></div><div style="color:#fff">${sc.notes[S.step]||''}</div>`}
 let pw=null;
 function openPresenter(){pw=window.open('','aip-presenter','width=1180,height=760');if(!pw){$('#notes').classList.add('open');renderNotes();return}
   pw.document.open();pw.document.write(`<!doctype html><title>Presenter</title><style>body{margin:0;background:#121211;color:#EEE;font:18px/1.55 system-ui,sans-serif;display:grid;grid-template-rows:auto 1fr auto;height:100vh}header{display:flex;gap:28px;align-items:baseline;padding:18px 26px;border-bottom:1px solid #2A2A2A;font:14px system-ui;color:#999}header b{color:#fff;font-size:30px;font-weight:600}main{padding:22px 30px;overflow:auto;display:grid;grid-template-columns:2fr 1fr;gap:34px}.cur{color:#fff;font-size:30px;line-height:1.4}.nx{border-left:1px solid #2A2A2A;padding-left:24px;color:#AAA}footer{display:flex;gap:10px;padding:14px 26px;border-top:1px solid #2A2A2A}button{font:600 15px system-ui;background:#1F1E1C;color:#EEE;border:1px solid #333;border-radius:6px;padding:10px 16px;cursor:pointer}</style>
@@ -813,13 +960,12 @@ function renderPresenter(){if(!pw||pw.closed)return;const d=pw.document;if(!d.ge
 
 /* drawer, references, appendix */
 function openDrawer(id){const s=SOURCES[id];if(!s)return;const st=STUDY[id]&&STUDY[id].src?`<img src="${STUDY[id].src}" alt="Study figure" style="width:100%;margin-top:16px"><p style="font:13px var(--sans);color:#555">${esc(STUDY[id].credit||'')}</p>`:'';
-  $('#drawer-body').innerHTML=`<span class="t">${s.type}</span><h4>${s.short}</h4><div class="full">${s.full} <a href="${s.url}" target="_blank" rel="noopener">${s.url}</a></div><dl><dt>What people saw</dt><dd>${s.saw}</dd><dt>Human role</dt><dd>${s.human}</dd><dt>Participants</dt><dd>${s.sample}</dd><dt>Measures</dt><dd>${s.measures}</dd><dt>Result</dt><dd>${s.result}</dd><dt>Limitation</dt><dd>${s.limit}</dd></dl><div class="ver">${s.ver}</div>${st}`;$('#drawer').classList.add('open')}
+  $('#drawer-body').innerHTML=`<span class="t paper" style="background:#111"><i style="width:10px;height:10px;border-radius:50%;background:var(--c-${s.cat})"></i>${CATS[s.cat]} · ${s.type}</span><h4>${s.short}</h4><div class="full">${s.full} <a href="${s.url}" target="_blank" rel="noopener">${s.url}</a></div><dl><dt>What people saw</dt><dd>${s.saw}</dd><dt>Human role</dt><dd>${s.human}</dd><dt>Participants</dt><dd>${s.sample}</dd><dt>Measures</dt><dd>${s.measures}</dd><dt>Result</dt><dd>${s.result}</dd><dt>Limitation</dt><dd>${s.limit}</dd></dl><div class="ver">${s.ver}</div>${st}`;$('#drawer').classList.add('open')}
 function closeDrawer(){$('#drawer').classList.remove('open')}
-function openIndex(){$('#drawer-body').innerHTML='<span class="t">12 sources</span><h4>Source details</h4>'+SRC_ORDER.map(id=>`<p style="margin:12px 0"><button class="cite" data-src="${id}" style="color:#111">${SOURCES[id].short}</button> <span style="font:14px var(--sans);color:#666">${SOURCES[id].type}</span></p>`).join('');$('#drawer').classList.add('open')}
+function openIndex(){$('#drawer-body').innerHTML='<span class="t">12 sources</span><h4>Source details</h4>'+SRC_ORDER.map(id=>`<p style="margin:12px 0" class="paper"><button class="cite" data-src="${id}" style="color:#111">${dot(id)}${SOURCES[id].short}</button> <span style="font:14px var(--sans);color:#666">${CATS[SOURCES[id].cat]} · ${SOURCES[id].type}</span></p>`).join('');$('#drawer').classList.add('open')}
 function buildRefs(){$('#reflist').innerHTML=SRC_ORDER.map(id=>{const s=SOURCES[id];return `<li>${s.full} <a href="${s.url}" target="_blank" rel="noopener">${s.url.replace('https://','')}</a></li>`}).join('');
-  $('#credits').innerHTML='<b>Images.</b> '+Object.values(IMG).filter((m,i,a)=>a.findIndex(x=>x.credit===m.credit)===i).map(m=>esc((m.creator?m.creator+', '+(m.title||'')+(m.year?' ('+m.year+')':'')+'. ':'')+(m.credit||''))).join(' · ')+' · Script lettering: EMS Allure (SIL OFL).'}
+  const seen=new Set();$('#credits').innerHTML='<b>Images</b> (all from the reviewed sources): '+Object.values(IMG).map(m=>m.credit).filter(c=>c&&!seen.has(c)&&seen.add(c)).map(esc).join(' · ')+' · Opening drawing generated in code; script lettering EMS Allure (SIL OFL).'}
 function buildMatrix(){$$('table.matrix').forEach(tb=>{tb.querySelector('tbody').innerHTML=tb.dataset.rows.split(',').map(id=>{const s=SOURCES[id];return `<tr><td>${s.short}</td><td>${s.type}</td><td>${s.saw}</td><td>${s.human}</td><td>${s.sample}</td><td>${s.measures}</td><td>${s.result}</td><td>${s.limit}</td></tr>`}).join('')})}
-function buildWaffle(){const svg=$('#waffle');for(let i=0;i<44;i++){const on=i<37;el('rect',{x:i*10,y:6,width:7,height:40,fill:on?'currentColor':'none',stroke:on?'none':'currentColor','stroke-width':1},svg)}}
 function buildOverview(){$('#overview .grid').innerHTML=SCENES.map((s,k)=>`<button data-go="${k}" class="${s.el.classList.contains('paper')?'lt':''}"><span>${k+1}</span><strong>${s.t}</strong></button>`).join('');
   $('#overview').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){$('#overview').classList.remove('open');go(+b.dataset.go,0)}})}
 
@@ -827,7 +973,7 @@ function buildOverview(){$('#overview .grid').innerHTML=SCENES.map((s,k)=>`<butt
 function toggle(sel){$(sel).classList.toggle('open')}
 function act(a){({prev,next,overview:()=>toggle('#overview'),sources:openIndex,notes:()=>{toggle('#notes');renderNotes()},presenter:openPresenter,clean:()=>document.body.classList.toggle('clean'),fs:()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()},help:()=>toggle('#help'),closedrawer:closeDrawer})[a]?.()}
 function onKey(e){if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key,id=SCENES[S.i].id;
-  if(/^[1-5]$/.test(k)){if(id==='sc-pick'&&+k<=4){choosePick(GAL[+k-1]);return}if(id==='sc-lab'&&S.step<2){rate(+k);return}}
+  if(/^[1-5]$/.test(k)){if(id==='sc-game'&&+k<=4&&S.step<2){gamePick(+k<=2?'A':'B',(+k-1)%2);return}if(id==='sc-lab'&&S.step<2){rate(+k);return}}
   if(['ArrowRight','PageDown',' ','Enter'].includes(k)){e.preventDefault();closeDrawer();next()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(k)){e.preventDefault();closeDrawer();prev()}
   else if(k==='Home')go(0,0);else if(k==='End')go(SCENES.length-1,0);
@@ -841,7 +987,7 @@ document.addEventListener('click',e=>{
   const c=e.target.closest('[data-src]');if(c&&!e.target.closest('#drawer .x')){e.stopPropagation();openDrawer(c.dataset.src);return}
   const a=e.target.closest('[data-act]');if(a){act(a.dataset.act);return}
   if(e.target.closest('#drawer,#overview,#help,#notes,#chrome,a'))return;
-  const g=e.target.closest('.gcard');if(g&&S.step===0){choosePick(g.dataset.k);return}
+  const g=e.target.closest('.gpic');if(g&&S.step<2){gamePick(g.dataset.p,+g.dataset.i);return}
   const r=e.target.closest('#rate button');if(r&&S.step<2){rate([...r.parentNode.children].indexOf(r)+1);return}
   const y=e.target.closest('.yn button');if(y&&S.step===0){vote(y.parentNode.dataset.k,+y.dataset.v);return}
   if(e.target.closest('#stage')){closeDrawer();next()}});
@@ -850,10 +996,9 @@ function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);$('#stage').st
 
 /* boot */
 if(S.rm)document.body.classList.add('rm');
-['gimg1','gimg2'].forEach((id,k)=>{const m=IMG['squirrel'+(k+1)];if(m&&m.src)$('#'+id).src=m.src});
-if(IMG.coffee&&IMG.coffee.src)$('#lab-img').src=IMG.coffee.src;
-if(IMG.turner&&IMG.turner.src)$('#ordA-img').src=IMG.turner.src;$$('.ex-h').forEach(e=>{if(IMG.turner&&IMG.turner.src)e.src=IMG.turner.src});$$('.ex-a').forEach(e=>{if(IMG.courtyard&&IMG.courtyard.src)e.src=IMG.courtyard.src});if(IMG.tower&&IMG.tower.src)$('#ordB-img').src=IMG.tower.src;
-buildShelf();buildGallery();buildBars();buildRuler();buildGrid();buildWaffle();buildRefs();buildMatrix();buildOverview();
+buildShelf();buildGame();buildBars();buildHplot();buildGrid();buildSyn();buildRefs();buildMatrix();buildOverview();
+$$('img[data-img]').forEach(im=>{const m=IMG[im.dataset.img];if(m&&m.src)im.src=m.src});
+$$('#stage .cite[data-src]').forEach(c=>{if(!c.querySelector('.dot'))c.insertAdjacentHTML('afterbegin',dot(c.dataset.src))});
 (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{layoutWord();
   const h=location.hash.slice(1);const m=/^([a-zA-Z]+)(?:\.(\d+))?$/.exec(h);const i=m?SCENES.findIndex(s=>s.id==='sc-'+m[1]):-1;
   if(i>=0){S.i=i;S.step=Math.min(+(m[2]||0),SCENES[i].steps-1)}render(false)});

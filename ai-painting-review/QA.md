@@ -1,34 +1,25 @@
-# QA record (v4)
+# QA record (v5)
 
-Tested with Chromium 141 (Playwright) on 2026-10-09 against the committed build, at 1920×1080 and 1280×720. Every scene and step was captured forward and then stepped back to the start.
+Tested with Chromium 141 (Playwright) on 2026-10-09 against the committed build. Every scene and step was captured at 1920×1080 and the interactions were checked at 1280×720. The whole deck was stepped forward and then back to the blank start.
 
 | Check | Result | How it was checked |
 |---|---|---|
-| Opening | **Pass** | The page loads on a blank canvas. The first →/Space/click starts the drawing; it does not skip it. The easel draws first, then "Would you still call it art?" is handwritten stroke by stroke, then a red underline and the subtitle appear. A second press during the animation completes it instead of advancing. The title holds until the next press. Frames were captured at 0.7, 2.5, 5 and 8 s. |
-| Stray marks | **Pass** | Zero-length strokes are hidden until drawn, so the blank canvas shows no dots. |
-| Layout | **Pass** | All 40 steps were reviewed. Fixed in this round: the title overlapping the easel, easel legs showing through the canvas, the shelf baseline and labels, a choice ring touching the captions, colliding ruler labels (now one dot-plot row per order), the interpretation question overlapping text, and empty placeholder boxes in van Hees (now an illustrative pair, labelled). |
-| Morphs only where meaningful | **Pass** | Morphs appear in four places: the label card flips on the same painting; the two works swap order on an arc; ART separates from ARTIST; limitation cards flip to questions. Everything else cuts or fades. |
-| Data | **Pass** | Bellaiche bars use one scale with small/medium/large ticks; the headline matches the bars (worth .61 > profundity .47 > beauty .22 > liking .17). Horton's means appear on a shared 1–7 axis. Rondini's result is labelled "rank order only". In the Allen grid, each square is one reported rendering, which the slide states. |
-| Interaction | **Pass** | Choose (click / 1–4) draws a ring and does not advance; the reveal reports the choice. Rate (click / 1–5) before and after the label flip; both values are shown. Yes/No votes echo on the next step. All steps work with no input. |
-| Navigation | **Pass** | Forward and back through all steps; back returns to the blank start. Deep links (`#ord.1`) and hash changes work. Overview (G), sources drawer (S), notes (N) and the presenter window (P) were all tested. |
-| Reduced motion | **Pass** | With `prefers-reduced-motion` or the M key, each step renders its final frame. |
+| Opening | **Pass** | Starts blank, with no marks. The first press draws a 535-stroke pen landscape in overlapping passes (about 7 s): frame, sky, four mountain ranges with shading and a snowline, lake ripples and reflections, a sailboat, pines and grass. Then the question is handwritten and underlined in red, and the subtitle fades in. A press during the animation completes it rather than skipping it, and the title holds until the next press. Frames were captured at 1.5, 3.5, 6, 8.5 and 11 s. |
+| Images from the research | **Pass** | All talk images come from Bellaiche, van Hees, Chiarella and the Allen case. The developer samples and the Turner and Kandinsky images were removed. |
+| Game | **Pass** | Click or 1–4 marks "hang" with a red ring, then "which is AI?" with a handwritten "AI?". Neither advances the slide. The reveal shows the makers and a result line built only from the answers given. No answers means no line. |
+| Data | **Pass** | Bellaiche bars carry each question's exact wording, and the headline matches the bars. Horton dots sit on a shared 1–7 axis (4.62 / 4.24 / 4.85, Table 2). The van Hees figure is the published one; the red marks only circle two existing points. The Rondini result is a rank order with no invented distances. |
+| Colour coding | **Pass** | Five evidence-type hues pass the colour-blind validator (light and dark). Each is always printed beside its label, and red stays reserved for judgments. |
+| Layout | **Pass** | Fixed in this round: shelf label collision, "AI?" tags spilling out of the paintings, figure annotation over a data point, cramped philosopher diagrams. ART \| ARTIST stays within the margins (measured). |
+| Navigation and tools | **Pass** | Forward and back through all steps; deep links and hash changes; overview (G), sources (S), a book or citation opening the drawer, notes (N), presenter window (P), reduced motion (M). |
 | JS errors | **Pass** | None. |
-| Timing | **Pass (estimate)** | 535 spoken words, about 4:32 including the opening and interaction pauses (target 4:00–5:00). |
-| Links | Format only | Outbound access to publishers was blocked here, so click each reference once before submitting. |
+| Timing | **Pass (estimate)** | 547 spoken words, about 4:42 including the opening, the interaction pauses and 3 s on References. |
+| Links | Format only | Publisher sites are blocked here; click each reference once. |
 
-## Still to verify against full texts
-- Bellaiche *d* values.
-- Horton Experiment 4 means.
-- Chiarella p-values.
-- Oksanen 37 of 44.
-- Kuta case details.
-- The Rondini author list.
-- The Turner painting's title and collection.
-
-To correct any of these, edit `SOURCES`, `buildBars` or `buildRuler` in `src/index.src.html`, then run `python3 build.py`.
+## Still to verify
+See EVIDENCE-MAP.md, "Still to verify".
 
 ## Recording checklist
-1. Open `index.html` in Chrome or Edge. Press `F` (fullscreen), then `H` (record mode). Open the presenter window (`P`) on a second screen.
+1. Open `index.html` in Chrome or Edge. Press `F`, then `H`. Open the presenter window (`P`) on a second screen.
 2. Start recording on the blank canvas, then press → once.
-3. *Your choice:* click a painting. *The label:* rate twice. *Artist?:* vote twice.
-4. Stop about 3 s after reaching References. Export as MP4 and confirm the length is 4:00–5:00.
+3. *Your turn:* click one painting per pair, press →, then click again. *The label:* rate twice. *Artist?:* vote twice.
+4. Stop about 3 s after References. Export as MP4 and confirm the length is 4:00–5:00.

@@ -1,73 +1,80 @@
-# Claim-to-source map and final source selection (v4)
+# Claim-to-source map and final source selection (v5)
 
 Scene numbers follow the overview (`G`) and NARRATION.md:
 
 | # | Scene | # | Scene |
 |---|---|---|---|
-| 1 | Opening | 10 | Human practice (Allen) |
-| 2 | Three questions | 11 | Synthesis |
-| 3 | What is an AI painting? | 12 | Interpretation |
-| 4 | Review process | 13 | Next steps |
-| 5 | Your choice | 14 | Close |
-| 6 | Q1 · Value | 15 | References |
-| 7 | Q3 · The label | 16 | Appendix A |
-| 8 | Q3 · Context | 17 | Appendix B |
-| 9 | Q2 · Artist? | | |
+| 1 | Opening | 11 | Q2 · Artist? (Mikalonytė & Kneer, Horton) |
+| 2 | Four questions | 12 | Q2 · Philosophy |
+| 3 | What we mean | 13 | Human practice (Allen) |
+| 4 | Review process | 14 | Q4 · Synthesis |
+| 5 | Your turn (game) | 15 | Interpretation |
+| 6 | Q1 · Value (van Hees) | 16 | Q4 · Next |
+| 7 | Q1 · Creativity (Rondini) | 17 | Close |
+| 8 | Q3 · The label (Bellaiche) | 18 | References |
+| 9 | Q3 · Context (Horton) | 19–20 | Appendix A–B |
+| 10 | Q3 · Real setting (Chiarella, de Rooij) | | |
 
-## Final selection: 12 sources (the assignment allows 10–12)
+## Final selection: 12 sources, five kinds of evidence
 
-There are at least 2 peer-reviewed sources (11 of the 12 are), drawn from several disciplines.
+Eleven of the 12 sources are peer-reviewed. Each kind of evidence has its own colour, used on the shelf, on every citation and in the synthesis, and always printed beside its name. The palette was checked with a colour-blind-safety validator.
 
-| # | Source | Evidence type | Discipline | Peer-reviewed | Scenes (all also in 4 and 15) |
+| # | Source | Kind | Discipline | Peer-reviewed | Scenes (all also in 4 and 18) |
 |---|---|---|---|---|---|
-| 1 | Bellaiche et al., 2023 | Controlled label experiment | Cognitive psychology | Yes | 7, 11 |
-| 2 | Horton et al., 2023 | Controlled label experiment | Behavioural science | Yes | 8, 11 |
-| 3 | Chiarella et al., 2022 | Label experiment (field, physiological) | Cognitive neuroscience | Yes | 8, 11 |
-| 4 | van Hees et al., 2025 | Preference & detection experiment | Psychology | Yes | 6, 11 |
-| 5 | Mikalonytė & Kneer, 2022 | Folk-judgment scenario experiments | Experimental philosophy / HRI | Yes | 9, 11 |
-| 6 | Rondini et al., 2026 | Controlled creativity experiment | Cognitive science | Yes | 6, 13 |
-| 7 | Oksanen et al., 2023 | Systematic scoping review | Social psychology | Yes | 11, 13 |
-| 8 | de Rooij, 2025 | Meta-analysis | Psychology of aesthetics | Yes | 8, 11 |
-| 9 | Hertzmann, 2018 | Philosophical account | Computer science / philosophy of art | Yes | 9, 11 |
-| 10 | Coeckelbergh, 2017 | Philosophical account | Philosophy of technology | Yes | 9, 11 |
-| 11 | Taylor et al., 2026 | Algorithm audit & trace ethnography (FAccT) | Computer science / HCI | Yes (conference) | 13 |
-| 12 | Kuta, 2022 (*Smithsonian*) | Journalism (one case) | Journalism | No | 10 |
+| 1 | Bellaiche et al., 2023 | Experiment | Cognitive psychology | Yes | 3, 8, 14 |
+| 2 | Horton et al., 2023 | Experiment | Behavioural science | Yes | 9, 11, 14, 16 |
+| 3 | Chiarella et al., 2022 | Experiment | Cognitive neuroscience | Yes | 10, 14, 16 |
+| 4 | van Hees et al., 2025 | Experiment | Psychology | Yes | 5, 6, 14 |
+| 5 | Mikalonytė & Kneer, 2022 | Experiment | Experimental philosophy / HRI | Yes | 11, 14 |
+| 6 | Rondini et al., 2026 | Experiment | Cognitive science | Yes | 7, 14, 16 |
+| 7 | Oksanen et al., 2023 | Review | Social psychology | Yes | 14, 16 |
+| 8 | de Rooij, 2025 | Review (meta-analysis) | Psychology of aesthetics | Yes | 10, 14 |
+| 9 | Hertzmann, 2018 | Philosophy | Computer science / philosophy of art | Yes | 12, 14 |
+| 10 | Coeckelbergh, 2017 | Philosophy | Philosophy of technology | Yes | 12, 14 |
+| 11 | Taylor et al., 2026 | Model audit | Computer science / HCI | Yes (conference) | 14, 16 |
+| 12 | Kuta, 2022 (*Smithsonian*) | News case | Journalism | No | 13, 14 |
 
-**Image credits are not counted as sources.** These are the CompVis Latent Diffusion and Stable Diffusion repositories, Turner, Kandinsky, and the EMS Allure font. They are listed under References as "Images" because they supply pictures, not evidence. If your instructor counts every cited item, the total is 12 + 4 image credits; dropping Kuta or Taylor would bring it back within range.
+**Images.** Every picture now comes from one of these sources, so the image credits add no new sources. The only exception is the opening drawing, which is generated in code and revealed as such in scene 15.
 
 ## Claims → source → status
 
 Status codes:
-- **V**: matches the working analysis *and* a public abstract, record or university release.
-- **A**: from the working analysis only; re-check against the full text.
+- **F**: checked against the full text or a figure you supplied.
+- **V**: matches a public abstract, record or release.
+- **A**: from the working analysis only; re-check.
 - **I**: Mahmoud's interpretation, presented on screen as "My interpretation".
-- **D**: demonstration or illustration, not data.
+- **D**: demonstration, not data.
 
 | Scene | Claim on screen or in narration | Source | Status |
 |---|---|---|---|
-| 1 | Hand-drawn easel and handwritten title (drawn by code; revealed as such in scene 12) | — | D |
-| 3 | Two outputs for "A painting of a squirrel eating a burger"; noise-to-image shown as simplified | CompVis latent-diffusion (image credit) | V (prompt and images as published by the developers) |
-| 5 | 2 human paintings + 2 Stable Diffusion v1 samples; the viewer chooses; sources revealed | Image manifest | D ("a classroom question, not a study") |
-| 6 | Same pairs, two separate groups (prefer / which is AI); both above chance; easier-to-spot images also preferred | van Hees 2025 | V (design, both above chance) / A (correlation). The pictured pair is labelled illustrative. |
-| 6 | Visual artists > non-artists > AI with human guidance > AI on its own; 255 raters; GPT-4o judged differently; rank only | Rondini 2026 | V (university release, preprint abstract) |
-| 7 | AI-made Artbreeder images, random labels; *d*: liking .17, beauty .22, profundity .47, worth .61 → "most for worth and profundity" | Bellaiche 2023 | V (design) / **A (d values)** |
-| 7 | Study 2 added emotion, story (narrativity), effort and personal meaning | Bellaiche 2023 | V |
-| 7 | The viewer's own two ratings | — | D (the coffee image is a Stable Diffusion sample, stated on screen) |
-| 8 | Saw two works, rated the second; Exp. 4 means 4.85 / 4.62 / 4.24 on a 1–7 composite; six experiments, N = 2,965 | Horton 2023 | **A (means)** / V (N) |
-| 8 | Two human abstract canvases at an art fair; AI label lowered liking only when it came second; p = .60 overall, p = .016 order | Chiarella 2022 | V (design, order result) / **A (p-values)** |
-| 8 | Average penalty small for sensory and emotional responses, moderate for meaning | de Rooij 2025 | A (qualitative only; no numbers shown) |
-| 9 | Stories only; robot's painting judged art about as readily (varied by story); robot much less often an artist, partly via intention | Mikalonytė & Kneer 2022 | V (direction) / A (condition detail) |
-| 9 | Hertzmann: art is social exchange between agents; software is a tool. Coeckelbergh: verdict depends on outcome, process or relations | as cited | A |
-| 10 | Midjourney; about 80 hours; 900+ renderings; select, edit; Colorado State Fair 2022 digital-art prize. Squares stand for renderings, not his images | Kuta 2022 | A |
-| 11 | Agree: a human label raises judgments; people can like AI paintings | Bellaiche, Horton, de Rooij, van Hees | I (synthesis) |
-| 11 | Differ: worth .61 vs liking .17; order and medium; 37 of 44 single-country | Bellaiche; Chiarella; Oksanen | **A (37/44)** |
-| 11 | Still open: liking, spotting, originality and artistry are separate; can a model be an artist? | van Hees; Horton; Mikalonytė & Kneer; Hertzmann; Coeckelbergh | I |
-| 12 | Can count as art through people; a model as independent artist is not established; no inference to consciousness | — | I |
-| 13 | Trust, credit, whose taste. Next questions: current models, documented workflows (Rondini), other cultures (Taylor: the predictor favours realistic landscapes, cities and portraits by Western and Japanese artists) | Rondini; Taylor; Oksanen | V / I (the questions are proposals) |
+| 1 | Pen landscape and handwritten title (generated by code; revealed in 15) | — | D |
+| 3 | Two Artbreeder paintings used as stimuli | Bellaiche Fig. 1 | F |
+| 5 | Two real stimulus pairs: Bierstadt + DALL·E 2 (figure pair 2), Boudin + DALL·E 2 (figure pair 10); human on the left in the source, rearranged here | van Hees Fig. 1 and preference/detection figure | F (pairs matched visually between the two figures) |
+| 6 | 50 pairs; one group "prefer", another "which is AI"; both above chance; r = .42, p = .002; some pairs below 50% detection | van Hees | F (figure) / V (above-chance results) |
+| 7 | Same starting lines; 45 s idea, 120 s drawing; 272 / 276 / 230 / 222 productions; SDXL with ControlNet; human-guided vs base prompt; 255 raters; 7-point liking, vividness, originality, aesthetics, curiosity; rank order; GPT-4o differed | Rondini | F (method figure) / V (ranking, GPT-4o) |
+| 8 | 30 Artbreeder paintings, random labels, 149 adults; exact question wording; *d* = .17 / .22 / .47 / .61; Study 2: perceived effort raised liking and beauty more under a "human" label | Bellaiche | F |
+| 9 | Same two paintings; rated each on creative, novel, likeable, fit for a gallery (1–7); painting 2: 4.62 / 4.24 / 4.85; Exp. 4, n = 789; six experiments | Horton Table 2 and text | F |
+| 10 | Abstract 12 and 18, acrylic, 120 × 120 cm; rest → covered → label → 1 min → "I really like this painting" 1–5 → repeat; physiology recorded; penalty only in one order; no overall effect | Chiarella Fig. 1 | F (design) / A (order result; p-values not shown) |
+| 10 | Pooled penalty small for sensory and emotional, moderate for meaning | de Rooij | A (qualitative only) |
+| 11 | Robot painting judged art about as readily (varies); robot rarely an artist, partly via intention | Mikalonytė & Kneer | V / A (condition detail) |
+| 11 | 87% shown only AI-labelled images still judged most of them art | Horton Exp. 2 | F |
+| 12 | Hertzmann: art as social exchange; software as tool. Coeckelbergh: outcome / process / relations give different verdicts | as cited | A |
+| 13 | Midjourney; about 80 hours; 900+ renderings; select, edit; first place, digital-art contest for emerging artists, Colorado State Fair 2022; photo of the work with its ribbon | Kuta; photo you supplied | A |
+| 14 | **Agree:** label lowers judgments (Bellaiche, Horton, de Rooij); biggest for meaning and money, smallest for liking (worth .61 vs liking .17; price .57 vs liking .25); people still like AI images and over 70% said they couldn't tell without labels; human input raises value | Bellaiche; Horton Table 1 and text; van Hees; Rondini | F / I (synthesis) |
+| 14 | **Differ:** order and setting; image; judge (human vs GPT-4o); sample (37 of 44 single-country) | Horton; Chiarella; van Hees; Rondini; Oksanen | F / **A (37/44)** |
+| 14 | **Still open:** model as artist; how much human work counts (collaborations rated between human and AI); whether penalties last | Mikalonytė & Kneer; philosophers; Horton Exp. 6; Kuta; Oksanen; Taylor | I |
+| 15 | Can count as art through people; model-as-artist not established; no inference to consciousness | — | I |
+| 16 | Each limitation → its own next question; evidence: Horton Exp. 6, Rondini, Chiarella, Oksanen, Taylor | as cited | I (proposals) / F–A (evidence) |
 
-## Version notes
-- **de Rooij (2025):** the supplied PDF reports inconsistent domain counts between abstract and body, so the paper is used qualitatively only.
-- **Hertzmann** and **Mikalonytė & Kneer:** the packet copies are author manuscripts. The citations point to the published versions.
-- **Taylor et al.:** the title changed between arXiv versions. The citation uses the later title and the FAccT '26 venue.
-- **Rondini et al.:** confirm the full author list on the journal page.
-- **van Hees et al.:** published January 2025 in volume 15 (dated 2024).
+## Corrections made in v5 after reading the PDFs you supplied
+- **Horton:** participants rated *both* paintings; the comparison is on painting 2. Earlier versions said "rated the second". The four creativity items are now named.
+- **Chiarella:** the two canvases are *Abstract 12* and *Abstract 18* (Fig. 1). An earlier draft named a different title, which has been removed.
+- **Bellaiche:** the effect sizes and question wording are now verified; the sample is 149 in Study 1.
+
+## Still to verify
+- Oksanen 37 of 44;
+- Chiarella's order result, if you will quote p-values;
+- Mikalonytė & Kneer condition-level results;
+- the Rondini author list;
+- the Kuta case details;
+- the pairing of the two van Hees pairs with figure numbers 2 and 10. I matched them visually; the thumbnails are identical.

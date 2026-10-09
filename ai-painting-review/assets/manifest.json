@@ -1,78 +1,20 @@
 {
-  "_readme": "Images embedded into index.html by build.py. 'images' are used in the talk; 'study' are optional study figures (see IMAGE-REQUESTS.md) shown in source drawers when supplied.",
+  "_readme": "Images embedded into index.html by build.py. Every image comes from one of the reviewed sources. 'study' entries are optional extra figures shown in a source's drawer when supplied.",
   "images": {
-    "squirrel1": {
-      "file": "img/ai-ldm-squirrel-1.png",
-      "source": "ai",
-      "system": "Latent Diffusion (text-to-image)",
-      "prompt": "A painting of a squirrel eating a burger",
-      "credit": "Latent Diffusion sample, prompt as published. Rombach et al. / CompVis, latent-diffusion repository, assets/txt2img-preview.png",
-      "provenance": "https://github.com/CompVis/latent-diffusion"
-    },
-    "squirrel2": {
-      "file": "img/ai-ldm-squirrel-2.png",
-      "source": "ai",
-      "system": "Latent Diffusion (text-to-image)",
-      "prompt": "A painting of a squirrel eating a burger",
-      "credit": "Second sample for the same prompt; same source",
-      "provenance": "https://github.com/CompVis/latent-diffusion"
-    },
-    "tower": {
-      "file": "img/ai-sd-mushroom-tower.png",
-      "source": "ai",
-      "system": "Stable Diffusion v1",
-      "credit": "Stable Diffusion v1 sample published by CompVis, stable-diffusion repository README (assets/stable-samples/txt2img/merged-0005.png, tile 1)",
-      "provenance": "https://github.com/CompVis/stable-diffusion"
-    },
-    "coffee": {
-      "file": "img/ai-sd-coffee.png",
-      "source": "ai",
-      "system": "Stable Diffusion v1",
-      "credit": "Stable Diffusion v1 sample published by CompVis (merged-0005.png, tile 5)",
-      "provenance": "https://github.com/CompVis/stable-diffusion"
-    },
-    "courtyard": {
-      "file": "img/ai-sd-mushroom-courtyard.png",
-      "source": "ai",
-      "system": "Stable Diffusion v1",
-      "credit": "Stable Diffusion v1 sample published by CompVis (merged-0007.png, tile 3)",
-      "provenance": "https://github.com/CompVis/stable-diffusion"
-    },
-    "turner": {
-      "file": "img/human-turner-wreck.jpg",
-      "source": "human",
-      "creator": "J. M. W. Turner",
-      "title": "The Shipwreck of the Minotaur",
-      "year": "c. 1810",
-      "credit": "Oil on canvas · public domain. Title as commonly circulated; verify the museum title and holding collection before submission.",
-      "provenance": "File from github.com/lengstrom/fast-style-transfer (examples/style/the_shipwreck_of_the_minotaur.jpg)"
-    },
-    "kandinsky": {
-      "file": "img/human-kandinsky-composition-vii.jpg",
-      "source": "human",
-      "creator": "Wassily Kandinsky",
-      "title": "Composition VII",
-      "year": "1913",
-      "credit": "Oil on canvas, State Tretyakov Gallery, Moscow · public domain",
-      "provenance": "File from github.com/jcjohnson/fast-neural-style (images/styles/composition_vii.jpg)"
-    }
+    "bell_rep": {"file": "img/bellaiche-representational.jpg", "source": "ai", "credit": "Bellaiche et al. (2023), Fig. 1, left: Artbreeder painting used as a stimulus (CC BY 4.0)", "provenance": "https://doi.org/10.1186/s41235-023-00499-6"},
+    "bell_abs": {"file": "img/bellaiche-abstract.jpg", "source": "ai", "credit": "Bellaiche et al. (2023), Fig. 1, right: Artbreeder painting used as a stimulus (CC BY 4.0)", "provenance": "https://doi.org/10.1186/s41235-023-00499-6"},
+    "vh_b_h": {"file": "img/vanhees-bierstadt-human.jpg", "source": "human", "creator": "Albert Bierstadt", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469 (figure pair 2)"},
+    "vh_b_ai": {"file": "img/vanhees-bierstadt-ai.jpg", "source": "ai", "system": "DALL·E 2", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469 (figure pair 2)"},
+    "vh_f_h": {"file": "img/vanhees-boudin-human.jpg", "source": "human", "creator": "Eugène Boudin", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469 (figure pair 10)"},
+    "vh_f_ai": {"file": "img/vanhees-boudin-ai.jpg", "source": "ai", "system": "DALL·E 2", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469 (figure pair 10)"},
+    "vh_sheet": {"file": "img/vanhees-stimulus-sheet.jpg", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469"},
+    "vh_fig": {"file": "img/vanhees-fig-preference-detection.png", "credit": "van Hees et al. (2025), Fig. 1 stimulus pairs and preference/detection figure (CC BY 4.0): Bierstadt landscape and its DALL·E 2 counterpart; Boudin flower still life and its DALL·E 2 counterpart", "provenance": "https://doi.org/10.3389/fpsyg.2024.1497469"},
+    "chi12": {"file": "img/chiarella-abstract-12.jpg", "source": "human", "title": "Abstract 12", "credit": "Chiarella et al. (2022), Fig. 1: Abstract 12 and Abstract 18, acrylic on canvas, 120 × 120 cm (photographs of the stimuli)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
+    "chi18": {"file": "img/chiarella-abstract-18.jpg", "source": "human", "title": "Abstract 18", "credit": "Chiarella et al. (2022), Fig. 1: Abstract 12 and Abstract 18, acrylic on canvas, 120 × 120 cm (photographs of the stimuli)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
+    "allen": {"file": "img/allen-theatre-dopera-spatial.jpg", "source": "ai", "creator": "Jason M. Allen", "title": "Théâtre D'opéra Spatial", "year": "2022", "credit": "Jason M. Allen, Théâtre D’opéra Spatial (2022), shown at the Colorado State Fair; image as reported with Kuta (2022)", "provenance": "Supplied by the author from the case coverage (Kuta, 2022)"}
   },
   "study": {
-    "bellaiche": {
-      "file": "",
-      "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY"
-    },
-    "vanhees": {
-      "file": "",
-      "credit": "van Hees et al. (2025), example stimulus pair, CC BY"
-    },
-    "chiarella": {
-      "file": "",
-      "credit": "Chiarella et al. (2022), stimulus paintings"
-    },
-    "allen": {
-      "file": "",
-      "credit": "Jason M. Allen, Théâtre D'opéra Spatial (2022), as reproduced in Kuta (2022)"
-    }
+    "horton": {"file": "img/horton-fig1-house.jpg", "credit": "Horton et al. (2023), Fig. 1: example from the Experiment 1 image pool (CC BY 4.0)"},
+    "rondini": {"file": "", "credit": "Rondini et al. (2026): example drawings by condition"}
   }
 }
