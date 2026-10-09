@@ -1,28 +1,37 @@
-# Would You Still Call It Art? — AI-generated digital painting
+# Would You Still Call It Art? AI-generated digital painting
 
-A silent, presenter-controlled HTML presentation for Mahmoud Hafez's State of the Field literature review. The stage alternates between black and white to mark reveals and changes of perspective. Paintings, charts, a method strip and the ART | ARTIST word are persistent objects that move and change role, so each study is shown as participants met it before its result appears.
+A silent, presenter-controlled HTML presentation for Mahmoud Hafez's State of the Field literature review. The review asks three questions:
 
-**Open `index.html`** in Chrome or Edge. It is one self-contained, offline file. Run `python3 build.py` after adding images (see **IMAGE-REQUESTS.md**).
+1. Can an AI-generated painting have aesthetic or emotional value?
+2. Does art need a human artist, with intention or consciousness?
+3. Does knowing a picture came from AI change how we judge it?
+
+**Art direction, "critic's sketchbook":** paper-white and ink-black scenes, with one red-pencil accent reserved for judgments (a choice, a label, a finding). The title is drawn and handwritten on screen. Paintings are real: developer-published AI samples and public-domain human works.
+
+**Open `index.html`** in Chrome or Edge. It is one self-contained, offline file. To rebuild after edits, run `python3 build.py`.
 
 | File | Purpose |
 |---|---|
 | `index.html` | The presentation (built; do not edit) |
-| `src/index.src.html` | Source: layers, actors, per-beat layouts, data, narration |
-| `src/title-glyphs.json`, `tools/title_glyphs.py` | Letter outlines for the opening (drawing → title) |
-| `build.py` | Embeds fonts, glyphs and images; prints an image-readiness report |
-| `IMAGE-REQUESTS.md` | **Exact list of images to supply:** paper, link, figure or file, scene, stimulus vs. illustration |
-| `assets/manifest.json` | Where the supplied files and their provenance are recorded |
-| `NARRATION.md` | Timed script, one line per click (≈ 4:32) |
-| `EVIDENCE-MAP.md` | Final 12 sources (incl. two 2026 studies), claim-to-source map, verification status |
+| `src/index.src.html` | Source: scenes, steps, narration, data |
+| `src/script-font.json`, `tools/script_font.py` | Single-stroke handwriting glyphs (EMS Allure) |
+| `build.py` | Embeds fonts, glyphs and images; reports which images are present |
+| `assets/manifest.json`, `assets/img/` | Images with credits and provenance |
+| `NARRATION.md` | Timed script, one line per press (about 4:32) |
+| `EVIDENCE-MAP.md` | The 12 sources and a claim-to-source map with verification status |
 | `QA.md` | QA record and recording checklist |
+| `IMAGE-REQUESTS.md` | Image provenance, plus optional study figures |
 
 **Sequence:**
-1. A line drawing becomes the question.
-2. ART stays solid while IST? hangs off it in outline.
-3. You flag the paintings you think are AI. The reveal shows the sources, then asks what guided your guess and whether learning the source changed anything.
-4. Five studies, each told the same way: the method strip (stimulus · label · order · task · measure), then a prediction, then the finding.
-5. A synthesis where the studies' own charts and stimuli move into Converge, Differ and Cannot settle.
-6. The interpretation: ART and ARTIST as two separate judgments.
-7. Limitation cards turn into research questions, with two 2026 studies already investigating some of them.
+1. Blank canvas. The first press draws an easel, then handwrites the question.
+2. The three questions, and a definition shown with a real prompt and its outputs.
+3. Review process: a shelf of 12 sources sorted by evidence type.
+4. **You choose** a painting to hang, and the source is revealed.
+5. **Value:** van Hees (prefer vs. spot), Rondini (creativity ranking).
+6. **Label:** you rate a painting, its label flips, you rate again; then Bellaiche's effects.
+7. **Context:** Horton's order swap, with a dot plot; Chiarella's order effect; de Rooij.
+8. **Artist?:** you vote on a robot story; ART separates from ARTIST; two philosophers.
+9. Allen's 900+ renderings → select → edit.
+10. Synthesis: agree, differ, still open. Then the interpretation, next steps, and the close.
 
-**Keys:** → / Space / click next · ← back · 1–6 flag · 1–4 pick · F fullscreen · H record mode · P presenter · N notes · G overview · S sources · M reduced motion
+**Keys:** → / Space / click to go forward (finishes a running animation first) · ← back · 1–4 choose · 1–5 rate · F fullscreen · H record mode · P presenter · N notes · G overview · S sources · M reduced motion · deep links such as `#lab.2`

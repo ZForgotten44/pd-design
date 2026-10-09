@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build index.html from src/index.src.html.
 
-- Embeds the open-licence fonts (Archivo, Inter, IBM Plex Mono).
+- Embeds the open-licence fonts (Archivo, Inter).
 - Embeds every image listed in <assets>/manifest.json as a data URI, so the
   presentation works offline with no external files.
 - Prints a readiness report: which paintings are present, and whether the
@@ -32,9 +32,6 @@ FACES = [
     ("Archivo", "archivo-latin-ext-wdth-normal.woff2", "100 900", "62% 125%", LATIN_EXT),
     ("Inter", "inter-latin-wght-normal.woff2", "100 900", "100%", LATIN),
     ("Inter", "inter-latin-ext-wght-normal.woff2", "100 900", "100%", LATIN_EXT),
-    ("IBM Plex Mono", "ibm-plex-mono-latin-400-normal.woff2", "400", "100%", LATIN),
-    ("IBM Plex Mono", "ibm-plex-mono-latin-ext-400-normal.woff2", "400", "100%", LATIN_EXT),
-    ("IBM Plex Mono", "ibm-plex-mono-latin-500-normal.woff2", "500", "100%", LATIN),
 ]
 MAX_EDGE = 2600  # only images larger than this are downscaled (needs Pillow)
 
@@ -67,43 +64,25 @@ def data_uri(path: pathlib.Path) -> str:
 
 
 def load_assets(folder: pathlib.Path):
-    report, assets = [], {"challenge": [], "study": {}}
+    report, assets = [], {"images": {}, "study": {}}
     mpath = folder / "manifest.json"
     if not mpath.exists():
-        report.append("! no manifest.json in %s: every painting will show as pending" % folder)
+        report.append("! no manifest.json in %s" % folder)
         return assets, report, False
     man = json.loads(mpath.read_text(encoding="utf-8"))
-
-    def embed(entry, label):
-        e = {k: v for k, v in entry.items() if not k.startswith("_") and k != "file"}
-        f = entry.get("file")
-        if f and (folder / f).exists():
-            e["src"] = data_uri(folder / f)
-            report.append("  ok   %-10s %s" % (label, f))
-        else:
-            report.append("  --   %-10s pending (%s)" % (label, f or "no file named"))
-        return e
-
-    for entry in man.get("challenge", []):
-        assets["challenge"].append(embed(entry, "challenge " + entry.get("id", "?")))
-    for key, entry in (man.get("study") or {}).items():
-        assets["study"][key] = embed(entry, key)
-    for key in ("carry", "pair", "rooms"):
-        if key in man:
-            assets[key] = man[key]
-
-    ch = assets["challenge"]
-    humans = [c for c in ch if c.get("source") == "human" and c.get("src")]
-    ais = [c for c in ch if c.get("source") == "ai" and c.get("src")]
-    no_prov = [c.get("id") for c in ch if c.get("src") and not c.get("provenance")]
-    ready = len(ch) == 6 and len(humans) == 3 and len(ais) == 3 and not no_prov
-    if not ready:
-        report.append("! challenge not ready: needs 6 images, 3 human + 3 ai, each with provenance "
-                      "(have %d human, %d ai; missing provenance: %s)" % (len(humans), len(ais), no_prov or "none"))
-    carry = assets.get("carry", "D")
-    cobj = next((c for c in ch if c.get("id") == carry), None)
-    if cobj and cobj.get("source") != "ai":
-        report.append("! carry painting %s should be an AI image (the label demo mirrors Bellaiche, whose images were all AI)" % carry)
+    ready = True
+    for group in ("images", "study"):
+        for key, entry in (man.get(group) or {}).items():
+            e = {k: v for k, v in entry.items() if not k.startswith("_") and k != "file"}
+            f = entry.get("file")
+            if f and (folder / f).exists():
+                e["src"] = data_uri(folder / f)
+                report.append("  ok   %-8s %-10s %s" % (group, key, f))
+            else:
+                report.append("  --   %-8s %-10s %s" % (group, key, "not supplied (optional)" if group == "study" else "MISSING"))
+                if group == "images":
+                    ready = False
+            assets[group][key] = e
     return assets, report, ready
 
 
@@ -113,16 +92,16 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "index.html"))
     a = ap.parse_args()
     src = (ROOT / "src" / "index.src.html").read_text(encoding="utf-8")
-    for marker in ("/*@FONTS@*/", "/*@ASSETS@*/", "/*@GLYPHS@*/"):
+    for marker in ("/*@FONTS@*/", "/*@ASSETS@*/", "/*@SCRIPT@*/"):
         assert marker in src, "missing marker " + marker
     assets, report, ready = load_assets(pathlib.Path(a.assets))
     out = src.replace("/*@FONTS@*/", font_css()).replace(
         "/*@ASSETS@*/", "window.ASSETS=" + json.dumps(assets, ensure_ascii=False).replace("</", "<\\/") + ";").replace(
-        "/*@GLYPHS@*/", "const GLYPHS=" + (ROOT / "src" / "title-glyphs.json").read_text(encoding="utf-8").strip() + ";")
+        "/*@SCRIPT@*/", "const SCRIPT_FONT=" + (ROOT / "src" / "script-font.json").read_text(encoding="utf-8").strip() + ";")
     pathlib.Path(a.out).write_text(out, encoding="utf-8")
     print("wrote %s (%d KB)" % (a.out, len(out.encode()) // 1024))
     print("\n".join(report))
-    print("recording-ready images: %s" % ("YES" if ready else "NO"))
+    print("all talk images embedded: %s" % ("YES" if ready else "NO"))
 
 
 if __name__ == "__main__":

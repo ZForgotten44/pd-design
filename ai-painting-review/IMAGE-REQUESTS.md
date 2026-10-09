@@ -1,25 +1,27 @@
-# Image request list
+# Images: what is in the talk, and what is optional
 
-Each request ID matches the placeholder on screen ("Placeholder · request R1a" etc.). Until a file is supplied, its frame shows that placeholder. **No image has been generated or substituted.**
+## Already embedded (v4): no action needed before recording
 
-**How to supply:** save each file into `assets/` and put its file name in the matching `assets/manifest.json` entry (`file`). Fill in `source` (`human` or `ai`) and `provenance` for the challenge images. Then run `python3 build.py`. Minimum 1200 px on the long edge for large frames; never upscale a small figure.
+Every painting on screen is an authentic file with documented provenance. None was generated for this talk.
 
-**Verification status:** I could confirm Bellaiche Fig. 1 and both OSF repositories from public records. Every other figure number is marked **"locate"**: this environment blocked access to the publishers, so I could not open those figures myself. Please check each against the article before extracting.
+| Key | Where | What it is | Provenance |
+|---|---|---|---|
+| `squirrel1`, `squirrel2` | 3 What is an AI painting? | Two Latent Diffusion outputs for "A painting of a squirrel eating a burger" | Published by the model's developers: CompVis, `latent-diffusion` repository, `assets/txt2img-preview.png` |
+| `tower`, `coffee`, `courtyard` | 5 Your choice · 6 (example pair) · 7 The label · 8 Context | Stable Diffusion v1 samples | Published by CompVis, `stable-diffusion` README samples (`merged-0005.png` tiles 1 and 5; `merged-0007.png` tile 3) |
+| `turner` | 5 · 6 · 8 | J. M. W. Turner, *The Shipwreck of the Minotaur* (as commonly titled), c. 1810, public domain | File from `lengstrom/fast-style-transfer`. **Verify the museum title and holding collection before submission.** |
+| `kandinsky` | 5 | Wassily Kandinsky, *Composition VII*, 1913, State Tretyakov Gallery, public domain | File from `jcjohnson/fast-neural-style` |
 
-| ID | Manifest key | Scene (beat) | What it is | Paper and direct link | Exactly what to extract | Type |
-|---|---|---|---|---|---|---|
-| **R1a** | `study.bellaiche_rep` | 10 Bellaiche method · 11–13 predict, finding, meaning | The **representational** sample image | Bellaiche et al. (2023). Fig. 1: https://cognitiveresearchjournal.springeropen.com/articles/10.1186/s41235-023-00499-6/figures/1 · Full stimulus set: https://osf.io/cgw8v | **Preferred:** the original file of that representational painting from the OSF stimulus folder. **Fallback:** the left (representational) panel of Fig. 1, cropped to the painting only, without the caption or panel letter. | Actual study stimulus |
-| **R1b** | `study.bellaiche_abs` | same | The **abstract** sample image | same | The abstract painting from OSF, or the right (abstract) panel of Fig. 1, cropped the same way. | Actual study stimulus |
-| **R2a** | `study.vanhees_human` | 18–19 van Hees rooms · 27 synthesis | Human artwork from **one** stimulus pair | van Hees et al. (2025). Article: https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2024.1497469/full (PMC: https://pmc.ncbi.nlm.nih.gov/articles/PMC11750838/) · Materials: https://osf.io/n7w32 | **Locate** the figure that shows example stimulus pairs (check Figures 1–2), or take one pair from the OSF stimulus files. Extract the human artwork as its own file. Record the artist and title (the human set is lesser-known works by famous representational artists, sourced via WikiArt). | Actual study stimulus |
-| **R2b** | `study.vanhees_ai` | same | The **DALL·E 2 image paired** with R2a | same | The AI image from **the same pair as R2a**. Keep the pairing; do not mix pairs. | Actual study stimulus |
-| **R3a** | `study.chiarella_1` | 17 Chiarella · 26–27 synthesis | Abstract painting 1: *Test Verbovisivi*, Dionigi Mattia Gagliardi (2015) | Chiarella et al. (2022): https://doi.org/10.1016/j.chb.2022.107406 · Sapienza press release naming the work: https://www.uniroma1.it/en/node/386009 | **Locate** the figure in the paper's Method section that reproduces the two stimulus paintings. Extract painting 1 alone. If the paper has no figure, request the image from the authors or the artist. | Actual study stimulus |
-| **R3b** | `study.chiarella_2` | same | Abstract painting 2 | same | The second stimulus painting from the same figure, extracted alone. | Actual study stimulus |
-| **R4** | `study.allen` | 23–24 Allen case · 28 interpretation | *Théâtre D'opéra Spatial*, Jason M. Allen (2022) | Kuta (2022), Smithsonian: https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/ | The article's lead image (the full artwork), at the largest available size, without the caption. Credit: Jason M. Allen. | Case artwork (not a study stimulus) |
-| **R5 A–F** | `challenge[A–F]` | 6–8 audience challenge · then illustrations in 9, 14–15, 20–22, 27, 33 | **Three human-made + three AI-generated** paintings with verified provenance | **Recommended:** van Hees OSF materials (https://osf.io/n7w32), which hold human artworks and DALL·E 2 images with known origin. Use different pairs from R2. | Six separate files. For each, fill in `source`, `title`, `creator` (artist, or `system`: "DALL·E 2"), `year`, and `provenance` (the OSF file URL). Set `carry` to one **AI** image: it becomes the illustration for the label demo and the closing view. | Classroom challenge images; shown as **Illustration** whenever they stand in for a method |
-| **R6** | `study.rondini` | 31 next questions (inset) | Example outputs by condition (artists, non-artists, Human-Inspired AI, Self-Guided AI) | Rondini et al. (2026): https://doi.org/10.1002/advs.202524142 · Preprint: https://arxiv.org/abs/2511.16814 | **Locate** the figure showing example images from each condition (check Fig. 1 of the preprint). Extract the whole multi-panel row as one image, with condition labels if they are part of the figure. | Actual study stimuli (figure) |
-| **R7** | `study.taylor` | 31 next questions (inset) | Examples of high- vs low-scored artworks | Taylor et al. (2026): https://doi.org/10.1145/3805689.3806462 · Open text: https://arxiv.org/abs/2601.09896 | **Locate** the figure comparing highest- and lowest-scored WikiArt or Met images. Extract it as one image. | Study figure |
-| R8 (optional) | — | 14–16 Horton | Horton stimuli | Horton et al. (2023): https://doi.org/10.1038/s41598-023-45202-3 | Only if the supplementary materials show the Experiment 4 artworks. Otherwise the challenge illustrations stay, labelled **Illustration**. | Actual stimulus, if available |
+Paintings that only illustrate a study's design are labelled on screen in one short line (for example, "an illustrative pair … not the study's stimuli").
 
-**Keeping the source count at 12:** R1–R4 and R6–R7 come from the 12 cited sources. If the R5 challenge images also come from van Hees' materials, no new source is added. Images from anywhere else are image credits; if your rubric counts figure sources, drop a source to stay within 10–12.
+## Optional: study figures for the source drawer (`S`, or click any citation)
 
-**Licences:** Bellaiche (Cognitive Research) and van Hees (Frontiers) are CC BY. Credit them in the manifest `credit` field. For Chiarella, Allen, Rondini and Taylor, check reuse terms. A short excerpt in a classroom presentation is usually acceptable with credit, but confirm for your context.
+If supplied, each figure appears inside that study's detail drawer, so the audience can see the real stimuli. The talk does not depend on them.
+
+| Manifest key | Paper | What to extract |
+|---|---|---|
+| `study.bellaiche` | Bellaiche et al. (2023), Fig. 1 (CC BY); full set at https://osf.io/cgw8v | Fig. 1, both sample paintings |
+| `study.vanhees` | van Hees et al. (2025), https://doi.org/10.3389/fpsyg.2024.1497469; materials at https://osf.io/n7w32 | One human/DALL·E 2 pair from the same trial |
+| `study.chiarella` | Chiarella et al. (2022), https://doi.org/10.1016/j.chb.2022.107406 | The two abstract canvases (one is *Test Verbovisivi*, D. M. Gagliardi, 2015), if reproduced in the paper |
+| `study.allen` | Kuta (2022), Smithsonian | *Théâtre D'opéra Spatial*, Jason M. Allen (2022), lead image, credited to Allen |
+
+To add one: save it in `assets/img/`, put the path in the entry's `file`, then run `python3 build.py`.

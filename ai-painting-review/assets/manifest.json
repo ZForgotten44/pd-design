@@ -1,23 +1,78 @@
 {
-  "_readme": "See IMAGE-REQUESTS.md for exactly what each entry needs. Put files in this folder, fill in 'file' (and source/provenance for the challenge), then run: python3 build.py",
-  "challenge": [
-    {"id": "A", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
-    {"id": "B", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
-    {"id": "C", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
-    {"id": "D", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
-    {"id": "E", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""},
-    {"id": "F", "file": "", "source": "", "title": "", "creator": "", "system": "", "year": "", "provenance": "", "license": ""}
-  ],
-  "carry": "D",
+  "_readme": "Images embedded into index.html by build.py. 'images' are used in the talk; 'study' are optional study figures (see IMAGE-REQUESTS.md) shown in source drawers when supplied.",
+  "images": {
+    "squirrel1": {
+      "file": "img/ai-ldm-squirrel-1.png",
+      "source": "ai",
+      "system": "Latent Diffusion (text-to-image)",
+      "prompt": "A painting of a squirrel eating a burger",
+      "credit": "Latent Diffusion sample, prompt as published. Rombach et al. / CompVis, latent-diffusion repository, assets/txt2img-preview.png",
+      "provenance": "https://github.com/CompVis/latent-diffusion"
+    },
+    "squirrel2": {
+      "file": "img/ai-ldm-squirrel-2.png",
+      "source": "ai",
+      "system": "Latent Diffusion (text-to-image)",
+      "prompt": "A painting of a squirrel eating a burger",
+      "credit": "Second sample for the same prompt; same source",
+      "provenance": "https://github.com/CompVis/latent-diffusion"
+    },
+    "tower": {
+      "file": "img/ai-sd-mushroom-tower.png",
+      "source": "ai",
+      "system": "Stable Diffusion v1",
+      "credit": "Stable Diffusion v1 sample published by CompVis, stable-diffusion repository README (assets/stable-samples/txt2img/merged-0005.png, tile 1)",
+      "provenance": "https://github.com/CompVis/stable-diffusion"
+    },
+    "coffee": {
+      "file": "img/ai-sd-coffee.png",
+      "source": "ai",
+      "system": "Stable Diffusion v1",
+      "credit": "Stable Diffusion v1 sample published by CompVis (merged-0005.png, tile 5)",
+      "provenance": "https://github.com/CompVis/stable-diffusion"
+    },
+    "courtyard": {
+      "file": "img/ai-sd-mushroom-courtyard.png",
+      "source": "ai",
+      "system": "Stable Diffusion v1",
+      "credit": "Stable Diffusion v1 sample published by CompVis (merged-0007.png, tile 3)",
+      "provenance": "https://github.com/CompVis/stable-diffusion"
+    },
+    "turner": {
+      "file": "img/human-turner-wreck.jpg",
+      "source": "human",
+      "creator": "J. M. W. Turner",
+      "title": "The Shipwreck of the Minotaur",
+      "year": "c. 1810",
+      "credit": "Oil on canvas · public domain. Title as commonly circulated; verify the museum title and holding collection before submission.",
+      "provenance": "File from github.com/lengstrom/fast-style-transfer (examples/style/the_shipwreck_of_the_minotaur.jpg)"
+    },
+    "kandinsky": {
+      "file": "img/human-kandinsky-composition-vii.jpg",
+      "source": "human",
+      "creator": "Wassily Kandinsky",
+      "title": "Composition VII",
+      "year": "1913",
+      "credit": "Oil on canvas, State Tretyakov Gallery, Moscow · public domain",
+      "provenance": "File from github.com/jcjohnson/fast-neural-style (images/styles/composition_vii.jpg)"
+    }
+  },
   "study": {
-    "bellaiche_rep": {"file": "", "title": "Representational sample (R1a)", "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY", "provenance": "https://osf.io/cgw8v"},
-    "bellaiche_abs": {"file": "", "title": "Abstract sample (R1b)", "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY", "provenance": "https://osf.io/cgw8v"},
-    "vanhees_human": {"file": "", "title": "Human artwork from one pair (R2a)", "credit": "van Hees et al. (2025), CC BY", "provenance": "https://osf.io/n7w32"},
-    "vanhees_ai": {"file": "", "title": "Paired DALL·E 2 image (R2b)", "credit": "van Hees et al. (2025), CC BY", "provenance": "https://osf.io/n7w32"},
-    "chiarella_1": {"file": "", "title": "Test Verbovisivi, D. M. Gagliardi, 2015 (R3a)", "credit": "Chiarella et al. (2022)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
-    "chiarella_2": {"file": "", "title": "Abstract painting 2 (R3b)", "credit": "Chiarella et al. (2022)", "provenance": "https://doi.org/10.1016/j.chb.2022.107406"},
-    "allen": {"file": "", "title": "Théâtre D'opéra Spatial (R4)", "credit": "Jason M. Allen, 2022 · as reproduced in Kuta (2022)", "provenance": "https://www.smithsonianmag.com/smart-news/artificial-intelligence-art-wins-colorado-state-fair-180980703/"},
-    "rondini": {"file": "", "title": "Example outputs by condition (R6)", "credit": "Rondini et al. (2026)", "provenance": "https://doi.org/10.1002/advs.202524142"},
-    "taylor": {"file": "", "title": "High- vs low-scored artworks (R7)", "credit": "Taylor et al. (2026)", "provenance": "https://arxiv.org/abs/2601.09896"}
+    "bellaiche": {
+      "file": "",
+      "credit": "Bellaiche et al. (2023), Fig. 1 / OSF osf.io/cgw8v, CC BY"
+    },
+    "vanhees": {
+      "file": "",
+      "credit": "van Hees et al. (2025), example stimulus pair, CC BY"
+    },
+    "chiarella": {
+      "file": "",
+      "credit": "Chiarella et al. (2022), stimulus paintings"
+    },
+    "allen": {
+      "file": "",
+      "credit": "Jason M. Allen, Théâtre D'opéra Spatial (2022), as reproduced in Kuta (2022)"
+    }
   }
 }

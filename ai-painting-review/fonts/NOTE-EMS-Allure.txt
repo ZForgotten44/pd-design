@@ -1,0 +1,5 @@
+Handwritten lettering (opening, "same image" note, close) uses single-stroke glyphs from
+EMS Allure, part of the EMS (Evil Mad Scientist) Hershey-style SVG fonts, licensed under the
+SIL Open Font License 1.1 (see OFL-Archivo.txt for the license text). The glyph data was
+extracted from the npm package "hersheytext" (MIT, see LICENSE-hersheytext-MIT.txt) by
+tools/script_font.py into src/script-font.json.
