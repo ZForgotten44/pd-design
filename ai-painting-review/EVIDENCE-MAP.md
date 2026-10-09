@@ -77,7 +77,7 @@ Status codes:
   - Self-reported inability to tell (Horton) is now contrasted with measured above-chance detection (van Hees).
   - Human contribution is split into three different mechanisms: Rondini's actual guidance, Bellaiche's perceived effort and Horton's labelled collaboration.
 - **Question order.** The four questions are renumbered in the order the talk answers them: value, label, artist, field. Allen now comes before the philosophers, who discuss his painting.
-- **Philosophy slide.** It is rebuilt around Allen's painting. Hertzmann and Coeckelbergh are attributed beside their own arguments, and Coeckelbergh's three lenses (Outcome, Process, Relationships) can be selected.
+- **Philosophy slide (13).** It is now an interaction around Allen's painting: "You called it art. Who is the artist?" The steps are the viewer's choice, then Hertzmann ("artistry requires a social agent", with Allen's documented actions from Kuta), then Coeckelbergh's Result, Making and Relationships lenses (questions, not verdicts), then "Would you keep your answer?", then the distinction: "An image's art status and its maker's artist status require separate arguments."
 - **Allen.** He chose *three* favourites and refined them in Photoshop (Kuta). Earlier versions said "one".
 - **Rondini.** All nine authors from the arXiv preprint are now listed.
 - **Mikalonytė & Kneer.** The 693 is now labelled "participants in total, as reported". The comparative wording is "much less willing".

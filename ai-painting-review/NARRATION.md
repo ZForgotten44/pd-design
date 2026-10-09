@@ -7,7 +7,7 @@ One line per press. Target times assume:
 - the timed pauses at the choice, rating and voting moments;
 - about 5 s for the opening (drawing and title together).
 
-**559 spoken words; ends at about 4:45**, including about 3 s on References. Hard limit: 5:00.
+**559 spoken words; ends at about 4:47**, including about 3 s on References. Hard limit: 5:00.
 
 **Presenter window (`P`).** It shows the line to say, a background note that is *not* read aloud, and the next line. It also shows a 5:00 countdown (amber under 30 s, red when over), seconds used versus budget for the current step, whether you are ahead or behind, and a bar comparing where you are with where the plan says you should be.
 
@@ -93,7 +93,7 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 | Press | At | Budget | Say |
 |---|---|---|---|
 | enter | 0:33 | 8 s | I started from a core reading packet, added two 2026 studies, and kept twelve sources across three disciplines. |
-| → step 2 | 0:41 | 9 s | For each, I compared what people saw, what changed and what was measured, and checked key figures against the papers. |
+| → step 2 | 0:41 | 8 s | For each, I compared what people saw, what changed and what was measured, and checked key figures. |
 
 ## 5. Your turn
 
@@ -101,9 +101,9 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 0:50 | 12 s | Your turn: real pairs from a study, one human, one AI. Which would you hang? |
-| → step 2 | 1:02 | 6 s | Now, which is AI? |
-| → step 3 | 1:09 | 6 s | The AI ones: the bright mountain and the white bouquet. |
+| enter | 0:49 | 11 s | Your turn: real pairs from a study, one human, one AI. Which would you hang? |
+| → step 2 | 1:00 | 5 s | Now, which is AI? |
+| → step 3 | 1:05 | 6 s | The AI ones: the bright mountain and the white bouquet. |
 
 ## 6. Q1 · Value
 
@@ -111,8 +111,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 1:14 | 7 s | Van Hees’s team did this with fifty pairs: one group picked favourites, another spotted the AI. |
-| → step 2 | 1:22 | 8 s | Each dot is a pair. Liked AI images were easier to spot, but your flowers fooled most people. |
+| enter | 1:11 | 7 s | Van Hees’s team did this with fifty pairs: one group picked favourites, another spotted the AI. |
+| → step 2 | 1:18 | 8 s | Each dot is a pair. Liked AI images were easier to spot, but your flowers fooled most people. |
 
 ## 7. Q1 · Creativity
 
@@ -120,8 +120,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 1:30 | 8 s | Liked isn’t creative. Rondini’s team gave artists, non-artists and an AI model the same two lines to finish. |
-| → step 2 | 1:38 | 7 s | Raters ranked artists first and the unguided model last; human ideas helped the model. |
+| enter | 1:27 | 8 s | Liked isn’t creative. Rondini’s team gave artists, non-artists and an AI model the same two lines to finish. |
+| → step 2 | 1:35 | 7 s | Raters ranked artists first and the unguided model last; human ideas helped the model. |
 
 ## 8. Q2 · The label
 
@@ -129,9 +129,9 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 1:45 | 10 s | Now the label. This one says a human painted it. How profound does it feel? |
-| → step 2 | 1:55 | 6 s | Same painting, now labelled AI. Did your number change? |
-| → step 3 | 2:01 | 10 s | Bellaiche ran this with thirty AI paintings and random labels. Longer bars mean a bigger effect: biggest for depth and money value. |
+| enter | 1:41 | 10 s | Now the label. This one says a human painted it. How profound does it feel? |
+| → step 2 | 1:51 | 6 s | Same painting, now labelled AI. Did your number change? |
+| → step 3 | 1:58 | 10 s | Bellaiche ran this with thirty AI paintings and random labels. Longer bars mean a bigger effect: biggest for depth and money value. |
 
 ## 9. Q2 · Context
 
@@ -139,8 +139,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 2:11 | 6 s | Horton’s team showed two paintings in a row; only the labels changed. |
-| → step 2 | 2:16 | 7 s | The same painting scored best after one labelled AI: next to AI, human work looked better. |
+| enter | 2:08 | 6 s | Horton’s team showed two paintings in a row; only the labels changed. |
+| → step 2 | 2:13 | 7 s | The same painting scored best after one labelled AI: next to AI, human work looked better. |
 
 ## 10. Q2 · Real setting
 
@@ -148,8 +148,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 2:24 | 8 s | At a real art fair, Chiarella’s team showed two canvases, a minute each, then asked about liking. |
-| → step 2 | 2:32 | 8 s | The AI label hurt only when it came second. Pooled studies find small penalties, bigger for meaning. |
+| enter | 2:21 | 8 s | At a real art fair, Chiarella’s team showed two canvases, a minute each, then asked about liking. |
+| → step 2 | 2:28 | 8 s | The AI label hurt only when it came second. Pooled studies find small penalties, bigger for meaning. |
 
 ## 11. Q3 · Artist?
 
@@ -157,8 +157,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 2:39 | 10 s | Does art need an artist? People read stories like this. What would you say? |
-| → step 2 | 2:49 | 8 s | They called the robot’s painting art, but were much less willing to call the robot an artist. |
+| enter | 2:36 | 10 s | Does art need an artist? People read stories like this. What would you say? |
+| → step 2 | 2:46 | 8 s | They called the robot’s painting art, but were much less willing to call the robot an artist. |
 
 ## 12. Q3 · Human practice
 
@@ -166,20 +166,21 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 2:57 | 9 s | Behind an AI painting there’s often a person: Jason Allen generated over nine hundred images in about eighty hours, |
-| → step 2 | 3:05 | 1 s | chose three, |
-| → step 3 | 3:07 | 5 s | refined them in Photoshop, and this one won first place. |
+| enter | 2:53 | 8 s | Behind this AI painting is a person: Jason Allen generated over nine hundred images in about eighty hours, |
+| → step 2 | 3:02 | 1 s | chose three, |
+| → step 3 | 3:03 | 3 s | and refined them in Photoshop. |
 
-## 13. Q3 · Philosophy
+## 13. Q3 · Who is the artist?
 
-*Background:* Step 2 shows Hertzmann: art as social practice; the maker and audience meet through the work; the model is a tool. Step 3 cycles the three lenses automatically (or press 1–3 / click): Outcome = the image; Process = 900+ renderings, 3 chosen, Photoshop, ~80 h; Relationships = Allen, Midjourney and its developers, the judges. Coeckelbergh does not give a single verdict; that is his point.
+*Background:* Step 1: the audience picks the human, the model or their collaboration (click or 1–3); it is a discussion prompt, not data. Step 2: Hertzmann, with Allen’s documented actions (Kuta: prompts, 900+ renderings, three chosen, Photoshop, ~80 h) and the people the work passed between. Step 3: Coeckelbergh’s lenses cycle (click or 1–3 to choose): Result, Making, Relationships; no lens gives a verdict. Step 4: their earlier answer is outlined in red; they may change it. Step 5: your distinction.
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 3:11 | 5 s | So what would make AI an artist? Two philosophers disagree. |
-| → step 2 | 3:16 | 7 s | For Hertzmann, artistic agency is social: Allen is the artist; Midjourney is his tool. |
-| → step 3 | 3:23 | 8 s | For Coeckelbergh, it depends on your account of art: judge the image, the process, or everyone involved. |
-| → step 4 | 3:31 | 6 s | They disagree about what counts as agency, not whether the image looks good. |
+| enter | 3:06 | 9 s | Calling it art doesn’t settle who the artist is. Who would you say? |
+| → step 2 | 3:15 | 9 s | Hertzmann treats art as a social activity: people can make art with computers, but the computer remains a tool. |
+| → step 3 | 3:23 | 9 s | Coeckelbergh asks us to examine our criteria: are we judging the result, the making, or the relationships behind it? |
+| → step 4 | 3:32 | 4 s | Would you keep your answer? |
+| → step 5 | 3:36 | 7 s | My interpretation: the image can qualify as art without establishing the model as an independent artist. |
 
 ## 14. Q4 · Synthesis
 
@@ -187,9 +188,9 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 3:37 | 8 s | Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere. |
-| → step 2 | 3:45 | 9 s | Results shift with order, setting, image and judge; and people who feel they can’t tell still spot AI above chance. |
-| → step 3 | 3:54 | 7 s | Still open: can a model be an artist, and which kind of human contribution matters? |
+| enter | 3:43 | 8 s | Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere. |
+| → step 2 | 3:51 | 8 s | Results shift with order, setting, image and judge; and feeling unable to tell isn’t failing to spot. |
+| → step 3 | 3:59 | 7 s | Still open: can a model be an artist, and which kind of human contribution matters? |
 
 ## 15. Interpretation
 
@@ -197,9 +198,9 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:01 | 9 s | My view: an AI painting can count as art, through the people who make, choose and look at it. |
-| → step 2 | 4:09 | 6 s | Calling the model an artist is a separate claim this research doesn’t establish. |
-| → step 3 | 4:16 | 5 s | And the opening drawing? Code made it. Does that change it? |
+| enter | 4:06 | 8 s | So my view: it can count as art, through the people who make, choose and look at it. |
+| → step 2 | 4:14 | 4 s | The model as artist needs its own argument. |
+| → step 3 | 4:18 | 5 s | And the opening drawing? Code made it. Does that change it? |
 
 ## 16. Q4 · Next
 
@@ -207,8 +208,8 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:21 | 7 s | Recent work asks how human guidance shapes the images, and whose taste our scoring tools reward. |
-| → step 2 | 4:28 | 6 s | So next: today’s models, visible workflows, real galleries over time, and other cultures. |
+| enter | 4:23 | 7 s | Recent work asks how human guidance shapes the images, and whose taste our scoring tools reward. |
+| → step 2 | 4:31 | 6 s | So next: today’s models, visible workflows, real galleries over time, and other cultures. |
 
 ## 17. Close
 
@@ -216,22 +217,22 @@ In the scatter plot, x is how often group 1 preferred the AI image and y how oft
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:34 | 7 s | Would you still call it art? Often, yes. The model as artist? Still open. Thank you. |
+| enter | 4:37 | 7 s | Would you still call it art? Often, yes. The model as artist? Still open. Thank you. |
 
 ## 18. References
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:42 | 0 s | [Hold on references for about three seconds. No narration.] |
+| enter | 4:44 | 0 s | [Hold on references for about three seconds. No narration.] |
 
 ## 19. Appendix A
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:42 | 0 s | [Appendix, outside the timed talk.] |
+| enter | 4:44 | 0 s | [Appendix, outside the timed talk.] |
 
 ## 20. Appendix B
 
 | Press | At | Budget | Say |
 |---|---|---|---|
-| enter | 4:42 | 0 s | [Appendix, outside the timed talk.] |
+| enter | 4:44 | 0 s | [Appendix, outside the timed talk.] |

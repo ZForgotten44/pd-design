@@ -210,25 +210,29 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lens p{font:600 28px/1.25 var(--sans);padding:16px 0;border-bottom:1.5px solid var(--rule)}
 .lens p span{color:var(--soft);font-weight:500}
 
-/* philosophy: one painting, two accounts */
-#ph-pic{position:absolute;left:520px;top:212px;width:880px;height:587px;transition:filter .6s ease,opacity .6s ease,box-shadow .6s}
+/* philosophy: one painting, the viewer's choice, two accounts */
+#ph-pic{position:absolute;left:560px;top:214px;width:800px;height:533px;transition:filter .6s ease,transform .7s var(--ease),box-shadow .6s}
 #ph-pic img{width:100%;height:100%;object-fit:cover;display:block}
-#ph-pic.dim{filter:brightness(.38) grayscale(.6)}
-#ph-pic.soft{filter:brightness(.7) grayscale(.3)}
-#ph-pic.focus{box-shadow:0 0 0 4px var(--acc)}
-.ph-side{position:absolute;top:250px;width:360px}
-.ph-side small{display:block;font:600 18px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:12px}
-.ph-side b{display:block;font:640 40px/1.08 var(--display);font-stretch:84%;margin-top:14px}
-.ph-side b.big{font-size:84px;font-stretch:72%}
-.ph-side span{display:block;font:500 24px/1.35 var(--sans);color:var(--muted);margin-top:6px}
-.ph-side .tool{display:inline-block;margin-top:26px;font:600 21px/1 var(--sans);font-style:normal;color:var(--muted);border:2px dashed var(--soft);border-radius:24px;padding:10px 16px}
-.ph-claim{position:absolute;left:160px;top:830px;width:1600px;text-align:center;font:500 31px/1.4 var(--sans)}
-.ph-claim b{font-weight:700}
-.lenses{position:absolute;left:0;width:1920px;top:930px;display:flex;justify-content:center;gap:16px}
-.lenses button{font:600 26px/1 var(--sans);padding:16px 30px;border:2px solid var(--fg);border-radius:40px;transition:background .25s,color .25s}
-.lenses button.on{background:var(--fg);color:var(--bg)}
-.lens-view{opacity:0;transition:opacity .45s ease;pointer-events:none}
-.lens-view.on{opacity:1}
+#ph-pic.dim{filter:brightness(.4) grayscale(.5)}
+#ph-pic.soft{filter:brightness(.72) grayscale(.25)}
+#ph-pic.fwd{transform:scale(1.05);transform-origin:50% 70%;box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 0 4px var(--acc)}
+.ph-col{position:absolute;top:226px;width:380px;opacity:0;transition:opacity .5s ease;pointer-events:none}
+.ph-col.on{opacity:1}
+.ph-col small{display:block;font:600 19px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:8px}
+.ph-col b{display:block;font:640 38px/1.1 var(--display);font-stretch:84%;margin-top:18px}
+.ph-col span{display:block;font:500 25px/1.35 var(--sans);color:var(--muted);margin-top:6px}
+.ph-bottom{position:absolute;left:120px;top:790px;width:1680px;text-align:center;opacity:0;transition:opacity .5s ease;pointer-events:none}
+.ph-bottom.on{opacity:1;pointer-events:auto}
+.ph-main{font:640 50px/1.12 var(--display);font-stretch:84%;text-wrap:balance}
+.ph-main em{font-style:normal;color:var(--acc)}
+.ph-sub{font:500 30px/1.4 var(--sans);color:var(--fg);margin-top:14px}
+.ph-q{font:640 46px/1.1 var(--display);font-stretch:84%}
+.ph-small{font:500 24px/1.4 var(--sans);color:var(--muted);margin-top:16px;min-height:34px}
+.cite.big{font-size:26px;margin-top:18px}
+.choices,.lenses{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:24px}
+.choices button,.lenses button[data-lens]{font:600 30px/1 var(--sans);padding:18px 34px;border:2px solid var(--fg);border-radius:44px;transition:background .25s,color .25s,border-color .25s}
+.choices button.on,.lenses button.on{background:var(--fg);color:var(--bg)}
+.choices button.was{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc)}
 
 /* practice */
 #grid900{position:absolute;left:560px;top:230px}
@@ -496,23 +500,35 @@ body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !importan
   </div>
 </section>
 
-<!-- 12 Q3 · WHAT WOULD MAKE AI AN ARTIST? one painting, two accounts -->
+<!-- 13 Q3 · WHO IS THE ARTIST? one painting, the viewer's choice, two accounts -->
 <section class="scene ink" id="sc-phil">
-  <div class="kicker pos" style="left:120px;top:84px">Question 3 · Two philosophers, one painting</div>
-  <p class="hl pos" style="left:120px;top:118px;width:1680px">What would make AI an artist?</p>
-  <div id="ph-pic"><img data-img="allen" alt="Théâtre D'opéra Spatial by Jason M. Allen, at the Colorado State Fair"></div>
-  <svg id="ph-svg" class="pos" style="left:0;top:0;overflow:visible" width="1920" height="1080"></svg>
-  <!-- Hertzmann -->
-  <div class="ph-side" id="ph-maker" data-s="1" data-h="2" style="left:120px"><small>The maker</small><b>Jason Allen</b><span>directs, chooses, edits</span><i class="tool">Midjourney · his tool</i></div>
-  <div class="ph-side" id="ph-aud" data-s="1" data-h="2" style="left:1440px"><small>The audience</small><b>Judges and visitors</b><span>interpret, respond, award</span></div>
-  <div class="ph-claim" data-s="1" data-h="2"><b>Hertzmann (2018):</b> artistic agency is social. Art passes between people; the AI system is a tool within Allen’s practice. <button class="cite" data-src="hertzmann">Hertzmann, 2018</button></div>
-  <!-- Coeckelbergh -->
-  <div class="ph-claim" data-s="2" data-h="3"><b>Coeckelbergh (2017):</b> the answer depends on your account of art. Choose a lens: <button class="cite" data-src="coeckelbergh">Coeckelbergh, 2017</button></div>
-  <div class="lenses" id="lenses" data-s="2" data-h="3"><button data-lens="0">Outcome</button><button data-lens="1">Process</button><button data-lens="2">Relationships</button></div>
-  <div class="lens-view" id="lv0"><div class="ph-side" style="left:1440px"><small>Outcome</small><b>The image itself</b><span>Does the result work as art?</span></div></div>
-  <div class="lens-view" id="lv1"><div class="ph-side" style="left:120px"><small>Process</small><b class="big">900+</b><span>renderings generated</span><b>3 chosen</b><span>refined in Photoshop</span><b>~80 hours</b><span>as reported by Kuta (2022)</span></div><div class="ph-side" style="left:1440px"><small>Process</small><b>How it was made</b><span>Was the making itself creative?</span></div></div>
-  <div class="lens-view" id="lv2"><div class="ph-side" style="left:120px"><small>Relationships</small><b>Jason Allen</b><span>prompts, choices, edits</span><b>Midjourney</b><span>the model and the people who built it</span></div><div class="ph-side" style="left:1440px"><small>Relationships</small><b>Judges and visitors</b><span>interpretation and the prize</span><span style="margin-top:18px">Who and what took part?</span></div></div>
-  <p class="hl md pos center" id="ph-take" data-s="3" style="left:160px;top:842px;width:1600px">They disagree about what counts as <em>artistic agency</em>, not simply about whether the image looks good.</p>
+  <div class="kicker pos" style="left:120px;top:84px">Question 3 · Does art need an artist?</div>
+  <p class="hl pos" style="left:120px;top:116px;width:1680px">You called it art. <span class="acc">Who is the artist?</span></p>
+  <div id="ph-pic"><img data-img="allen" alt="Théâtre D'opéra Spatial by Jason M. Allen, made with Midjourney, at the Colorado State Fair"></div>
+  <svg id="ph-svg" class="pos" style="left:0;top:0;overflow:visible;pointer-events:none" width="1920" height="1080"></svg>
+
+  <!-- the viewer's position (steps 0 and 3) -->
+  <div class="ph-bottom" id="ph-ask"><p class="ph-q" id="ph-askq">Choose one.</p>
+    <div class="choices" id="choices"><button data-c="0">The human</button><button data-c="1">The model</button><button data-c="2">Their collaboration</button></div>
+    <p class="ph-small" id="ph-was"></p></div>
+
+  <!-- Hertzmann (step 1) -->
+  <div class="ph-col" id="h-left" style="left:120px"><small>What Allen did</small><b>Prompted Midjourney</b><b>900+ renderings</b><b>Chose three</b><b>Refined in Photoshop</b><span>about 80 hours · Kuta, 2022</span></div>
+  <div class="ph-col" id="h-right" style="left:1440px"><small>Who it passed between</small><b>Allen presented it</b><span>at the Colorado State Fair</span><b>Judges and visitors</b><span>interpreted it and awarded it</span></div>
+  <div class="ph-bottom" id="h-claim"><p class="ph-main">For Hertzmann, artistry requires a <em>social agent</em>.</p>
+    <p class="ph-sub">A person can make art with a computer without the computer becoming an independent artist.</p>
+    <button class="cite big" data-src="hertzmann">Hertzmann, 2018</button></div>
+
+  <!-- Coeckelbergh (step 2): three lenses on the same painting -->
+  <div class="ph-col lv" id="lv1" style="left:120px"><small>Making</small><b>Prompts</b><b>900+ renderings</b><b>3 chosen</b><b>Photoshop</b><span>about 80 hours</span></div>
+  <div class="ph-col lv" id="lv2" style="left:120px"><small>Relationships</small><b>Jason Allen</b><span>direction and choices</span><b>Midjourney</b><span>the model and the people who built it</span></div>
+  <div class="ph-col lv" id="lv2r" style="left:1440px"><small>Relationships</small><b>Judges and visitors</b><span>interpretation and the prize</span></div>
+  <div class="ph-col lv" id="lq" style="left:1440px;top:560px"><b class="acc" id="lq-t"></b></div>
+  <div class="ph-bottom" id="c-claim"><p class="ph-main">For Coeckelbergh, <em>your theory of art changes what you judge</em>.</p>
+    <div class="lenses" id="lenses"><button data-lens="0">Result</button><button data-lens="1">Making</button><button data-lens="2">Relationships</button><button class="cite big" data-src="coeckelbergh" style="margin-left:24px">Coeckelbergh, 2017</button></div></div>
+
+  <!-- the distinction (step 4) -->
+  <div class="ph-bottom" id="ph-end"><p class="ph-main">An image’s <em>art status</em> and its maker’s <em>artist status</em> require separate arguments.</p></div>
 </section>
 
 <!-- 13 HUMAN PRACTICE: Allen / Kuta -->
@@ -775,9 +791,9 @@ const SCENES=[
   show(st,fwd){if(st===0)opening.blank();else if(fwd&&anim())opening.play();else opening.full()}},
  {id:'sc-q',t:'Four questions',steps:1,notes:['Four questions guide this: value, judgment, the artist, and where the field is going.'],show(){}},
  {id:'sc-gen',t:'What we mean',steps:2,notes:['Both came from an AI tool, Artbreeder, and were used in a real study.','So an AI painting looks painted, but a model did most of the making.'],show(){}},
- {id:'sc-rev',t:'Review process',steps:2,notes:['I started from a core reading packet, added two 2026 studies, and kept twelve sources across three disciplines.','For each, I compared what people saw, what changed and what was measured, and checked key figures against the papers.'],
+ {id:'sc-rev',t:'Review process',steps:2,notes:['I started from a core reading packet, added two 2026 studies, and kept twelve sources across three disciplines.','For each, I compared what people saw, what changed and what was measured, and checked key figures.'],
   show(st){$('#stages').classList.toggle('on',st>=1);$$('#stages div').forEach((d,k)=>d.style.transitionDelay=(st>=1&&anim()?k*.12:0)+'s')}},
- {id:'sc-game',t:'Your turn',steps:3,hold:[5,4,1],notes:['Your turn: real pairs from a study, one human, one AI. Which would you hang?','Now, which is AI?','The AI ones: the bright mountain and the white bouquet.'],
+ {id:'sc-game',t:'Your turn',steps:3,hold:[4,3,1],notes:['Your turn: real pairs from a study, one human, one AI. Which would you hang?','Now, which is AI?','The AI ones: the bright mountain and the white bouquet.'],
   show(st,fwd){gameScene(st,fwd)}},
  {id:'sc-val',t:'Q1 · Value',steps:2,notes:['Van Hees’s team did this with fifty pairs: one group picked favourites, another spotted the AI.','Each dot is a pair. Liked AI images were easier to spot, but your flowers fooled most people.'],
   show(st,fwd){valScene(st,fwd)}},
@@ -791,12 +807,12 @@ const SCENES=[
   show(st){$('#proc').classList.toggle('on',st===0);$$('#proc .st').forEach((d,k)=>d.style.transitionDelay=(anim()?k*.25:0)+'s');$('#chi-h').textContent=st===0?'Two real canvases, shown one at a time at an art fair.':'In a real setting, the penalty depended on order.'}},
  {id:'sc-int',t:'Q3 · Artist?',steps:2,hold:[3,0],notes:['Does art need an artist? People read stories like this. What would you say?','They called the robot’s painting art, but were much less willing to call the robot an artist.'],
   show(st,fwd){intScene(st,fwd)}},
- {id:'sc-prac',t:'Q3 · Human practice',steps:3,notes:['Behind an AI painting there’s often a person: Jason Allen generated over nine hundred images in about eighty hours,','chose three,','refined them in Photoshop, and this one won first place.'],
+ {id:'sc-prac',t:'Q3 · Human practice',steps:3,notes:['Behind this AI painting is a person: Jason Allen generated over nine hundred images in about eighty hours,','chose three,','and refined them in Photoshop.'],
   show(st,fwd){pracScene(st,fwd)}},
- {id:'sc-phil',t:'Q3 · Philosophy',steps:4,notes:['So what would make AI an artist? Two philosophers disagree.','For Hertzmann, artistic agency is social: Allen is the artist; Midjourney is his tool.','For Coeckelbergh, it depends on your account of art: judge the image, the process, or everyone involved.','They disagree about what counts as agency, not whether the image looks good.'],
+ {id:'sc-phil',t:'Q3 · Who is the artist?',steps:5,hold:[3,0,0,1,0],notes:['Calling it art doesn’t settle who the artist is. Who would you say?','Hertzmann treats art as a social activity: people can make art with computers, but the computer remains a tool.','Coeckelbergh asks us to examine our criteria: are we judging the result, the making, or the relationships behind it?','Would you keep your answer?','My interpretation: the image can qualify as art without establishing the model as an independent artist.'],
   show(st,fwd){phScene(st,fwd)}},
- {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere.','Results shift with order, setting, image and judge; and people who feel they can’t tell still spot AI above chance.','Still open: can a model be an artist, and which kind of human contribution matters?'],show(){}},
- {id:'sc-mine',t:'Interpretation',steps:3,notes:['My view: an AI painting can count as art, through the people who make, choose and look at it.','Calling the model an artist is a separate claim this research doesn’t establish.','And the opening drawing? Code made it. Does that change it?'],
+ {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere.','Results shift with order, setting, image and judge; and feeling unable to tell isn’t failing to spot.','Still open: can a model be an artist, and which kind of human contribution matters?'],show(){}},
+ {id:'sc-mine',t:'Interpretation',steps:3,notes:['So my view: it can count as art, through the people who make, choose and look at it.','The model as artist needs its own argument.','And the opening drawing? Code made it. Does that change it?'],
   show(st){if(st>=2)drawMini()}},
  {id:'sc-next',t:'Q4 · Next',steps:2,notes:['Recent work asks how human guidance shapes the images, and whose taste our scoring tools reward.','So next: today’s models, visible workflows, real galleries over time, and other cultures.'],
   show(st){$$('#sc-next .fcard').forEach((c,k)=>{c.classList.toggle('flip',st>=1);c.querySelectorAll('.face').forEach(f=>f.style.transitionDelay=(st>=1&&anim()?k*.18:0)+'s')})}},
@@ -820,7 +836,7 @@ const TIPS={
  'sc-ord':'Horton Exp. 4, 789 adults. Both paintings rated on creative, novel, likeable, fit for a gallery (1–7) = one combined score. “Painting 1/2” just means shown first/second. Painting 2: 4.62 human→human, 4.24 human→AI, 4.85 AI→human.',
  'sc-chi':'Canvases: Abstract 12 and Abstract 18 (acrylic, 120 × 120 cm), both human-made. Procedure: rest, covered canvas, label, 1 min viewing, “I really like this painting” 1–5, repeat. Order was balanced. Meta-analysis = de Rooij (2025).',
  'sc-int':'Mikalonytė & Kneer: two experiments, 693 participants in total (as reported). Comparative claim only: much less willing than for a human. Horton Exp. 2: 87% shown only AI-labelled images still called most of them art.',
- 'sc-phil':'Step 2 shows Hertzmann: art as social practice; the maker and audience meet through the work; the model is a tool. Step 3 cycles the three lenses automatically (or press 1–3 / click): Outcome = the image; Process = 900+ renderings, 3 chosen, Photoshop, ~80 h; Relationships = Allen, Midjourney and its developers, the judges. Coeckelbergh does not give a single verdict; that is his point.',
+ 'sc-phil':'Step 1: the audience picks the human, the model or their collaboration (click or 1–3); it is a discussion prompt, not data. Step 2: Hertzmann, with Allen’s documented actions (Kuta: prompts, 900+ renderings, three chosen, Photoshop, ~80 h) and the people the work passed between. Step 3: Coeckelbergh’s lenses cycle (click or 1–3 to choose): Result, Making, Relationships; no lens gives a verdict. Step 4: their earlier answer is outlined in red; they may change it. Step 5: your distinction.',
  'sc-prac':'Kuta (2022), Smithsonian: about 80 hours; 900+ Midjourney renderings; three favourites refined in Photoshop; first place, emerging-artist digital arts category; entered as “Jason M. Allen via Midjourney”.',
  'sc-syn':'Recurring, not universal: Chiarella found no overall label effect. “Can’t tell” is self-report (Horton Exp. 1, >70%); van Hees measured above-chance detection. Rondini (actual guidance), Bellaiche (perceived effort) and Horton (labelled collaboration) are different mechanisms. 37/44 is not yet checked against Oksanen’s full text.',
  'sc-mine':'Your interpretation; say it as yours. Pause after the question.',
@@ -933,19 +949,32 @@ function intScene(st,fwd){
 }
 function vote(k,v){if(SCENES[S.i].id!=='sc-int'||S.step!==0)return;S.vote[k]=(S.vote[k]===v?null:v);intScene(0)}
 
-/* ---------- philosophy: lenses ---------- */
-const PH={lens:0,auto:null};
+/* ---------- philosophy: the viewer's choice, Hertzmann, Coeckelbergh's lenses ---------- */
+const PH={lens:0,auto:null,choice:null,first:null};
+const LENSQ=['What counts as an artistic outcome?','What counts as creative activity?','Where does agency belong?'];
+function phChoose(c){const st=S.step;if(SCENES[S.i].id!=='sc-phil'||(st!==0&&st!==3))return;
+  if(st===0){PH.first=PH.first===c?null:c;PH.choice=PH.first}else PH.choice=PH.choice===c?null:c;phChoices()}
+function phChoices(){$$('#choices button').forEach((b,i)=>{b.classList.toggle('on',PH.choice===i);b.classList.toggle('was',S.step>=3&&PH.first===i)});
+  const names=['the human','the model','their collaboration'];
+  $('#ph-was').textContent=S.step>=3&&PH.first!=null?`Before, you chose ${names[PH.first]}.`+(PH.choice!=null&&PH.choice!==PH.first?` Now: ${names[PH.choice]}.`:''):S.step===0?'Your answer is for the discussion, not research data.':''}
 function setLens(k,user){PH.lens=k;if(user&&PH.auto){clearInterval(PH.auto);PH.auto=null}
-  $$('#lenses button').forEach((b,i)=>b.classList.toggle('on',i===k));
-  const on=SCENES[S.i].id==='sc-phil'&&S.step===2;[0,1,2].forEach(i=>$('#lv'+i).classList.toggle('on',on&&i===k));
-  const pic=$('#ph-pic');pic.classList.toggle('focus',on&&k===0);pic.classList.toggle('dim',on&&k===1);pic.classList.toggle('soft',on&&k===2)}
-function phScene(st,fwd){const svg=$('#ph-svg');svg.innerHTML='';if(PH.auto){clearInterval(PH.auto);PH.auto=null}
-  if(st===1){// maker and audience joined through the artwork, drawn by hand
-    const ps=addPaths(svg,[wobbly(bez([400,520],[460,470],[500,470],[540,500],20),1.2,3),wobbly([[528,486],[542,501],[524,508]],.8,4),
-      wobbly(bez([1380,500],[1420,470],[1460,470],[1520,520],20),1.2,5),wobbly([[1506,506],[1521,521],[1500,524]],.8,6)],'var(--acc)',4);
-    if(fwd&&anim())penAnimate(ps,1.6)}
-  if(st===2){setLens(0);if(fwd&&anim())PH.auto=setInterval(()=>{if(SCENES[S.i].id!=='sc-phil'||S.step!==2||PH.lens>=2){clearInterval(PH.auto);PH.auto=null;return}setLens(PH.lens+1)},2600)}
-  else setLens(PH.lens)}
+  const on=SCENES[S.i].id==='sc-phil'&&S.step===2;
+  $$('#lenses button[data-lens]').forEach((b,i)=>b.classList.toggle('on',i===k));
+  $('#lv1').classList.toggle('on',on&&k===1);$('#lv2').classList.toggle('on',on&&k===2);$('#lv2r').classList.toggle('on',on&&k===2);
+  $('#lq').classList.toggle('on',on);$('#lq-t').textContent=LENSQ[k];$('#lq').style.top=k===2?'560px':'300px';
+  const pic=$('#ph-pic');pic.classList.toggle('fwd',on&&k===0);pic.classList.toggle('dim',on&&k===1);pic.classList.toggle('soft',on&&k===2);phLines(on&&k===2?'rel':null)}
+function phLines(kind,animate){const svg=$('#ph-svg');svg.innerHTML='';if(!kind)return;
+  const ps=addPaths(svg,[wobbly(bez([470,470],[510,450],[530,450],[552,470],16),1.2,3),wobbly([[540,458],[553,471],[536,478]],.8,4),
+    wobbly(bez([1368,470],[1392,450],[1412,450],[1430,470],16),1.2,5),wobbly([[1418,460],[1431,471],[1414,478]],.8,6)],'var(--acc)',4);
+  if(animate&&anim())penAnimate(ps,1.4)}
+function phScene(st,fwd){if(PH.auto){clearInterval(PH.auto);PH.auto=null}
+  $('#ph-ask').classList.toggle('on',st===0||st===3);$('#h-claim').classList.toggle('on',st===1);$('#c-claim').classList.toggle('on',st===2);$('#ph-end').classList.toggle('on',st===4);
+  $('#h-left').classList.toggle('on',st===1);$('#h-right').classList.toggle('on',st===1);
+  $('#ph-askq').textContent=st===3?'Would you keep your answer?':'Choose one.';
+  if(st===3&&PH.choice==null)PH.choice=PH.first;
+  phChoices();
+  if(st===2){setLens(0);if(fwd&&anim())PH.auto=setInterval(()=>{if(SCENES[S.i].id!=='sc-phil'||S.step!==2||PH.lens>=2){clearInterval(PH.auto);PH.auto=null;return}setLens(PH.lens+1)},3000)}
+  else{setLens(PH.lens);phLines(st===1?'rel':null,fwd&&st===1)}}
 
 /* ---------- practice ---------- */
 const PICK=623,PICKS=[188,623,771];
@@ -1051,7 +1080,7 @@ function buildOverview(){$('#overview .grid').innerHTML=SCENES.map((s,k)=>`<butt
 function toggle(sel){$(sel).classList.toggle('open')}
 function act(a){({prev,next,overview:()=>toggle('#overview'),sources:openIndex,notes:()=>{toggle('#notes');renderNotes()},presenter:openPresenter,clean:()=>document.body.classList.toggle('clean'),fs:()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()},help:()=>toggle('#help'),closedrawer:closeDrawer})[a]?.()}
 function onKey(e){if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key,id=SCENES[S.i].id;
-  if(/^[1-5]$/.test(k)){if(id==='sc-game'&&+k<=4&&S.step<2){gamePick(+k<=2?'A':'B',(+k-1)%2);return}if(id==='sc-lab'&&S.step<2){rate(+k);return}if(id==='sc-phil'&&S.step===2&&+k<=3){setLens(+k-1,true);return}}
+  if(/^[1-5]$/.test(k)){if(id==='sc-game'&&+k<=4&&S.step<2){gamePick(+k<=2?'A':'B',(+k-1)%2);return}if(id==='sc-lab'&&S.step<2){rate(+k);return}if(id==='sc-phil'&&+k<=3){if(S.step===2){setLens(+k-1,true);return}if(S.step===0||S.step===3){phChoose(+k-1);return}}}
   if(['ArrowRight','PageDown',' ','Enter'].includes(k)){e.preventDefault();closeDrawer();next()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(k)){e.preventDefault();closeDrawer();prev()}
   else if(k==='Home')go(0,0);else if(k==='End')go(SCENES.length-1,0);
@@ -1067,7 +1096,8 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#drawer,#overview,#help,#notes,#chrome,a'))return;
   const g=e.target.closest('.gpic');if(g&&S.step<2){gamePick(g.dataset.p,+g.dataset.i);return}
   const r=e.target.closest('#rate button');if(r&&S.step<2){rate([...r.parentNode.children].indexOf(r)+1);return}
-  const lb=e.target.closest('#lenses button');if(lb&&S.step===2){setLens(+lb.dataset.lens,true);return}
+  const lb=e.target.closest('#lenses button[data-lens]');if(lb&&S.step===2){setLens(+lb.dataset.lens,true);return}
+  const cb=e.target.closest('#choices button');if(cb){phChoose(+cb.dataset.c);return}
   const y=e.target.closest('.yn button');if(y&&S.step===0){vote(y.parentNode.dataset.k,+y.dataset.v);return}
   if(e.target.closest('#stage')){closeDrawer();next()}});
 let hideT;addEventListener('mousemove',()=>{document.body.classList.add('show-chrome');document.body.classList.remove('hide-cursor');clearTimeout(hideT);hideT=setTimeout(()=>{document.body.classList.remove('show-chrome');if(document.fullscreenElement)document.body.classList.add('hide-cursor')},2200)});
