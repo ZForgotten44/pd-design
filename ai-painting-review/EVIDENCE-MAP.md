@@ -4,16 +4,16 @@ Scene numbers follow the overview (`G`) and NARRATION.md:
 
 | # | Scene | # | Scene |
 |---|---|---|---|
-| 1 | Opening | 11 | Q2 · Artist? (Mikalonytė & Kneer, Horton) |
-| 2 | Four questions | 12 | Q2 · Philosophy |
-| 3 | What we mean | 13 | Human practice (Allen) |
+| 1 | Opening | 11 | Q3 · Artist? (Mikalonytė & Kneer, Horton) |
+| 2 | Four questions | 12 | Q3 · Human practice (Allen) |
+| 3 | What we mean | 13 | Q3 · Philosophy (one painting, two accounts) |
 | 4 | Review process | 14 | Q4 · Synthesis |
 | 5 | Your turn (game) | 15 | Interpretation |
 | 6 | Q1 · Value (van Hees) | 16 | Q4 · Next |
 | 7 | Q1 · Creativity (Rondini) | 17 | Close |
-| 8 | Q3 · The label (Bellaiche) | 18 | References |
-| 9 | Q3 · Context (Horton) | 19–20 | Appendix A–B |
-| 10 | Q3 · Real setting (Chiarella, de Rooij) | | |
+| 8 | Q2 · The label (Bellaiche) | 18 | References |
+| 9 | Q2 · Context (Horton) | 19–20 | Appendix A–B |
+| 10 | Q2 · Real setting (Chiarella, de Rooij) | | |
 
 ## Final selection: 12 sources, five kinds of evidence
 
@@ -71,10 +71,22 @@ Status codes:
 - **Chiarella:** the two canvases are *Abstract 12* and *Abstract 18* (Fig. 1). An earlier draft named a different title, which has been removed.
 - **Bellaiche:** the effect sizes and question wording are now verified; the sample is 149 in Study 1.
 
+## Changes after the v5 review
+- **Synthesis.** It now says "a recurring finding" and gives each one its conditions.
+  - The overall penalty depends on the measure and the setting; Chiarella found no overall effect.
+  - Self-reported inability to tell (Horton) is now contrasted with measured above-chance detection (van Hees).
+  - Human contribution is split into three different mechanisms: Rondini's actual guidance, Bellaiche's perceived effort and Horton's labelled collaboration.
+- **Question order.** The four questions are renumbered in the order the talk answers them: value, label, artist, field. Allen now comes before the philosophers, who discuss his painting.
+- **Philosophy slide.** It is rebuilt around Allen's painting. Hertzmann and Coeckelbergh are attributed beside their own arguments, and Coeckelbergh's three lenses (Outcome, Process, Relationships) can be selected.
+- **Allen.** He chose *three* favourites and refined them in Photoshop (Kuta). Earlier versions said "one".
+- **Rondini.** All nine authors from the arXiv preprint are now listed.
+- **Mikalonytė & Kneer.** The 693 is now labelled "participants in total, as reported". The comparative wording is "much less willing".
+- **Oksanen.** 723 → 44 is confirmed. The "37 single-country" figure is still from the working analysis.
+- **Flower pair.** Its match to the figure's pair 10 is confirmed by image correlation against the stimulus sheet (0.66, against 0.21 for the next candidate). Its detection point sits below 50.
+- **Review process.** It is described as a curated core packet with two 2026 additions, not a search.
+
 ## Still to verify
-- Oksanen 37 of 44;
+- Oksanen 37 of 44 (single-country);
 - Chiarella's order result, if you will quote p-values;
 - Mikalonytė & Kneer condition-level results;
-- the Rondini author list;
-- the Kuta case details;
-- the pairing of the two van Hees pairs with figure numbers 2 and 10. I matched them visually; the thumbnails are identical.
+- whether 693 (Mikalonytė & Kneer) is before or after exclusions;

@@ -11,8 +11,9 @@ Tested with Chromium 141 (Playwright) on 2026-10-09 against the committed build.
 | Colour coding | **Pass** | Five evidence-type hues pass the colour-blind validator (light and dark). Each is always printed beside its label, and red stays reserved for judgments. |
 | Layout | **Pass** | Fixed in this round: shelf label collision, "AI?" tags spilling out of the paintings, figure annotation over a data point, cramped philosopher diagrams. ART \| ARTIST stays within the margins (measured). |
 | Navigation and tools | **Pass** | Forward and back through all steps; deep links and hash changes; overview (G), sources (S), a book or citation opening the drawer, notes (N), presenter window (P), reduced motion (M). |
+| Philosophy slide | **Pass** | The painting is shown alone first. Then Hertzmann: maker and audience joined through the work, model as a tool. Then Coeckelbergh: the lenses cycle by themselves; a click or 1–3 selects one and stops the cycle. Then the takeaway, with the lens overlays cleared. |
 | JS errors | **Pass** | None. |
-| Timing | **Pass (estimate)** | 609 spoken words at 150 wpm, about 4:49 including the 5 s opening, the interaction pauses and 3 s on References. The presenter shows a 5:00 countdown and a budget for each step. |
+| Timing | **Pass (estimate)** | 559 spoken words at a conservative 140 wpm: about 4:45 including the 5 s opening, the interaction pauses and 3 s on References (about 4:30 at 150 wpm). The presenter shows a 5:00 countdown and a budget for each step. Rehearse once with the timer. |
 | Links | Format only | Publisher sites are blocked here; click each reference once. |
 
 ## Still to verify
