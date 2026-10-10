@@ -336,10 +336,10 @@ body.rm *,body.rm *::before,body.rm *::after{transition-duration:150ms !importan
 <!-- 02 FOUR QUESTIONS (in the order the talk answers them) -->
 <section class="scene ink" id="sc-q">
   <div class="kicker pos" style="left:120px;top:110px">Four questions, in the order this review answers them</div>
-  <div class="qrow" style="top:200px"><span class="n">1</span><p>Can an AI-generated painting have aesthetic or emotional value?</p></div>
-  <div class="qrow" style="top:390px"><span class="n">2</span><p>Does knowing a picture came from AI change how we judge it?</p></div>
-  <div class="qrow" style="top:580px"><span class="n">3</span><p>Does art need a human artist, with intention or even consciousness?</p></div>
-  <div class="qrow" style="top:770px"><span class="n">4</span><p>Where is the field now, and what should it study next?</p></div>
+  <div class="qrow" id="q1" style="top:200px"><span class="n">1</span><p>Can an AI-generated painting have aesthetic or emotional value?</p></div>
+  <div class="qrow" id="q2" style="top:390px" data-s="1"><span class="n">2</span><p>Does knowing a picture came from AI change how we judge it?</p></div>
+  <div class="qrow" id="q3" style="top:580px" data-s="2"><span class="n">3</span><p>Does art need a human artist, with intention or even consciousness?</p></div>
+  <div class="qrow" id="q4" style="top:770px" data-s="3"><span class="n">4</span><p>Where is the field now, and what should it study next?</p></div>
 </section>
 
 <!-- 03 WHAT WE MEAN -->
@@ -786,11 +786,12 @@ const opening=(()=>{
 const SCENES=[
  {id:'sc-open',t:'Opening',steps:2,notes:['[Blank canvas. Press → once; the drawing and title appear together in about 4 s. Start speaking as the subtitle fades in.]','Would you still call it art if a machine made it? I’m Mahmoud Hafez, reviewing research on AI painting.'],
   show(st,fwd){if(st===0)opening.blank();else if(fwd&&anim())opening.play();else opening.full()}},
- {id:'sc-q',t:'Four questions',steps:1,notes:['Four questions guide this: value, judgment, the artist, and where the field is going.'],show(){}},
+ {id:'sc-q',t:'Four questions',steps:4,notes:['Four questions. Can an AI painting have real value?','Does knowing it’s AI change our judgment?','Does art need a human artist?','And where is the field going?'],
+  show(st){['#q1','#q2','#q3','#q4'].forEach((q,k)=>$(q).classList.toggle('dim',k<st))}},
  {id:'sc-gen',t:'What we mean',steps:2,notes:['Both came from an AI tool, Artbreeder, and were used in a real study.','So an AI painting looks painted, but a model did most of the making.'],show(){}},
  {id:'sc-rev',t:'Review process',steps:2,notes:['I started from a core reading packet, added two 2026 studies, and kept twelve sources across three disciplines.','For each, I compared what people saw, what changed and what was measured, and checked key figures.'],
   show(st){$('#stages').classList.toggle('on',st>=1);$$('#stages div').forEach((d,k)=>d.style.transitionDelay=(st>=1&&anim()?k*.12:0)+'s')}},
- {id:'sc-game',t:'Your turn',steps:3,hold:[4,3,1],notes:['Your turn: real pairs from a study, one human, one AI. Which would you hang?','Now, which is AI?','The AI ones: the bright mountain and the white bouquet.'],
+ {id:'sc-game',t:'Your turn',steps:3,hold:[4,2,1],notes:['Your turn: real pairs from a study, one human, one AI. Which would you hang?','Now, which is AI?','The AI ones: the bright mountain and the white bouquet.'],
   show(st,fwd){gameScene(st,fwd)}},
  {id:'sc-val',t:'Q1 · Value',steps:2,notes:['Van Hees’s team did this with fifty pairs: one group picked favourites, another spotted the AI.','Each dot is a pair. Liked AI images were easier to spot, but your flowers fooled most people.'],
   show(st,fwd){valScene(st,fwd)}},
@@ -802,13 +803,13 @@ const SCENES=[
   show(st,fwd){ordScene(st,fwd)}},
  {id:'sc-chi',t:'Q2 · Real setting',steps:2,notes:['At a real art fair, Chiarella’s team showed two canvases, a minute each, then asked about liking.','The AI label hurt only when it came second. Pooled studies find small penalties, bigger for meaning.'],
   show(st){$('#proc').classList.toggle('on',st===0);$$('#proc .st').forEach((d,k)=>d.style.transitionDelay=(anim()?k*.25:0)+'s');$('#chi-h').textContent=st===0?'Two real canvases, shown one at a time at an art fair.':'In a real setting, the penalty depended on order.'}},
- {id:'sc-int',t:'Q3 · Artist?',steps:2,hold:[3,0],notes:['Does art need an artist? People read stories like this. What would you say?','They called the robot’s painting art, but were much less willing to call the robot an artist.'],
+ {id:'sc-int',t:'Q3 · Artist?',steps:2,hold:[3,0],notes:['People read stories like this one. What would you say?','They called the robot’s painting art, but were much less willing to call the robot an artist.'],
   show(st,fwd){intScene(st,fwd)}},
  {id:'sc-prac',t:'Q3 · Human practice',steps:3,notes:['Behind this AI painting is a person: Jason Allen generated over nine hundred images in about eighty hours,','chose three,','and refined them in Photoshop.'],
   show(st,fwd){pracScene(st,fwd)}},
- {id:'sc-phil',t:'Q3 · Who is the artist?',steps:5,hold:[3,0,0,1,0],notes:['Calling it art doesn’t settle who the artist is. Who would you say?','Hertzmann treats art as a social activity: people can make art with computers, but the computer remains a tool.','Coeckelbergh asks us to examine our criteria: are we judging the result, the making, or the relationships behind it?','Would you keep your answer?','My interpretation: the image can qualify as art without establishing the model as an independent artist.'],
+ {id:'sc-phil',t:'Q3 · Who is the artist?',steps:5,hold:[2,0,0,1,0],notes:['Calling it art doesn’t settle who the artist is. Who would you say?','Hertzmann treats art as a social activity: people can make art with computers, but the computer remains a tool.','Coeckelbergh asks us to examine our criteria: are we judging the result, the making, or the relationships behind it?','Would you keep your answer?','My interpretation: the image can qualify as art without establishing the model as an independent artist.'],
   show(st,fwd){phScene(st,fwd)}},
- {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere.','Results shift with order, setting, image and judge; and feeling unable to tell isn’t failing to spot.','Still open: can a model be an artist, and which kind of human contribution matters?'],show(){}},
+ {id:'sc-syn',t:'Q4 · Synthesis',steps:3,notes:['Where’s the field? On average, an AI label lowers ratings, most for meaning and value, but not everywhere.','Results shift with order, setting, image and judge; feeling unable to tell isn’t failing to spot.','Still open: can a model be an artist, and which kind of human contribution matters?'],show(){}},
  {id:'sc-mine',t:'Interpretation',steps:3,notes:['So my view: it can count as art, through the people who make, choose and look at it.','The model as artist needs its own argument.','And the opening drawing? Code made it. Does that change it?'],
   show(st){if(st>=2)drawMini()}},
  {id:'sc-next',t:'Q4 · Next',steps:2,notes:['Recent work asks how human guidance shapes the images, and whose taste our scoring tools reward.','So next: today’s models, visible workflows, real galleries over time, and other cultures.'],

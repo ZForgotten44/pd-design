@@ -13,7 +13,7 @@ Tested with Chromium 141 (Playwright) on 2026-10-09 against the committed build.
 | Navigation and tools | **Pass** | Forward and back through all steps; deep links and hash changes; overview (G), sources (S), a book or citation opening the drawer, notes (N), presenter window (P), reduced motion (M). |
 | Philosophy slide (13) | **Pass** | Five steps, tested in the browser: (1) the viewer picks the human, the model or their collaboration (click or 1–3), labelled as a discussion prompt, not data; (2) Hertzmann, with Allen's documented actions and the people the work passed between; (3) Coeckelbergh's Result, Making and Relationships lenses, which cycle by themselves until clicked or chosen with 1–3; (4) "Would you keep your answer?" with the earlier choice outlined in red and changeable; (5) the art/artist distinction. The painting stays visible throughout. |
 | JS errors | **Pass** | None. |
-| Timing | **Pass (estimate)** | 559 spoken words at a conservative 140 wpm: about 4:47 including the 5 s opening, the interaction pauses and 3 s on References (about 4:30 at 150 wpm). The presenter shows a 5:00 countdown and a budget for each step. Rehearse once with the timer. |
+| Timing | **Pass (estimate)** | 568 spoken words at a conservative 140 wpm: about 4:50 including the 5 s opening, the interaction pauses and 3 s on References (about 4:35 at 150 wpm). The presenter shows a 5:00 countdown and a budget for each step. Rehearse once with the timer. |
 | Links | Format only | Publisher sites are blocked here; click each reference once. |
 
 ## Still to verify
